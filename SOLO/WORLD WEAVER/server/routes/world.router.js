@@ -14,7 +14,8 @@ router.get('/', function(req, res) {
       res.sendStatus(500);
     } else {
       //we connected to DB
-      var queryText = 'SELECT * FROM "worlds" WHERE "id"=1;';
+      // var queryText = 'SELECT * FROM "worlds" WHERE "id"=1;';
+      var queryText = 'SELECT * FROM "worlds" JOIN "obstacles" ON "worlds"."id" = "obstacles"."world_id" WHERE "worlds"."id" = 2;';
       db.query(queryText, [], function(err, result){
         done();
         if(err) {

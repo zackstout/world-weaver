@@ -7,13 +7,13 @@ myApp.controller('LoginController', function($http, $location, UserService, Worl
       password: ''
     };
     vm.message = '';
-    vm.world = [];
+    // vm.world = [];
 
-    function getWorld() {
-      WorldService.getWorld();
-    }
-
-    getWorld();
+    // function getWorld() {
+    //   WorldService.getWorld();
+    // }
+    //
+    // getWorld();
 
     vm.login = function() {
       console.log('LoginController -- login');

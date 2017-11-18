@@ -4,8 +4,9 @@ var x, y, h, wid;
 myApp.controller('PlayController', function(UserService, WorldService, $http) {
   console.log('playController created');
   var vm = this;
+  vm.world = [];
 
-//i am seriously confused: it shows vm.ws as having a "world" property, but won't let us grab it:
+  //i am seriously confused: it shows vm.ws as having a "world" property, but won't let us grab it:
   // function getWorld() {
   //   WorldService.getWorld();
   //   vm.ws = WorldService;
@@ -13,49 +14,53 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
   // }
 
   function getWorld() {
-      $http.get('/worlds').then(function (response) {
-        console.log('got world!');
-        vm.world = response.data;
-        console.log(vm.world[0]);
-        var w = vm.world[0];
-        x = w.obstacle_x;
-        y = w.obstacle_y;
-        h = w.obstacle_h;
-        //lol i was reusing 'w':
-        wid = w.obstacle_w;
-        console.log(x,y,w,h);
-      }).catch(function (err) {
-        console.log('whooooops');
-      });
+    $http.get('/worlds').then(function (response) {
+      console.log('got world!');
+      vm.world = response.data;
+      var w = vm.world[0];
+      x = w.obstacle_x;
+      y = w.obstacle_y;
+      h = w.obstacle_h;
+      //lol i was reusing 'w':
+      wid = w.obstacle_w;
+      console.log(vm.world);
+      // console.log(x,y,w,h);
+    }).catch(function (err) {
+      console.log('whooooops');
+    });
   }
 
   getWorld();
   setTimeout(doMatter, 2000);
 
 
-function doMatter() {
-  var Engine = Matter.Engine,
-      Render = Matter.Render,
-      World = Matter.World,
-      Bodies = Matter.Bodies;
-  var engine = Engine.create();
+  function doMatter() {
+    var Engine = Matter.Engine,
+    Render = Matter.Render,
+    World = Matter.World,
+    Bodies = Matter.Bodies;
+    var engine = Engine.create();
 
-  // create a renderer
-  var render = Render.create({
+    // create a renderer
+    var render = Render.create({
       element: document.body,
       engine: engine
-  });
+    });
 
-  // var boxA = Bodies.rectangle(400, 200, 80, 80);
-  // var boxB = Bodies.rectangle(450, 50, 80, 80);
-  console.log(x,y,h,wid);
-  var obstacle = Bodies.rectangle(x, y, wid, h, { isStatic: true });
+    // var boxA = Bodies.rectangle(400, 200, 80, 80);
+    // var boxB = Bodies.rectangle(450, 50, 80, 80);
+    // console.log(x,y,h,wid);
 
-  World.add(engine.world, [obstacle]);
+    for (var i=0; i<vm.world.length; i++) {
+      var wor = vm.world[i];
+      var obstacle = Bodies.rectangle(wor.x, wor.y, wor.w, wor.h, { isStatic: true });
+      World.add(engine.world, [obstacle]);
+    }
 
-  Engine.run(engine);
-  Render.run(render);
-}
+
+    Engine.run(engine);
+    Render.run(render);
+  }
 
 });
 
