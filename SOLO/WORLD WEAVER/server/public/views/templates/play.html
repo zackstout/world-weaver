@@ -4,5 +4,33 @@
   <p>
     In play
   </p>
-  <p5 sketch = "mySketch"></p5>
+
+  <button ng-click="pc.getWorld()">Get it</button>
+  <br><br>
+
+<!-- <form ng-submit="pc.addWorld(pc.newWorld)"> -->
+  <form ng-submit="pc.showWorld()">
+  Start x: <input type="number" ng-model="pc.newWorld.start_x">
+  Start y: <input type="number" ng-model="pc.newWorld.start_y">
+  End x: <input type="number" ng-model="pc.newWorld.end_x">
+  End y: <input type="number" ng-model="pc.newWorld.end_y">
+  <input type="submit">
+</form>
+<br><br>
+<form ng-submit="pc.addObstacle(pc.newObstacle)">
+  Center-x: <input type="number" ng-model="pc.newObstacle.x">
+  Center-y: <input type="number" ng-model="pc.newObstacle.y">
+  Height/Radius: <input type="number" ng-model="pc.newObstacle.h">
+  Width: <input type="number" ng-model="pc.newObstacle.w">
+  Type ('rect' or 'circle'): <input type="text" ng-model="pc.newObstacle.type">
+
+  <input type="submit">
+</form>
+  <br><br>
+  <div ng-repeat="obstacle in pc.newWorld.obstacles">
+    {{obstacle}}
+  </div>
+  <br><br>
+
+
 </div>
