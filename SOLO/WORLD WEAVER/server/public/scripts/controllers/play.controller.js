@@ -46,6 +46,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
   };
 
   //get data necessary to construct the world from the DB:
+  //wait when are we calling this?? Oh on Get It button click
   vm.getWorld = function() {
     $http.get('/worlds').then(function (response) {
       console.log('got world!');
@@ -64,7 +65,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
 
 
 
-
+//for editing functionality:
   function doMatterStart() {
     console.log(vm.newWorld.obstacles);
     var Engine = Matter.Engine,
@@ -150,9 +151,17 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
 
 
 
+  // // var now = 0;
+  // function tock() {
+  //   vm.now += 1;
+  //   vm.d = new Date();
+  //   // vm.now = now;
+  // }
+  // setInterval(tock, 1000);
 
 
 
+//for getting worlds from DB:
   function doMatter() {
     console.log(document.body);
     var Engine = Matter.Engine,
@@ -165,7 +174,20 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     Bodies = Matter.Bodies;
     var engine = Engine.create();
     var world = engine.world;
-    var obstacle, cannon, cannonball, bucket, bar, heat, t=0, x=0;
+    var obstacle, cannon, cannonball, bucket, bar, heat, portal1, portal2, flier, t=0, x=0, offset=0;
+
+    vm.d = new Date();
+    console.log(Date());
+
+    //odd that data-binding is failing us here:
+    var now = 0;
+    function tick() {
+      vm.now += 1;
+      vm.d = new Date();
+      now += 1;
+      // console.log(now);
+    }
+    setInterval(tick, 1000);
 
     // create a renderer
     var render = Render.create({
@@ -200,6 +222,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
       var pairs = event.pairs;
       for (var i = 0, j = pairs.length; i != j; i++) {
         var pair = pairs[i];
+        // console.log(pair);
         if (pair.bodyA === bucket) {
           console.log('collision dog <3');
           // world.gravity.y = -world.gravity.y;
@@ -213,10 +236,22 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
         else if (pair.bodyA === portal1) {
           console.log(pair.bodyB);
           Body.setPosition(pair.bodyB, {x: portal2.position.x, y: portal2.position.y});
+          // Body.setVelocity(pair.bodyB, {x: -10, y: 5});
         } else if (pair.bodyB === portal1) {
           console.log(pair.bodyA);
           Body.setPosition(pair.bodyA, {x: portal2.position.x, y: portal2.position.y});
+          // Body.setVelocity(pair.bodyA, {x: -10, y: 5});
         }
+        //why isn't this working??
+        // else if (pair.bodyA === portal2) {
+        //   console.log(pair.bodyB);
+        //   Body.setPosition(pair.bodyB, {x: portal1.position.x, y: portal1.position.y});
+        //   // Body.setVelocity(pair.bodyB, {x: -10, y: 5});
+        // } else if (pair.bodyB === portal2) {
+        //   console.log(pair.bodyA);
+        //   Body.setPosition(pair.bodyA, {x: portal1.position.x, y: portal1.position.y});
+        //   // Body.setVelocity(pair.bodyA, {x: -10, y: 5});
+        // }
       }
     });
 
@@ -242,15 +277,33 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
 
     setInterval(moveHeat, 100);
 
+    var fliers = [];
+    //adding random fliers:
+    function newFlier() {
+      flier = Bodies.rectangle(780, 550, 50, 20);
+      flier.offset = 0;
+      fliers.push(flier);
+      World.add(world, flier);
+    }
+
+    setInterval(newFlier, Math.random()*3000);
+
+    function fly() {
+      for (var i = 0; i < fliers.length; i ++) {
+        Body.setPosition(fliers[i], {x: 780 - fliers[i].offset, y: 550});
+        fliers[i].offset += 10;
+      }
+      offset += 10;
+    }
+    setInterval(fly, 50);
+
 
     //attempting portals:
-    var portal1 = Bodies.circle(780, 200, 15, { isStatic: true, isSensor: true });
-    var portal2 = Bodies.circle(20, 300, 15, { isStatic: true, isSensor: true });
+    portal1 = Bodies.circle(780, 200, 15, { isStatic: true, isSensor: true });
+    portal2 = Bodies.circle(20, 300, 15, { isStatic: true, isSensor: true });
+    // var portal2 = Bodies.circle(780, 500, 15, { isStatic: true, isSensor: true });
+
     World.add(world, [portal1, portal2]);
-
-
-
-
 
 
     //add obstacles:
