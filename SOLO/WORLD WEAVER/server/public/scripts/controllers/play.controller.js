@@ -62,6 +62,9 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
   //ensure we get our data before trying to populate the world:
   // setTimeout(doMatter, 200);
 
+
+
+
   function doMatterStart() {
     console.log(vm.newWorld.obstacles);
     var Engine = Matter.Engine,
@@ -83,6 +86,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     });
 
     //rotate the cannon:
+    //but we'll need to set a specific key if we want to listen for any *other* key changes:
     window.onkeydown = function(e) {
       x-=0.14;
       Body.setAngle(cannon, x);
@@ -108,11 +112,11 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
         var pair = pairs[i];
         if (pair.bodyA === bucket) {
           console.log('collision dog <3');
-          world.gravity.y = -world.gravity.y;
+          // world.gravity.y = -world.gravity.y;
         }
         else if (pair.bodyB === bucket) {
           console.log('whatup');
-          world.gravity.y = -world.gravity.y;
+          // world.gravity.y = -world.gravity.y;
         }
       }
     });
@@ -125,12 +129,16 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     // console.log(cannon, bucket);
     World.add(world, [cannon, bucket]);
 
+    //add force bar:
+    var bar = Bodies.rectangle(780, 100, 40, 150, {isStatic: true, isSensor: true});
+    World.add(world, bar);
+
     //add obstacles:
     for (var i=0; i<vm.newWorld.obstacles.length; i++) {
       var wor = vm.newWorld.obstacles[i];
       if (wor.type == "rect") {
         obstacle = Bodies.rectangle(wor.x, wor.y, wor.w, wor.h, { isStatic: true });
-      } else if (wor.type == "ellipse") {
+      } else if (wor.type == "circle") {
         obstacle = Bodies.circle(wor.x, wor.y, wor.h, { isStatic: true });
       }
       World.add(world, [obstacle]);
@@ -142,7 +150,11 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
 
 
 
+
+
+
   function doMatter() {
+    console.log(document.body);
     var Engine = Matter.Engine,
     Render = Matter.Render,
     World = Matter.World,
@@ -154,6 +166,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     var engine = Engine.create();
     var world = engine.world;
     var obstacle, cannon, cannonball, bucket, x=0;
+    var t=0;
 
     // create a renderer
     var render = Render.create({
@@ -173,11 +186,14 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
       mouse: mouse
     });
     console.log(mc);
+
     Events.on(mc, "mousedown", function() {
       console.log('hello sir', mouse.position.x, mouse.position.y);
       cannonball = Bodies.circle(cannon.position.x + 40*Math.cos(cannon.angle), cannon.position.y + 40*Math.sin(cannon.angle), 15, {restitution: 1, friction: 0});
       World.add(world, cannonball);
-      Body.applyForce(cannonball, {x: cannon.position.x, y: cannon.position.y}, {x: 0.04*Math.cos(cannon.angle), y: 0.04*Math.sin(cannon.angle)});
+      // Body.applyForce(cannonball, {x: cannon.position.x, y: cannon.position.y}, {x: 0.04*Math.cos(cannon.angle), y: 0.04*Math.sin(cannon.angle)});
+      Body.applyForce(cannonball, {x: cannon.position.x, y: cannon.position.y}, {x: 0.04*Math.cos(cannon.angle)*(1+Math.sin(t)), y: 0.04*Math.sin(cannon.angle)*(1+Math.sin(t))});
+
     });
 
     //listen for collisions:
@@ -187,11 +203,11 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
         var pair = pairs[i];
         if (pair.bodyA === bucket) {
           console.log('collision dog <3');
-          world.gravity.y = -world.gravity.y;
+          // world.gravity.y = -world.gravity.y;
         }
         else if (pair.bodyB === bucket) {
           console.log('whatup');
-          world.gravity.y = -world.gravity.y;
+          // world.gravity.y = -world.gravity.y;
         }
       }
     });
@@ -203,6 +219,20 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     bucket = Bodies.rectangle(ourWorld.end_x, ourWorld.end_y, 30, 30, {isStatic: true});
     // console.log(cannon, bucket);
     World.add(world, [cannon, bucket]);
+
+    //add force bar:
+
+    var bar = Bodies.rectangle(780, 100, 40, 150, {isStatic: true, isSensor: true});
+    World.add(world, bar);
+    var heat = Bodies.rectangle(780, t, 40, 19, {isStatic: true});
+    World.add(world, heat);
+
+    function moveHeat() {
+      Body.setPosition(heat, {x: 780, y: 100 + 64*Math.sin(t)});
+      t += 0.1;
+    }
+
+    setInterval(moveHeat, 100);
 
     //add obstacles:
     for (var i=0; i<vm.world.length; i++) {

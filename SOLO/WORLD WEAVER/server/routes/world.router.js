@@ -47,7 +47,7 @@ router.post('/', function(req, res) {
         if(err) {
           console.log('Error making query', err);
           res.sendStatus(500);
-        } else {j
+        } else {
           res.sendStatus(201);
         }
       });
