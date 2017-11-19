@@ -10,10 +10,42 @@
 
 <!-- <form ng-submit="pc.addWorld(pc.newWorld)"> -->
   <form ng-submit="pc.showWorld()">
-  Start x: <input type="number" ng-model="pc.newWorld.start_x">
-  Start y: <input type="number" ng-model="pc.newWorld.start_y">
-  End x: <input type="number" ng-model="pc.newWorld.end_x">
-  End y: <input type="number" ng-model="pc.newWorld.end_y">
+  <!-- Start x: <input type="number" ng-model="pc.newWorld.start_x"> -->
+  <md-slider-container>
+        <span>Cannon-x</span>
+        <md-slider flex min="50" max="750" ng-model="pc.newWorld.start_x" aria-label="red" class="md-primary">
+        </md-slider>
+        <md-input-container>
+          <input flex type="number" ng-model="pc.newWorld.start_x" aria-label="startx" aria-controls="startx-slider">
+        </md-input-container>
+      </md-slider-container>
+  <!-- Start y: <input type="number" ng-model="pc.newWorld.start_y"> -->
+  <md-slider-container>
+        <span>Cannon-y</span>
+        <md-slider flex min="50" max="550" ng-model="pc.newWorld.start_y" aria-label="starty" class="md-primary">
+        </md-slider>
+        <md-input-container>
+          <input flex type="number" ng-model="pc.newWorld.start_y" aria-label="starty" aria-controls="starty-slider">
+        </md-input-container>
+      </md-slider-container>
+  <!-- End x: <input type="number" ng-model="pc.newWorld.end_x"> -->
+  <md-slider-container>
+        <span>Bucket-x</span>
+        <md-slider flex min="50" max="750" ng-model="pc.newWorld.end_x" aria-label="endx" class="md-primary">
+        </md-slider>
+        <md-input-container>
+          <input flex type="number" ng-model="pc.newWorld.end_x" aria-label="endx" aria-controls="endx-slider">
+        </md-input-container>
+      </md-slider-container>
+  <!-- End y: <input type="number" ng-model="pc.newWorld.end_y"> -->
+  <md-slider-container>
+        <span>Bucket-y</span>
+        <md-slider flex min="50" max="550" ng-model="pc.newWorld.end_y" aria-label="endy" class="md-primary">
+        </md-slider>
+        <md-input-container>
+          <input flex type="number" ng-model="pc.newWorld.end_y" aria-label="endy" aria-controls="endy-slider">
+        </md-input-container>
+      </md-slider-container>
   <input type="submit">
 </form>
 <br><br>
