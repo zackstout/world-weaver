@@ -165,8 +165,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     Bodies = Matter.Bodies;
     var engine = Engine.create();
     var world = engine.world;
-    var obstacle, cannon, cannonball, bucket, x=0;
-    var t=0;
+    var obstacle, cannon, cannonball, bucket, bar, heat, t=0, x=0;
 
     // create a renderer
     var render = Render.create({
@@ -176,7 +175,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
 
     //rotate the cannon:
     window.onkeydown = function(e) {
-      x-=0.14;
+      x -= 0.14;
       Body.setAngle(cannon, x);
     };
 
@@ -209,6 +208,15 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
           console.log('whatup');
           // world.gravity.y = -world.gravity.y;
         }
+
+        //attempting portals:
+        else if (pair.bodyA === portal1) {
+          console.log(pair.bodyB);
+          Body.setPosition(pair.bodyB, {x: portal2.position.x, y: portal2.position.y});
+        } else if (pair.bodyB === portal1) {
+          console.log(pair.bodyA);
+          Body.setPosition(pair.bodyA, {x: portal2.position.x, y: portal2.position.y});
+        }
       }
     });
 
@@ -220,19 +228,30 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     // console.log(cannon, bucket);
     World.add(world, [cannon, bucket]);
 
-    //add force bar:
-
-    var bar = Bodies.rectangle(780, 100, 40, 150, {isStatic: true, isSensor: true});
+    //add force level or "heat" bar:
+    bar = Bodies.rectangle(780, 100, 40, 150, {isStatic: true, isSensor: true});
     World.add(world, bar);
-    var heat = Bodies.rectangle(780, t, 40, 19, {isStatic: true});
+    heat = Bodies.rectangle(780, t, 40, 19, {isStatic: true});
     World.add(world, heat);
 
+    //ahhhh of course, just manually set the position!
     function moveHeat() {
       Body.setPosition(heat, {x: 780, y: 100 + 64*Math.sin(t)});
       t += 0.1;
     }
 
     setInterval(moveHeat, 100);
+
+
+    //attempting portals:
+    var portal1 = Bodies.circle(780, 200, 15, { isStatic: true, isSensor: true });
+    var portal2 = Bodies.circle(20, 300, 15, { isStatic: true, isSensor: true });
+    World.add(world, [portal1, portal2]);
+
+
+
+
+
 
     //add obstacles:
     for (var i=0; i<vm.world.length; i++) {
