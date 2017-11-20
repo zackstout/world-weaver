@@ -29,6 +29,7 @@ router.get('/', function(req, res) {
   });
 }); //END SPECIFIC WORLD GET ROUTE
 
+
 router.get('/:id', function(req, res) {
   console.log('get it boi', req.params.id);
   pool.connect(function(err, db, done) {
@@ -54,6 +55,32 @@ router.get('/:id', function(req, res) {
   });
 }); //END WORLDS GET ROUTE
 
+router.get('/obstacles/:id', function(req, res) {
+  console.log('get it boi', req.params.id);
+  pool.connect(function(err, db, done) {
+    if(err) {
+      console.log('Error connecting', err);
+      res.sendStatus(500);
+    } else {
+      //we connected to DB
+      //issue: will only return worlds that have obstacles in them:
+      // var queryText = 'SELECT * FROM "worlds" WHERE "maker_id" = $1;';
+      var queryText = 'SELECT * FROM "worlds" JOIN "obstacles" ON "worlds"."id" = "obstacles"."world_id" WHERE "maker_id" = $1;';
+      db.query(queryText, [req.params.id], function(err, result){
+        done();
+        if(err) {
+          console.log('Error making query', err);
+          res.sendStatus(500);
+        } else {
+          console.log(result.rows);
+          res.send(result.rows);
+        }
+      });
+    }
+  });
+}); //END WORLDS-OBSTACLES GET ROUTE
+
+
 router.get('/save/:id', function(req, res) {
   console.log('hashtag savin');
   pool.connect(function(err, db, done) {
@@ -77,6 +104,34 @@ router.get('/save/:id', function(req, res) {
     }
   });
 }); //END SAVEDWORLDS GET ROUTE
+
+router.get('/save/obstacles/:id', function(req, res) {
+  console.log('hashtag savin');
+  pool.connect(function(err, db, done) {
+    if(err) {
+      console.log('Error connecting', err);
+      res.sendStatus(500);
+    } else {
+      //we connected to DB
+      //this way gets us all the worlds (regardless of whether they have obstacles), but DOESN'T get the obstacles:
+      var queryText = 'SELECT * FROM "worlds_saved" JOIN "obstacles_saved" ON "worlds_saved"."id" = "obstacles_saved"."world_id" WHERE "maker_id" = $1;';
+      db.query(queryText, [req.params.id], function(err, result){
+        done();
+        if(err) {
+          console.log('Error making query', err);
+          res.sendStatus(500);
+        } else {
+          console.log(result.rows);
+          res.send(result.rows);
+        }
+      });
+    }
+  });
+}); //END SAVEDWORLDS-OBSTACLES GET ROUTE
+
+
+
+
 
 router.post('/', function(req, res) {
   console.log("BODY: ", req.body);
@@ -125,6 +180,7 @@ router.post('/', function(req, res) {
       }
     });
   }); //END POST ROUTE
+
 
   router.post('/save', function(req, res) {
     console.log("BODY: ", req.body);

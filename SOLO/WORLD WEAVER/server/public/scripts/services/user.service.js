@@ -5,6 +5,8 @@ myApp.service('UserService', function($http, $location){
   self.userObject = {};
   self.worlds = [];
   self.worldsSaved = [];
+  self.obstacles = [];
+  self.obstaclesSaved = [];
 
   self.addWorld = function(world) {
     // console.log(self.userObject, "making world");
@@ -31,7 +33,18 @@ myApp.service('UserService', function($http, $location){
     var userId = self.userObject.userId;
     return $http.get('/worlds/' + userId).then(function(response) {
       self.worlds = response.data;
-      console.log(self.worlds);
+      // console.log(self.worlds);
+      return response.data;
+    }).catch(function(err) {
+      console.log('oh no dog', err);
+    });
+  };
+
+  self.getObstacles = function() {
+    var userId = self.userObject.userId;
+    return $http.get('/worlds/obstacles/' + userId).then(function(response) {
+      self.obstacles = response.data;
+      // console.log(self.obstacles);
       return response.data;
     }).catch(function(err) {
       console.log('oh no dog', err);
@@ -42,10 +55,21 @@ myApp.service('UserService', function($http, $location){
     var userId = self.userObject.userId;
     return $http.get('/worlds/save/' + userId).then(function(response) {
       self.worldsSaved = response.data;
-      console.log(self.worldsSaved);
+      // console.log(self.worldsSaved);
       return response.data;
     }).catch(function(err) {
       console.log('ayyyyyiiiiieee!!!');
+    });
+  };
+
+  self.getSavedObstacles = function() {
+    var userId = self.userObject.userId;
+    return $http.get('/worlds/save/obstacles/' + userId).then(function(response) {
+      self.obstaclesSaved = response.data;
+      // console.log(self.obstaclesSaved);
+      return response.data;
+    }).catch(function(err) {
+      console.log('oh no dog', err);
     });
   };
 
