@@ -225,11 +225,11 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
         // console.log(pair);
         if (pair.bodyA === bucket) {
           console.log('collision dog <3');
-          // world.gravity.y = -world.gravity.y;
+          world.gravity.y = -world.gravity.y;
         }
         else if (pair.bodyB === bucket) {
           console.log('whatup');
-          // world.gravity.y = -world.gravity.y;
+          world.gravity.y = -world.gravity.y;
         }
 
         //attempting portals:
@@ -271,22 +271,28 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
 
     //ahhhh of course, just manually set the position!
     function moveHeat() {
-      Body.setPosition(heat, {x: 780, y: 100 + 64*Math.sin(t)});
+      //changing the plus to minus here fixes the upside down force problem:
+      Body.setPosition(heat, {x: 780, y: 100 - 64*Math.sin(t)});
       t += 0.1;
     }
 
     setInterval(moveHeat, 100);
 
     var fliers = [];
+    var random = 5000;
     //adding random fliers:
+    //i mean it kind of works it's just weirdly flashy/buggy with a second dropping box.
     function newFlier() {
       flier = Bodies.rectangle(780, 550, 50, 20);
       flier.offset = 0;
       fliers.push(flier);
       World.add(world, flier);
+      random = Math.random()*12000;
     }
 
-    setInterval(newFlier, Math.random()*3000);
+    //weird, even doing it this way doesn't seem to generate random intervals:
+    //commenting out for the moment:
+    // setInterval(newFlier, random);
 
     function fly() {
       for (var i = 0; i < fliers.length; i ++) {
@@ -295,7 +301,8 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
       }
       offset += 10;
     }
-    setInterval(fly, 50);
+    //commenting out for the moment:
+    // setInterval(fly, 50);
 
 
     //attempting portals:
