@@ -291,6 +291,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     }
 
     //weird, even doing it this way doesn't seem to generate random intervals:
+    
     //commenting out for the moment:
     // setInterval(newFlier, random);
 
