@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 
@@ -9,7 +10,8 @@ router.get('/', function(req, res) {
     // send back user object from database
     console.log('logged in', req.user);
     var userInfo = {
-      username : req.user.username
+      username : req.user.username,
+      id: req.user.id
     };
     res.send(userInfo);
   } else {

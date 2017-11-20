@@ -37,17 +37,21 @@ router.post('/', function(req, res) {
       console.log('Error connecting', err);
       res.sendStatus(500);
     } else {
-      var queryText = 'INSERT INTO "worlds" ("start_x", "start_y", "end_x", "end_y") VALUES ($1, $2, $3, $4) RETURNING "id";';
-      db.query(queryText, [newWorld.start_x, newWorld.start_y, newWorld.end_x, newWorld.end_y], function(err, result){
+      var queryText = 'INSERT INTO "worlds" ("start_x", "start_y", "end_x", "end_y", "maker_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id";';
+      db.query(queryText, [newWorld.start_x, newWorld.start_y, newWorld.end_x, newWorld.end_y, newWorld.userId], function(err, result){
         done();
         if(err) {
           console.log('Error making query', err);
           res.sendStatus(500);
         } else {
-          //don't send anything just yet amigo!
+          //don't send anything just yet amigo! UNLESS THERE ARE NO OBSTACLES!
+          var leng = newWorld.obstacles.length;
+
+          if (leng == 0) {
+            res.sendStatus(201);
+          }
           // res.sendStatus(201);
           console.log("RESULT: ", result.rows[0].id);
-          var leng = newWorld.obstacles.length;
           //this is a truly disgusting way to do this:
           if (leng !== 0) {
 
@@ -67,7 +71,7 @@ router.post('/', function(req, res) {
               }
             }); //close second query
           }
-          
+
         }});
       }
     });

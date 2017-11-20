@@ -2,7 +2,9 @@
 myApp.controller('PlayController', function(UserService, WorldService, $http) {
   console.log('playController created');
   var vm = this;
+
   vm.world = [];
+  // vm.userObject = {};
   vm.newWorld = {
     start_x: 0,
     start_y: 0,
@@ -18,17 +20,29 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     type: 'rect'
   };
 
+//so strange....for now i'm just going to move the request into the service:
+  vm.userObject = UserService.userObject;
+  // UserService.getuser();
+  // console.log(UserService.userObject);
+  // console.log(vm.userObject);
+
+//Kris's suggestion:
+  // if userObject isn't there
+  // service.getuser
+    // then do the thing
+
   vm.showWorld = function() {
     console.log('clickin new world');
     doMatterStart();
   };
 
   vm.addWorld = function(world) {
-    $http.post('/worlds', world).then(function (response) {
-      console.log('making world!', world);
-    }).catch(function (err) {
-      console.log('whooooops');
-    });
+    // $http.post('/worlds', world).then(function (response) {
+    //   console.log('making world!', world);
+    // }).catch(function (err) {
+    //   console.log('whooooops');
+    // });
+    UserService.addWorld(world);
   };
 
   vm.addObstacle = function(obstacle) {
@@ -291,7 +305,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     }
 
     //weird, even doing it this way doesn't seem to generate random intervals:
-    
+
     //commenting out for the moment:
     // setInterval(newFlier, random);
 
