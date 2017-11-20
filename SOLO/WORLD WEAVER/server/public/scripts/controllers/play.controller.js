@@ -1,5 +1,5 @@
 
-myApp.controller('PlayController', function(UserService, WorldService, $http) {
+myApp.controller('PlayController', function(UserService, WorldService, $http, $interval) {
   console.log('playController created');
   var vm = this;
 
@@ -21,6 +21,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
   };
 
 //so strange....for now i'm just going to move the request into the service:
+//could prob also solve this with promises like we did with the GET routes, connecting the service to the Info Controller;
   vm.userObject = UserService.userObject;
   // UserService.getuser();
   // console.log(UserService.userObject);
@@ -164,13 +165,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
 
 
 
-  // // var now = 0;
-  // function tock() {
-  //   vm.now += 1;
-  //   vm.d = new Date();
-  //   // vm.now = now;
-  // }
-  // setInterval(tock, 1000);
+
 
 
 
@@ -190,21 +185,20 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     var world = engine.world;
     var obstacle, cannon, cannonball, bucket, bar, heat, portal1, portal2, flier, t=0, x=0, offset=0;
 
-    vm.d = new Date();
-    console.log(Date());
-
-    //odd that data-binding is failing us here:
+    //odd that data-binding is failing us here -- just needed $interval instead of setInterval:
     var now = 0;
     vm.now = 0;
+    
     function tick() {
       vm.now += 1;
-      vm.d = new Date();
       now += 1;
-      console.log(vm.now);
+      // console.log(vm.now);
     }
-    setInterval(tick, 1000);
+    //will have to figure out how to cancel the clock on goal-achievement:
+    $interval(tick, 1000);
 
     // create a renderer
+    //can we affect how large it is, where it is, here?
     var render = Render.create({
       element: document.body,
       engine: engine

@@ -1,6 +1,16 @@
+
 myApp.controller('InfoController', function(UserService) {
   console.log('InfoController created');
   var vm = this;
+
+  //well.....here's a super hack-y way of doing it I guess:
+  var myCanvas = document.getElementsByTagName("canvas");
+  console.log(myCanvas);
+  if (myCanvas.length !== 0) {
+    for (var l=0; l<myCanvas.length; l++) {
+      myCanvas[l].style.display = 'none';
+    }
+  }
 
   vm.worlds = UserService.worlds;
   vm.worldsSaved = UserService.worldsSaved;
