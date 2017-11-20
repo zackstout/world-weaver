@@ -51,6 +51,28 @@ myApp.service('UserService', function($http, $location){
     });
   };
 
+  // self.getAllWorlds = function() {
+  //   // var userId = self.userObject.userId;
+  //   return $http.get('/worlds/all').then(function(response) {
+  //     // self.allWorlds = response.data;
+  //     // console.log(self.worlds);
+  //     return response.data;
+  //   }).catch(function(err) {
+  //     console.log('oh no dog', err);
+  //   });
+  // };
+  //
+  // self.getAllObstacles = function() {
+  //   // var userId = self.userObject.userId;
+  //   return $http.get('/worlds/obstacles/all').then(function(response) {
+  //     // self.obstacles = response.data;
+  //     // console.log(self.obstacles);
+  //     return response.data;
+  //   }).catch(function(err) {
+  //     console.log('oh no dog', err);
+  //   });
+  // };
+
   self.getSavedWorlds = function() {
     var userId = self.userObject.userId;
     return $http.get('/worlds/save/' + userId).then(function(response) {

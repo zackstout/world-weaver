@@ -55,6 +55,7 @@ router.get('/:id', function(req, res) {
   });
 }); //END WORLDS GET ROUTE
 
+
 router.get('/obstacles/:id', function(req, res) {
   console.log('get it boi', req.params.id);
   pool.connect(function(err, db, done) {
@@ -79,6 +80,9 @@ router.get('/obstacles/:id', function(req, res) {
     }
   });
 }); //END WORLDS-OBSTACLES GET ROUTE
+
+
+
 
 
 router.get('/save/:id', function(req, res) {

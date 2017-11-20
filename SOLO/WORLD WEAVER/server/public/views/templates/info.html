@@ -4,14 +4,24 @@
   <h2>
     MY PROFILE:
   </h2>
-  <h4>Worlds I've Made</h4>
+  <h4>Worlds I've Made:</h4>
   <button ng-click="ic.getWorlds()">Get 'em!</button>
     <div ng-repeat="world in ic.worldIds">
       {{world}}
     </div>
-  <h4>Words In Progress</h4>
+  <h4>Worlds In Progress:</h4>
   <button ng-click="ic.getSavedWorlds()">Go on get 'em!</button>
     <div ng-repeat="world in ic.savedWorldIds">
       {{world}}
     </div>
+  <h4>My Favorite Worlds:</h4>
+
+
+  <h4>All the Worlds:</h4>
+  <button ng-click="ic.getAllWorlds()">Whole enchilada</button>
+  <div ng-repeat="world in ic.allWorlds">
+    {{world}}
+  </div>
+  
+
 </div>

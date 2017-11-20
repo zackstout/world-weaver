@@ -1,5 +1,5 @@
 
-myApp.controller('InfoController', function(UserService) {
+myApp.controller('InfoController', function(UserService, $http) {
   console.log('InfoController created');
   var vm = this;
 
@@ -18,6 +18,10 @@ myApp.controller('InfoController', function(UserService) {
   vm.obstaclesSaved = [];
   vm.worldIds = [];
   vm.savedWorldIds = [];
+  vm.allWorlds = [];
+  vm.allWorldIds = [];
+  vm.allObstacles = [];
+
 
   vm.userService = UserService;
 
@@ -40,6 +44,7 @@ myApp.controller('InfoController', function(UserService) {
     UserService.getWorlds().then(function(res) {
       vm.worlds = res;
       console.log(vm.worlds);
+      //probably unnecessary:
       vm.worldIds = [];
       for (var i=0; i<vm.worlds.length; i++) {
         vm.worldIds.push({
@@ -51,6 +56,58 @@ myApp.controller('InfoController', function(UserService) {
     });
   };
 
+  //
+  // vm.getAllObstacles = function() {
+  //   UserService.getAllObstacles().then(function(res) {
+  //     vm.allObstacles = res;
+  //     // console.log(vm.obstacles, vm.worldIds);
+  //     for (var i=0; i<vm.allWorldIds.length; i++) {
+  //       for (var j=0; j<vm.allObstacles.length; j++) {
+  //         if (vm.allObstacles[j].world_id == vm.allWorldIds[i].id) {
+  //           vm.allWorldIds[i].obstacles.push(vm.allObstacles[j]);
+  //         }
+  //       }
+  //     }
+  //     // console.log(vm.worldIds);
+  //   });
+  // };
+
+  vm.getAllWorlds = function() {
+    // var userId = self.userObject.userId;
+    $http.get('/more').then(function(response) {
+      // self.allWorlds = response.data;
+      // console.log(self.worlds);
+    console.log(response.data);
+    }).catch(function(err) {
+      console.log('oh no dog', err);
+    });
+  };
+  //
+  // vm.getAllWorlds = function() {
+  //   UserService.getAllWorlds().then(function(res) {
+  //     vm.allWorlds = res;
+  //     console.log(vm.allWorlds);
+  //     //probably unnecessary:
+  //     // vm.worldIds = [];
+  //     for (var i=0; i<vm.allWorlds.length; i++) {
+  //       vm.allWorldIds.push({
+  //         id: vm.allWorlds[i].id,
+  //         obstacles: []
+  //       });
+  //     }
+  //     vm.getAllObstacles();
+  //   });
+  // };
+  vm.getAllObstacles = function() {
+    // var userId = self.userObject.userId;
+    $http.get('/more/obstacles').then(function(response) {
+      // self.allWorlds = response.data;
+      // console.log(self.worlds);
+    console.log(response.data);
+    }).catch(function(err) {
+      console.log('oh no dog', err);
+    });
+  };
 
   vm.getSavedObstacles = function() {
     UserService.getSavedObstacles().then(function(res) {

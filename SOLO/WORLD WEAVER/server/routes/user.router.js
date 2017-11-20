@@ -9,6 +9,7 @@ router.get('/', function(req, res) {
   if(req.isAuthenticated()) {
     // send back user object from database
     console.log('logged in', req.user);
+    //also had to add "id" here manually, in addition to in the service:
     var userInfo = {
       username : req.user.username,
       id: req.user.id
