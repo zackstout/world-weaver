@@ -37,12 +37,11 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
   };
 
   vm.addWorld = function(world) {
-    // $http.post('/worlds', world).then(function (response) {
-    //   console.log('making world!', world);
-    // }).catch(function (err) {
-    //   console.log('whooooops');
-    // });
     UserService.addWorld(world);
+  };
+
+  vm.saveWorld = function(world) {
+    UserService.saveWorld(world);
   };
 
   vm.addObstacle = function(obstacle) {
@@ -186,6 +185,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     Body = Matter.Body,
     Events = Matter.Events,
     Bodies = Matter.Bodies;
+    //can we pass in arguments here??:
     var engine = Engine.create();
     var world = engine.world;
     var obstacle, cannon, cannonball, bucket, bar, heat, portal1, portal2, flier, t=0, x=0, offset=0;
@@ -195,11 +195,12 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
 
     //odd that data-binding is failing us here:
     var now = 0;
+    vm.now = 0;
     function tick() {
       vm.now += 1;
       vm.d = new Date();
       now += 1;
-      // console.log(now);
+      console.log(vm.now);
     }
     setInterval(tick, 1000);
 
@@ -248,11 +249,11 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
 
         //attempting portals:
         else if (pair.bodyA === portal1) {
-          console.log(pair.bodyB);
+          console.log(pair.bodyB, portal1);
           Body.setPosition(pair.bodyB, {x: portal2.position.x, y: portal2.position.y});
           // Body.setVelocity(pair.bodyB, {x: -10, y: 5});
         } else if (pair.bodyB === portal1) {
-          console.log(pair.bodyA);
+          console.log(pair.bodyA, portal1);
           Body.setPosition(pair.bodyA, {x: portal2.position.x, y: portal2.position.y});
           // Body.setVelocity(pair.bodyA, {x: -10, y: 5});
         }
@@ -278,19 +279,19 @@ myApp.controller('PlayController', function(UserService, WorldService, $http) {
     World.add(world, [cannon, bucket]);
 
     //add force level or "heat" bar:
-    bar = Bodies.rectangle(780, 100, 40, 150, {isStatic: true, isSensor: true});
+    bar = Bodies.rectangle(780, 100, 40, 150, {isStatic: true, isSensor: true, chamfer: {radius: 7}});
     World.add(world, bar);
-    heat = Bodies.rectangle(780, t, 40, 19, {isStatic: true});
+    heat = Bodies.rectangle(780, t, 40, 19, {isStatic: true, chamfer: {radius: 7}});
     World.add(world, heat);
 
     //ahhhh of course, just manually set the position!
     function moveHeat() {
       //changing the plus to minus here fixes the upside down force problem:
       Body.setPosition(heat, {x: 780, y: 100 - 64*Math.sin(t)});
-      t += 0.1;
+      t += 0.05;
     }
 
-    setInterval(moveHeat, 100);
+    setInterval(moveHeat, 50);
 
     var fliers = [];
     var random = 5000;

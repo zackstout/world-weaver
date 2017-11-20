@@ -1,7 +1,17 @@
 
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-  <p>
-    In Info
-  </p>
+  <h2>
+    MY PROFILE:
+  </h2>
+  <h4>Worlds I've Made</h4>
+  <button ng-click="ic.getWorlds()">Get 'em!</button>
+    <div ng-repeat="world in ic.worlds">
+      {{world}}
+    </div>
+  <h4>Words In Progress</h4>
+  <button ng-click="ic.getSavedWorlds()">Go on get 'em!</button>
+    <div ng-repeat="world in ic.worldsSaved">
+      {{world}}
+    </div>
 </div>

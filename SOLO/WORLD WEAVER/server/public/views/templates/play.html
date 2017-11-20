@@ -7,7 +7,9 @@
 
   <button ng-click="pc.getWorld()">Get it</button>
   <br><br>
-  <button ng-click="pc.addWorld(pc.newWorld)">Add it</button>
+  <button ng-click="pc.addWorld(pc.newWorld)">Add it to DB</button>
+  <br><br>
+  <button ng-click="pc.saveWorld(pc.newWorld)">Save for Later</button>
 
 <!-- <form ng-submit="pc.addWorld(pc.newWorld)"> -->
   <form ng-submit="pc.showWorld()">
@@ -65,7 +67,7 @@
   </div>
   <br><br>
 
-  {{pc.d}}
+  {{pc.now}}
   <br><br>
 
 
