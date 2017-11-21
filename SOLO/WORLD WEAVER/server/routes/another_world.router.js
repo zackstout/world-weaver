@@ -14,9 +14,40 @@ router.get('/', function(req, res) {
       //we connected to DB
       //issue: will only return worlds that have obstacles in them:
       // var queryText = 'SELECT * FROM "worlds";';
-      var queryText = 'SELECT "worlds"."id" as id, "users"."id" as user_id, "attempts", "completions", "favorites", "title", "start_x", "start_y", "end_x", "end_y", "username" FROM "worlds" JOIN "users" ON "worlds"."maker_id" = "users"."id";';
+      var queryText = 'SELECT "worlds"."id" as id, "users"."id" as user_id, "attempts", "completions", "title", "start_x", "start_y", "end_x", "end_y", "username" FROM "worlds" JOIN "users" ON "worlds"."maker_id" = "users"."id";';
       // var queryText = 'SELECT * FROM "worlds" JOIN "obstacles" ON "worlds"."id" = "obstacles"."world_id" WHERE "maker_id" = $1 GROUP BY "worlds"."id", "obstacles"."id";';
+      // JOIN "favorites" on "worlds"."id" = "favorites"."world_id"
       db.query(queryText, [], function(err, result){
+        done();
+        if(err) {
+          console.log('Error making query', err);
+          res.sendStatus(500);
+        } else {
+          // console.log(result.rows);
+          res.send(result.rows);
+        }
+      });
+    }
+  });
+}); //END ALL WORLDS GET ROUTE (lol "end all worlds")
+
+
+router.get('/favorites', function(req, res) {
+  // console.log('get it boi', req.params.id);
+  pool.connect(function(err, db, done) {
+    if(err) {
+      console.log('Error connecting', err);
+      res.sendStatus(500);
+    } else {
+      //we connected to DB
+      //issue: will only return worlds that have obstacles in them:
+      // var queryText = 'SELECT * FROM "worlds";';
+      var queryText = 'SELECT * FROM "favorites" WHERE "user_id" = $1;';
+      // JOIN "favorites" on "worlds"."id" = "favorites"."world_id"
+
+      // var queryText = 'SELECT * FROM "worlds" JOIN "obstacles" ON "worlds"."id" = "obstacles"."world_id" WHERE "maker_id" = $1 GROUP BY "worlds"."id", "obstacles"."id";';
+      // JOIN "favorites" on "worlds"."id" = "favorites"."world_id"
+      db.query(queryText, [req.user.id], function(err, result){
         done();
         if(err) {
           console.log('Error making query', err);
@@ -81,6 +112,36 @@ router.post('/stats', function(req, res){
           res.sendStatus(201);
         }
       });
+    }
+  });
+}); //END POST ROUTE
+
+
+router.post('/favorites', function(req, res){
+  var world = req.body;
+  var user = req.user;
+  console.log("BODY: ", world);
+  // var moreFaves = world.world.favorites + 1;
+  pool.connect(function (err, db, done) {
+    if (err) {
+      console.log('Error connecting', err);
+      res.sendStatus(500);
+    // } else {
+    //   console.log('what up');
+    //   res.sendStatus(201);
+    // }
+    } else {
+      var queryText = 'INSERT INTO "favorites" ("world_id", "user_id") VALUES ($1, $2);';
+      db.query(queryText, [world.id, req.user.id], function (err, result) {
+        done(); // pool +1
+        if (err) {
+          console.log('Error making query', err);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+      // res.sendStatus(201);
     }
   });
 }); //END POST ROUTE

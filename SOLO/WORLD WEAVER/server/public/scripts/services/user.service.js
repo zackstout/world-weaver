@@ -30,8 +30,35 @@ myApp.service('UserService', function($http, $location){
     });
   };
 
+
+
+
+    self.getuser = function(){
+      console.log('UserService -- getuser');
+      $http.get('/user').then(function(response) {
+          if(response.data.username) {
+              // user has a curret session on the server
+              self.userObject.userName = response.data.username;
+              self.userObject.userId = response.data.id;
+              // console.log('UserService -- getuser -- User Data: ', response.data);
+          } else {
+              console.log('UserService -- getuser -- failure');
+              // user has no session, bounce them back to the login page
+              $location.path("/home");
+          }
+          //whoa what is with this comma????
+      }, function(response){
+        console.log('UserService -- getuser -- failure: ', response);
+        $location.path("/home");
+      });
+    };
+
+
+
   self.getWorlds = function() {
+    // self.getuser();
     var userId = self.userObject.userId;
+    console.log("ID: ", userId);
     return $http.get('/worlds/' + userId).then(function(response) {
       self.worlds = response.data;
       // console.log(self.worlds);
@@ -85,6 +112,17 @@ myApp.service('UserService', function($http, $location){
     });
   };
 
+  // self.faveWorld = function(world) {
+  //
+  //
+  //
+  //   $http.post('/more/favorites', world).then(function (response) {
+  //     console.log(response.data);
+  //   }).catch(function (err) {
+  //     console.log(error);
+  //   });
+  // };
+
   self.getSavedObstacles = function() {
     var userId = self.userObject.userId;
     return $http.get('/worlds/save/obstacles/' + userId).then(function(response) {
@@ -96,26 +134,6 @@ myApp.service('UserService', function($http, $location){
     });
   };
 
-
-  self.getuser = function(){
-    console.log('UserService -- getuser');
-    $http.get('/user').then(function(response) {
-        if(response.data.username) {
-            // user has a curret session on the server
-            self.userObject.userName = response.data.username;
-            self.userObject.userId = response.data.id;
-            // console.log('UserService -- getuser -- User Data: ', response.data);
-        } else {
-            console.log('UserService -- getuser -- failure');
-            // user has no session, bounce them back to the login page
-            $location.path("/home");
-        }
-        //whoa what is with this comma????
-    }, function(response){
-      console.log('UserService -- getuser -- failure: ', response);
-      $location.path("/home");
-    });
-  };
 
   self.logout = function() {
     console.log('UserService -- logout');

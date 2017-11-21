@@ -6,10 +6,13 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
   vm.allWorlds = [];
   vm.allWorldIds = [];
   vm.allObstacles = [];
+  var faves = [];
 
   vm.playWorld = function(world) {
     WorldService.play(world);
   };
+
+
 
   vm.getAllObstacles = function() {
     // var userId = self.userObject.userId;
@@ -29,6 +32,26 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
     }
     }).catch(function(err) {
       console.log('oh no dog', err);
+    });
+  };
+
+  vm.getMyFaves = function() {
+    $http.get('/more/favorites').then(function(response) {
+      console.log(response.data);
+      vm.faves = response.data;
+
+      for (var i=0; i<vm.faves.length; i++) {
+        var worldId = vm.faves[i].world_id;
+        for (var j=0; j<vm.allWorldIds.length; j++) {
+          if (vm.allWorldIds[j].id == worldId) {
+            vm.allWorldIds[j].isFavorited = true;
+          }
+        }
+      }
+      console.log(vm.allWorldIds);
+
+    }).catch(function(err) {
+      console.log(error);
     });
   };
 
@@ -52,6 +75,29 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
     });
   };
 
+  vm.faveWorld = function(world) {
+    // UserService.faveWorld(world);
+    //
+    $http.post('/more/favorites', world).then(function (response) {
+      console.log(response.data);
+      // vm.getAllWorlds();
+      // vm.getMyFaves();
+
+    }).catch(function (err) {
+      console.log(error);
+    });
+  };
+
+
   vm.getAllWorlds();
+  vm.getMyFaves();
+
+
+  //
+  // function checkForFavorites() {
+  //   for (var i = 0; i < vm.allWorldIds.length; i++ ) {
+  //     var world = vm.allWorldIds[i];
+  //   }
+  // }
 
 });
