@@ -19,9 +19,27 @@
 
   <h4>All the Worlds:</h4>
   <button ng-click="ic.getAllWorlds()">Whole enchilada</button>
-  <div ng-repeat="world in ic.allWorlds">
-    {{world}}
-  </div>
-  
+  <!-- <div layout="row"> -->
+  <!-- needing the weird world.world stuff here because need allWorldIds to contain both the world and the obstacles array -->
+    <div ng-repeat="world in ic.allWorldIds" class="box">
+
+      <p>Author: {{world.world.maker_id}}</p>
+      <p>Cannon-x: {{world.world.start_x}}</p>
+
+      <p>Cannon-y: {{world.world.start_y}}</p>
+
+      <p>Bucket-x: {{world.world.end_x}}</p>
+      <p>Bucket-y: {{world.world.end_y}}</p>
+      <p>Obstacles:</p>
+      <div ng-repeat="obstacle in world.obstacles" class="box2">
+        <p>Type: {{obstacle.type}}</p>
+        <p>Height: {{obstacle.h}}</p>
+        <p>Width: {{obstacle.w}}</p>
+        <p>x-location: {{obstacle.x}}</p>
+        <p>y-location: {{obstacle.y}}</p>
+      </div>
+
+    </div>
+  <!-- </div> -->
 
 </div>
