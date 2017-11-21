@@ -32,6 +32,24 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
   // service.getuser
   // then do the thing
 
+  vm.realvassin = '';
+  vm.yes = true;
+
+  vm.capture = function() {
+    var vassin = document.getElementsByTagName('canvas');
+    var realvassin = vassin[0];
+    vm.realvassin = realvassin;
+    var t = realvassin.getContext('2d');
+    console.log('capturing', vassin, realvassin);
+    window.open('', realvassin.toDataURL());
+
+
+  };
+
+  vm.capture2 = function() {
+
+  };
+
   vm.showWorld = function() {
     console.log('clickin new world');
     doMatterStart();
@@ -68,17 +86,19 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
       console.log(vm.world);
       //call doMatter here; shouldn't need setTimeout if you do it like this:
       doMatter();
-      var myCanvas = document.getElementsByTagName('canvas');
-      var ctx = myCanvas[0].getContext("2d");
-      console.log(ctx);
-      function circle(a, b, x, r) {
-        ctx.beginPath();
-        for (var i = 0; i < x; i++) {
-          ctx.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
-          ctx.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
-          ctx.stroke();
-        }
-      }
+
+      //sadly this does not seem to be working:
+      // var myCanvas = document.getElementsByTagName('canvas');
+      // var ctx = myCanvas[0].getContext("2d");
+      // console.log(ctx);
+      // function circle(a, b, x, r) {
+      //   ctx.beginPath();
+      //   for (var i = 0; i < x; i++) {
+      //     ctx.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
+      //     ctx.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
+      //     ctx.stroke();
+      //   }
+      // }
 
       //the perfect pentagon, lol looks weird if you misalign a and b:
       //ahhh the pesky translate:
@@ -91,18 +111,18 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     });
   };
 
-  function grid(x, s) {
-  for (var i = 0; i <= x; i++) {
-    ctx.moveTo(i*s/x, 0);
-    ctx.lineTo(i*s/x, s);
-    ctx.stroke();
-  }
-  for (var j = 0; j <=x; j++) {
-    ctx.moveTo(0, j*s/x);
-    ctx.lineTo(s, j*s/x);
-    ctx.stroke();
-  }
-}
+  //   function grid(x, s) {
+  //   for (var i = 0; i <= x; i++) {
+  //     ctx.moveTo(i*s/x, 0);
+  //     ctx.lineTo(i*s/x, s);
+  //     ctx.stroke();
+  //   }
+  //   for (var j = 0; j <=x; j++) {
+  //     ctx.moveTo(0, j*s/x);
+  //     ctx.lineTo(s, j*s/x);
+  //     ctx.stroke();
+  //   }
+  // }
 
   // getWorld();
   //ensure we get our data before trying to populate the world:
@@ -162,6 +182,16 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
         }
         else if (pair.bodyB === bucket) {
           console.log('whatup');
+          // world.gravity.y = -world.gravity.y;
+        }
+
+        else if (pair.bodyA === omega) {
+          console.log('OMEGA <3', pair.bodyB);
+
+          // world.gravity.y = -world.gravity.y;
+        }
+        else if (pair.bodyB === omega) {
+          console.log('OMEGA', pair.bodyA);
           // world.gravity.y = -world.gravity.y;
         }
       }
@@ -281,6 +311,17 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
           console.log(pair.bodyA, portal1);
           Body.setPosition(pair.bodyA, {x: portal2.position.x, y: portal2.position.y});
           // Body.setVelocity(pair.bodyA, {x: -10, y: 5});
+        }
+
+
+        else if (pair.bodyA.position.x == 780) {
+          console.log('OMEGA <3', pair.bodyB);
+
+          // world.gravity.y = -world.gravity.y;
+        }
+        else if (pair.bodyB.position.x == 780) {
+          console.log('OMEGA', pair.bodyA);
+          // world.gravity.y = -world.gravity.y;
         }
         //why isn't this working??
         // else if (pair.bodyA === portal2) {

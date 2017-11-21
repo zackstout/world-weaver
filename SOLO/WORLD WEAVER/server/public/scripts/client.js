@@ -42,6 +42,15 @@ myApp.config(function($routeProvider, $locationProvider) {
       }
     }
   })
+  .when('/playing', {
+    templateUrl: '/views/templates/playing.html',
+    controller: 'PlayingController as pc',
+    resolve: {
+      getuser : function(UserService){
+        return UserService.getuser();
+      }
+    }
+  })
   .when('/edit', {
     templateUrl: '/views/templates/edit.html',
     controller: 'EditController as ec',

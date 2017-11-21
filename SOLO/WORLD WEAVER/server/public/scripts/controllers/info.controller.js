@@ -1,5 +1,5 @@
 
-myApp.controller('InfoController', function(UserService, $http) {
+myApp.controller('InfoController', function(UserService, $http, $location, WorldService) {
   console.log('InfoController created');
   var vm = this;
 
@@ -24,6 +24,13 @@ myApp.controller('InfoController', function(UserService, $http) {
 
 
   vm.userService = UserService;
+
+//we're gonna have to implement a service to go between the info and playing controllers:
+  vm.playWorld = function(world) {
+    WorldService.play(world);
+    // $location.path('/playing');
+
+  };
 
   vm.getObstacles = function() {
     UserService.getObstacles().then(function(res) {

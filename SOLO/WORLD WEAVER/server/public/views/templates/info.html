@@ -33,6 +33,7 @@
       <p>Bucket-x: {{world.world.end_x}}</p>
       <p>Bucket-y: {{world.world.end_y}}</p>
       <p>Obstacles:</p>
+      <p><button ng-click="ic.playWorld(world)">PLAY</button></p>
       <div ng-repeat="obstacle in world.obstacles" class="col-lg-3 col-md-4">
         <p>Type: {{obstacle.type}}</p>
         <p>Height: {{obstacle.h}}</p>

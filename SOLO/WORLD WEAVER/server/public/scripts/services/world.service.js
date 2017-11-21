@@ -14,5 +14,13 @@ myApp.service('WorldService', function($http, $location){
     });
   };
 
+  self.play = function(world) {
+    console.log('hi', world);
+    self.world = world;
+    console.log('yooo', self.world);
+    $location.path('/playing');
+
+  };
+
 
 });
