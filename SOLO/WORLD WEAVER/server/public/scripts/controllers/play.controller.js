@@ -184,16 +184,16 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
           console.log('whatup');
           // world.gravity.y = -world.gravity.y;
         }
-
-        else if (pair.bodyA === omega) {
-          console.log('OMEGA <3', pair.bodyB);
-
-          // world.gravity.y = -world.gravity.y;
-        }
-        else if (pair.bodyB === omega) {
-          console.log('OMEGA', pair.bodyA);
-          // world.gravity.y = -world.gravity.y;
-        }
+        //
+        // else if (pair.bodyA === omega) {
+        //   console.log('OMEGA <3', pair.bodyB);
+        //
+        //   // world.gravity.y = -world.gravity.y;
+        // }
+        // else if (pair.bodyB === omega) {
+        //   console.log('OMEGA', pair.bodyA);
+        //   // world.gravity.y = -world.gravity.y;
+        // }
       }
     });
 

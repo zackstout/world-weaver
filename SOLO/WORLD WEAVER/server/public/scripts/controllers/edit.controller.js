@@ -1,5 +1,5 @@
 
-myApp.controller('EditController', function(UserService) {
+myApp.controller('EditController', function(UserService, $mdDialog) {
   console.log('IeditController created');
   var vm = this;
 
@@ -9,6 +9,24 @@ myApp.controller('EditController', function(UserService) {
   };
 
   vm.moving = false;
+  vm.status = '';
+
+  vm.showConfirm = function(ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog.confirm()
+          .title('Many worlds have yet to be woven!')
+          .textContent('May weaving bring you peace.')
+          .ariaLabel('Lucky day')
+          .targetEvent(ev)
+          .ok('NEW WORLD')
+          .cancel('SAVED WORLD');
+
+    $mdDialog.show(confirm).then(function() {
+      vm.status = 'A new world it shall be!';
+    }, function() {
+      vm.status = 'Let\'s grab your saved worlds...';
+    });
+  };
 
   vm.toggleMouse = function() {
     vm.moving = !vm.moving;

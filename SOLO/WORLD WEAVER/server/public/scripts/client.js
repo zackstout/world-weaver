@@ -42,6 +42,33 @@ myApp.config(function($routeProvider, $locationProvider) {
       }
     }
   })
+  .when('/all', {
+    templateUrl: '/views/templates/all.html',
+    controller: 'AllController as ac',
+    resolve: {
+      getuser : function(UserService){
+        return UserService.getuser();
+      }
+    }
+  })
+  .when('/game', {
+    templateUrl: '/views/templates/game.html',
+    controller: 'GameController as gc',
+    resolve: {
+      getuser : function(UserService){
+        return UserService.getuser();
+      }
+    }
+  })
+  .when('/saved_games', {
+    templateUrl: '/views/templates/saved_games.html',
+    controller: 'SavedController as sc',
+    resolve: {
+      getuser : function(UserService){
+        return UserService.getuser();
+      }
+    }
+  })
   .when('/playing', {
     templateUrl: '/views/templates/playing.html',
     controller: 'PlayingController as pc',
