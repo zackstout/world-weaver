@@ -20,17 +20,17 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     type: 'rect'
   };
 
-//so strange....for now i'm just going to move the request into the service:
-//could prob also solve this with promises like we did with the GET routes, connecting the service to the Info Controller;
+  //so strange....for now i'm just going to move the request into the service:
+  //could prob also solve this with promises like we did with the GET routes, connecting the service to the Info Controller;
   vm.userObject = UserService.userObject;
   // UserService.getuser();
   // console.log(UserService.userObject);
   // console.log(vm.userObject);
 
-//Kris's suggestion:
+  //Kris's suggestion:
   // if userObject isn't there
   // service.getuser
-    // then do the thing
+  // then do the thing
 
   vm.showWorld = function() {
     console.log('clickin new world');
@@ -68,10 +68,41 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
       console.log(vm.world);
       //call doMatter here; shouldn't need setTimeout if you do it like this:
       doMatter();
+      var myCanvas = document.getElementsByTagName('canvas');
+      var ctx = myCanvas[0].getContext("2d");
+      console.log(ctx);
+      function circle(a, b, x, r) {
+        ctx.beginPath();
+        for (var i = 0; i < x; i++) {
+          ctx.moveTo(r*a*Math.cos(i*2*Math.PI/x), r*b*Math.sin(i*2*Math.PI/x));
+          ctx.lineTo(r*a*Math.cos((i+1)*2*Math.PI/x), r*b*Math.sin((i+1)*2*Math.PI/x));
+          ctx.stroke();
+        }
+      }
+
+      //the perfect pentagon, lol looks weird if you misalign a and b:
+      //ahhh the pesky translate:
+      // ctx.translate(500, 500);
+      // circle(1, 1, 5, 250);
+      // ctx.translate(-500,-500);
+      // grid(10,1000);
     }).catch(function (err) {
       console.log('whooooops');
     });
   };
+
+  function grid(x, s) {
+  for (var i = 0; i <= x; i++) {
+    ctx.moveTo(i*s/x, 0);
+    ctx.lineTo(i*s/x, s);
+    ctx.stroke();
+  }
+  for (var j = 0; j <=x; j++) {
+    ctx.moveTo(0, j*s/x);
+    ctx.lineTo(s, j*s/x);
+    ctx.stroke();
+  }
+}
 
   // getWorld();
   //ensure we get our data before trying to populate the world:
@@ -79,7 +110,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
 
 
 
-//for editing functionality:
+  //for editing functionality:
   function doMatterStart() {
     console.log(vm.newWorld.obstacles);
     var Engine = Matter.Engine,
@@ -169,7 +200,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
 
 
 
-//for getting worlds from DB:
+  //for getting worlds from DB:
   function doMatter() {
     console.log(document.body);
     var Engine = Matter.Engine,
@@ -188,7 +219,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     //odd that data-binding is failing us here -- just needed $interval instead of setInterval:
     var now = 0;
     vm.now = 0;
-    
+
     function tick() {
       vm.now += 1;
       now += 1;
