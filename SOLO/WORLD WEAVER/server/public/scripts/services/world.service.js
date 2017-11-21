@@ -19,7 +19,7 @@ myApp.service('WorldService', function($http, $location){
     self.world = world;
     console.log('yooo', self.world);
     $location.path('/playing');
-    $http.post('/more/stats').then(function(response) {
+    $http.post('/more/stats', world).then(function(response) {
       console.log("good job friendo");
     }).catch(function(err) {
       console.log('nuts');

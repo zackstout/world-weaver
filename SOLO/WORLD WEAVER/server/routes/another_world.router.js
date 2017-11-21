@@ -60,27 +60,28 @@ router.get('/obstacles', function(req, res) {
 
 router.post('/stats', function(req, res){
   var world = req.body;
-  console.log(world);
+  console.log("BODY: ", world.world.attempts, world.id);
+  var moreAttempts = world.world.attempts + 1;
   pool.connect(function (err, db, done) {
     if (err) {
       console.log('Error connecting', err);
       res.sendStatus(500);
-    } else {
-      console.log('what up');
-      res.sendStatus(201);
-    }
     // } else {
-    //   var queryText = 'UPDATE "worlds" SET "first_name", "last_name") VALUES ($1, $2);';
-    //   db.query(queryText, [owner.first_name, owner.last_name], function (err, result) {
-    //     done(); // pool +1
-    //     if (err) {
-    //       console.log('Error making query', err);
-    //       res.sendStatus(500);
-    //     } else {
-    //       res.sendStatus(201);
-    //     }
-    //   });
+    //   console.log('what up');
+    //   res.sendStatus(201);
     // }
+    } else {
+      var queryText = 'UPDATE "worlds" SET "attempts" = $1 WHERE "id" = $2;';
+      db.query(queryText, [moreAttempts, world.id], function (err, result) {
+        done(); // pool +1
+        if (err) {
+          console.log('Error making query', err);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+    }
   });
 }); //END POST ROUTE
 
