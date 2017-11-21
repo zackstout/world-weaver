@@ -145,8 +145,8 @@ router.post('/', function(req, res) {
       console.log('Error connecting', err);
       res.sendStatus(500);
     } else {
-      var queryText = 'INSERT INTO "worlds" ("start_x", "start_y", "end_x", "end_y", "maker_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id";';
-      db.query(queryText, [newWorld.start_x, newWorld.start_y, newWorld.end_x, newWorld.end_y, newWorld.userId], function(err, result){
+      var queryText = 'INSERT INTO "worlds" ("start_x", "start_y", "end_x", "end_y", "maker_id", "title") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id";';
+      db.query(queryText, [newWorld.start_x, newWorld.start_y, newWorld.end_x, newWorld.end_y, newWorld.userId, newWorld.title], function(err, result){
         done();
         if(err) {
           console.log('Error making query', err);

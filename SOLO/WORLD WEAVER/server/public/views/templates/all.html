@@ -2,3 +2,27 @@
 <div ng-include="'views/partials/nav.html'"></div>
 
 <p>in all worlds....</p>
+<div class="row">
+
+<!-- needing the weird world.world stuff here because need allWorldIds to contain both the world and the obstacles array -->
+  <div ng-repeat="world in ac.allWorldIds" class="col-lg-3 col-md-4 boxMain">
+
+    <p>Author: {{world.world.maker_id}}</p>
+    <p>Cannon-x: {{world.world.start_x}}</p>
+
+    <p>Cannon-y: {{world.world.start_y}}</p>
+
+    <p>Bucket-x: {{world.world.end_x}}</p>
+    <p>Bucket-y: {{world.world.end_y}}</p>
+    <p>Obstacles:</p>
+    <p><button ng-click="ac.playWorld(world)">PLAY</button></p>
+    <div ng-repeat="obstacle in world.obstacles" class="col-lg-3 col-md-4">
+      <p>Type: {{obstacle.type}}</p>
+      <p>Height: {{obstacle.h}}</p>
+      <p>Width: {{obstacle.w}}</p>
+      <p>x-location: {{obstacle.x}}</p>
+      <p>y-location: {{obstacle.y}}</p>
+    </div>
+
+  </div>
+</div>

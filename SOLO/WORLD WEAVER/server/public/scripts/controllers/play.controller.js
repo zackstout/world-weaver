@@ -1,5 +1,5 @@
 
-myApp.controller('PlayController', function(UserService, WorldService, $http, $interval) {
+myApp.controller('PlayController', function(UserService, WorldService, $http, $interval, $mdDialog) {
   console.log('playController created');
   var vm = this;
 
@@ -20,6 +20,31 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     type: 'rect'
   };
 
+  vm.status = '';
+
+  vm.showPrompt = function(ev) {
+  // Appending dialog to document.body to cover sidenav in docs app
+  var confirm = $mdDialog.prompt()
+    .title('Has your world a name?')
+    // .textContent('Bowser is a common name.')
+    .placeholder('King\'s Keep')
+    .ariaLabel('Dog name')
+    // .initialValue('Buddy')
+    .targetEvent(ev)
+    // .required(true)
+    .ok('Post World!')
+    .cancel('Untitled');
+
+  $mdDialog.show(confirm).then(function(result) {
+    vm.status = 'You decided to name your dog ' + result + '.';
+    // console.log(vm.newWorld);
+    vm.newWorld.title = result;
+    UserService.addWorld(vm.newWorld);
+  }, function() {
+    vm.status = 'You didn\'t name your dog.';
+  });
+};
+
   //so strange....for now i'm just going to move the request into the service:
   //could prob also solve this with promises like we did with the GET routes, connecting the service to the Info Controller;
   vm.userObject = UserService.userObject;
@@ -32,23 +57,45 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
   // service.getuser
   // then do the thing
 
-  vm.realvassin = '';
-  vm.yes = true;
-
-  vm.capture = function() {
-    var vassin = document.getElementsByTagName('canvas');
-    var realvassin = vassin[0];
-    vm.realvassin = realvassin;
-    var t = realvassin.getContext('2d');
-    console.log('capturing', vassin, realvassin);
-    window.open('', realvassin.toDataURL());
-
-
-  };
-
-  vm.capture2 = function() {
-
-  };
+  // vm.realvassin = '';
+  // vm.yes = true;
+  //
+  // vm.capture = function() {
+  //   var vassin = document.getElementsByTagName('canvas');
+  //   var realvassin = vassin[0];
+  //   vm.realvassin = realvassin;
+  //   var t = realvassin.getContext('2d');
+  //   console.log('capturing', vassin, realvassin);
+  //   window.open('', realvassin.toDataURL());
+  //
+  //
+  // };
+  //
+  // vm.capture2 = function() {
+  //
+  // };
+  //
+  // vm.addTitle = function(ev) {
+  //   var confirm = $mdDialog.prompt()
+  //     .title('What would you name your dog?')
+  //     .textContent('Bowser is a common name.')
+  //     .placeholder('Dog name')
+  //     .ariaLabel('Dog name')
+  //     .initialValue('Buddy')
+  //     .targetEvent(ev)
+  //     .required(true)
+  //     .ok('Okay!')
+  //     .cancel('I\'m a cat person');
+  //
+  //   $mdDialog.show(confirm).then(function(result) {
+  //     vm.status = 'You decided to name your dog ' + result + '.';
+  //     // world.title = result;
+  //     // console.log(vm.newWorld);
+  //     // UserService.addWorld(world);
+  //   }, function() {
+  //     vm.status = 'You didn\'t name your dog.';
+  //   });
+  // };
 
   vm.showWorld = function() {
     console.log('clickin new world');

@@ -8,6 +8,7 @@ myApp.service('UserService', function($http, $location){
   self.obstacles = [];
   self.obstaclesSaved = [];
 
+
   self.addWorld = function(world) {
     // console.log(self.userObject, "making world");
     world.userId = self.userObject.userId;
