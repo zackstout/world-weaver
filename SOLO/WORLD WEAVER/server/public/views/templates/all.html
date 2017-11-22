@@ -21,7 +21,13 @@
     <p>Views: {{world.world.attempts}}</p>
     <p>Favorites: {{world.favs}}</p>
     <p>Completions: {{world.completions}}</p>
-    <canvas height=120 width=200></canvas>
+    <div ng-repeat="completion in world.compList | orderBy: 'time' | limitTo: 3">
+      <ul>
+        <li>User: {{completion.username}}</li>
+        <li>Time: {{completion.time}}</li>
+      </ul>
+    </div>
+    <!-- <canvas height=120 width=200></canvas> -->
     <p>Obstacles:</p>
     <p><button ng-click="ac.playWorld(world)">PLAY</button></p>
     <p><button ng-click="ac.faveWorld(world)" ng-hide="world.isFavorited">FAVORITE</button></p>

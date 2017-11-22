@@ -40,6 +40,31 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
     });
   };
 
+  vm.getCompletionsList = function() {
+    $http.get('/more/completions/list').then(function(response) {
+      console.log(response.data);
+      var compsList = response.data;
+
+      for (var i=0; i<vm.allWorldIds.length; i++) {
+        vm.allWorldIds[i].compList = [];
+        for (var j=0; j<compsList.length; j++) {
+          if (compsList[j].world_id == vm.allWorldIds[i].id) {
+            vm.allWorldIds[i].compList.push(compsList[j]);
+
+            // vm.allWorldIds[i].completions = comps[j].count;
+            // world: vm.worlds[i],
+
+          }
+        }
+      }
+
+      // console.log(vm.allWo);
+
+    }).catch(function(err) {
+      console.log(error);
+    });
+  };
+
   vm.getFavs = function() {
     $http.get('/more/favs').then(function(response) {
       console.log(response.data);
@@ -120,6 +145,9 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
 
       vm.getFavs();
       vm.getCompletions();
+      vm.getCompletionsList();
+
+      //this is the KEY console LOG:
     console.log(vm.allWorldIds);
     }).catch(function(err) {
       console.log('oh no dog', err);
