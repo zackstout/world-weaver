@@ -6,6 +6,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     console.log('playingController created');
   var vm = this;
   vm.world = [];
+  vm.count = 0;
 
 
   vm.goHome = function() {
@@ -112,6 +113,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       // Body.applyForce(cannonball, {x: cannon.position.x, y: cannon.position.y}, {x: 0.04*Math.cos(cannon.angle), y: 0.04*Math.sin(cannon.angle)});
       Body.applyForce(cannonball, {x: cannon.position.x, y: cannon.position.y}, {x: 0.04*Math.cos(cannon.angle)*(1+Math.sin(t)), y: 0.04*Math.sin(cannon.angle)*(1+Math.sin(t))});
 
+      vm.count++;
     });
 
     vm.showAlert = function(ev) {

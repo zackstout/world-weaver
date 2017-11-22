@@ -9,6 +9,10 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
   vm.obstaclesSaved = [];
   vm.savedWorldIds = [];
 
+  vm.editWorld = function() {
+
+  };
+
     vm.getSavedObstacles = function() {
       UserService.getSavedObstacles().then(function(res) {
         vm.obstaclesSaved = res;
@@ -32,6 +36,11 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
         for (var i=0; i<vm.worldsSaved.length; i++) {
           vm.savedWorldIds.push({
             id: vm.worldsSaved[i].id,
+            start_x: vm.worldsSaved[i].start_x,
+            start_y: vm.worldsSaved[i].start_y,
+            end_x: vm.worldsSaved[i].end_x,
+            end_y: vm.worldsSaved[i].end_y,
+
             obstacles: []
           });
         }

@@ -16,6 +16,24 @@
   border-radius: 7px;
 }
 
+.savedBox {
+  background-color: lightBlue;
+  margin: 5px;
+  border-radius: 7px;
+}
+
+.myBox {
+  background-color: MediumSeaGreen;
+  margin: 5px;
+  border-radius: 7px;
+}
+
+.favBox {
+  background-color: MediumSlateBlue;
+  margin: 5px;
+  border-radius: 7px;
+}
+
 
 
 body, html {

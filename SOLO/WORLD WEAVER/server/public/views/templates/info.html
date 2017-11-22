@@ -3,18 +3,53 @@
 <div class="container">
   <h2>
     MY PROFILE:
+
   </h2>
+
+  <input type="text" placeholder="Search" ng-model="searchText" />
+
+  <div class="row">
   <h4>Worlds I've Made:</h4>
   <button ng-click="ic.getWorlds()">Get 'em!</button>
-    <div ng-repeat="world in ic.worldIds">
-      {{world}}
-    </div>
+  <br>
+    <div ng-repeat="world in ic.worldIds | filter:searchText" class="myBox col-md-3 col-lg-3">
+      <p>Title: {{world.title}}, {{world.id}}</p>
+      <p>Cannon: ({{world.start_x}}, {{world.start_y}})</p>
+      <p>Bucket: ({{world.end_x}}, {{world.end_y}})</p>
+      <p>Attempts: {{world.attempts}}</p>
+      <p>Completions: </p>
+      <p>Favorited by: </p>
+      <p>Best times:</p>
 
+      <button ng-click="ic.playWorld(world)">Play!</button>
+      <button ng-click="editWorld()">Edit!</button>
+      <button ng-click="delWorld()">Delete!</button>
+
+
+
+      <!-- {{world}} -->
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
   <h4>My Favorite Worlds:</h4>
   <button ng-click="ic.getFaves()">Get 'em!</button>
-  <div ng-repeat="fave in ic.faves">
-    {{fave}}
+  <br>
+  <div ng-repeat="fave in ic.faves | filter:searchText" class="favBox col-md-3 col-lg-3">
+    <p>Title: {{fave.title}}, {{fave.id}}</p>
+    <p>Cannon: ({{fave.start_x}}, {{fave.start_y}})</p>
+    <p>Bucket: ({{fave.end_x}}, {{fave.end_y}})</p>
+    <p>Attempts: {{fave.attempts}}</p>
+    <p>Completions: </p>
+    <p>My best time:</p>
+
+    <p></p>
+    <button ng-click="playWorld()">Play!</button>
+    <button ng-click="unFave()">Unfavorite :( </button>
+
   </div>
+</div>
 
 
   <h4>My History:</h4>

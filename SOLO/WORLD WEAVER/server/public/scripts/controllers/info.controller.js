@@ -28,7 +28,7 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
 
 //we're gonna have to implement a service to go between the info and playing controllers:
   vm.playWorld = function(world) {
-    WorldService.play(world);
+    WorldService.play2(world);
     // $location.path('/playing');
 
   };
@@ -50,6 +50,7 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
 
   vm.getWorlds = function() {
     // UserService.getuser();
+    vm.worldIds = [];
     UserService.getWorlds().then(function(res) {
       vm.worlds = res;
       console.log(vm.worlds);
@@ -75,6 +76,7 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
   };
 
   // vm.getWorlds();
+
 
 vm.getFaves = function() {
   $http.get('/more/favorites2').then(function(response) {
