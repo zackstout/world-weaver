@@ -12,6 +12,21 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
     WorldService.play(world);
   };
 
+  vm.getCompletions = function() {
+    $http.get('/more/completions').then(function(response) {
+      console.log(response);
+    }).catch(function(err) {
+      console.log(error);
+    });
+  };
+
+  vm.getFavs = function() {
+    $http.get('/more/favs').then(function(response) {
+      console.log(response);
+    }).catch(function(err) {
+      console.log(error);
+    });
+  };
 
 
   vm.getAllObstacles = function() {
@@ -36,6 +51,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
   };
 
   vm.getMyFaves = function() {
+
     $http.get('/more/favorites').then(function(response) {
       console.log(response.data);
       vm.faves = response.data;
@@ -57,6 +73,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
 
   vm.getAllWorlds = function() {
     // var userId = self.userObject.userId;
+    vm.allWorldIds = [];
     $http.get('/more').then(function(response) {
       vm.allWorlds = response.data;
       // console.log(self.worlds);
@@ -69,6 +86,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
       });
     }
     vm.getAllObstacles();
+    vm.getMyFaves();
     console.log(vm.allWorldIds);
     }).catch(function(err) {
       console.log('oh no dog', err);
@@ -80,8 +98,8 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
     //
     $http.post('/more/favorites', world).then(function (response) {
       console.log(response.data);
-      // vm.getAllWorlds();
-      // vm.getMyFaves();
+      vm.getAllWorlds();
+      vm.getMyFaves();
 
     }).catch(function (err) {
       console.log(error);
@@ -91,6 +109,9 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
 
   vm.getAllWorlds();
   vm.getMyFaves();
+
+  vm.getFavs();
+  vm.getCompletions();
 
 
   //

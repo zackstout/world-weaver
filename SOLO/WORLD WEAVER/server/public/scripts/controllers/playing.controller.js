@@ -5,14 +5,14 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
   vm.world = [];
 
   vm.goHome = function() {
-    $location.path('/user');
+    $location.path('/all');
   };
 
   var myCanvas = document.getElementsByTagName("canvas");
   console.log(myCanvas);
   if (myCanvas.length !== 0) {
     for (var l=0; l<myCanvas.length; l++) {
-      myCanvas[l].style.display = 'none';
+      myCanvas[l].remove();
     }
   }
 
@@ -25,7 +25,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     console.log(myCanvas);
     if (myCanvas.length !== 0) {
       for (var l=0; l<myCanvas.length; l++) {
-        myCanvas[l].style.display = 'none';
+        myCanvas[l].remove();
       }
     }
     doMatterStart();
@@ -34,8 +34,9 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
   function doMatterStart() {
     // console.log(vm.newWorld.obstacles);
-    console.log(WorldService.world.world);
+    console.log(WorldService.world);
     var world1 = WorldService.world.world;
+    var obstacles = WorldService.world.obstacles;
 
     var finish = {
       time: 0,
@@ -184,11 +185,11 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
 
     //add obstacles:
-    for (var i=0; i<vm.world.length; i++) {
-      var wor = vm.world[i];
+    for (var i=0; i<obstacles.length; i++) {
+      var wor = obstacles[i];
       if (wor.type == "rect") {
         obstacle = Bodies.rectangle(wor.x, wor.y, wor.w, wor.h, { isStatic: true });
-      } else if (wor.type == "ellipse") {
+      } else if (wor.type == "circle") {
         obstacle = Bodies.circle(wor.x, wor.y, wor.h, { isStatic: true });
       }
       World.add(world, [obstacle]);

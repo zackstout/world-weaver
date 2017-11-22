@@ -8,12 +8,17 @@
   <div ng-repeat="world in ac.allWorldIds" class="col-lg-3 col-md-4 boxMain">
 
     <p>Author: {{world.world.username}}</p>
+    <p>Title: {{world.world.title}}
     <p>Cannon-x: {{world.world.start_x}}</p>
 
     <p>Cannon-y: {{world.world.start_y}}</p>
 
     <p>Bucket-x: {{world.world.end_x}}</p>
     <p>Bucket-y: {{world.world.end_y}}</p>
+    <p>Views: {{world.world.attempts}}</p>
+    <!-- <p>Favorites: {{world}}</p>
+    <p>Completions: {{world}}</p> -->
+    <canvas height=120 width=200></canvas>
     <p>Obstacles:</p>
     <p><button ng-click="ac.playWorld(world)">PLAY</button></p>
     <p><button ng-click="ac.faveWorld(world)" ng-hide="world.isFavorited">FAVORITE</button></p>

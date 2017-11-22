@@ -60,16 +60,16 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
   // vm.realvassin = '';
   // vm.yes = true;
   //
-  // vm.capture = function() {
-  //   var vassin = document.getElementsByTagName('canvas');
-  //   var realvassin = vassin[0];
-  //   vm.realvassin = realvassin;
-  //   var t = realvassin.getContext('2d');
-  //   console.log('capturing', vassin, realvassin);
-  //   window.open('', realvassin.toDataURL());
-  //
-  //
-  // };
+  vm.capture = function() {
+    var vassin = document.getElementsByTagName('canvas');
+    var realvassin = vassin[0];
+    // vm.realvassin = realvassin;
+    // var t = realvassin.getContext('2d');
+    console.log('capturing', vassin, realvassin);
+    window.open('', realvassin.toDataURL());
+
+
+  };
   //
   // vm.capture2 = function() {
   //
