@@ -176,6 +176,36 @@ router.post('/favorites', function(req, res){
 }); //END POST ROUTE
 
 
+router.post('/times', function(req, res){
+  var finish = req.body;
+  var user = req.user;
+  console.log("BODY: ", finish);
+  // var moreFaves = world.world.favorites + 1;
+  pool.connect(function (err, db, done) {
+    if (err) {
+      console.log('Error connecting', err);
+      res.sendStatus(500);
+    // } else {
+    //   console.log('what up');
+    //   res.sendStatus(201);
+    // }
+    } else {
+      var queryText = 'INSERT INTO "plays" ("world_id", "user_id", "success", "time") VALUES ($1, $2, $3, $4);';
+      db.query(queryText, [finish.worldId, req.user.id, finish.complete, finish.time], function (err, result) {
+        done(); // pool +1
+        if (err) {
+          console.log('Error making query', err);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+      // res.sendStatus(201);
+    }
+  });
+}); //END POST ROUTE
+
+
 
 
 module.exports = router;

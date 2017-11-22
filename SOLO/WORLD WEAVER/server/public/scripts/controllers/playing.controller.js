@@ -1,10 +1,36 @@
 
-myApp.controller('PlayingController', function(UserService, WorldService, $http, $interval) {
+myApp.controller('PlayingController', function(UserService, $location, WorldService, $http, $interval, $mdDialog) {
   console.log('playingController created');
   var vm = this;
   vm.world = [];
 
+  vm.goHome = function() {
+    $location.path('/user');
+  };
+
+  var myCanvas = document.getElementsByTagName("canvas");
+  console.log(myCanvas);
+  if (myCanvas.length !== 0) {
+    for (var l=0; l<myCanvas.length; l++) {
+      myCanvas[l].style.display = 'none';
+    }
+  }
+
   doMatterStart();
+
+
+//ok this is not working:
+  vm.reset = function() {
+    myCanvas = document.getElementsByTagName("canvas");
+    console.log(myCanvas);
+    if (myCanvas.length !== 0) {
+      for (var l=0; l<myCanvas.length; l++) {
+        myCanvas[l].style.display = 'none';
+      }
+    }
+    doMatterStart();
+  };
+
 
   function doMatterStart() {
     // console.log(vm.newWorld.obstacles);
@@ -13,7 +39,8 @@ myApp.controller('PlayingController', function(UserService, WorldService, $http,
 
     var finish = {
       time: 0,
-      complete: false
+      complete: false,
+      worldId: WorldService.world.world.id
     };
 
 
@@ -82,6 +109,22 @@ myApp.controller('PlayingController', function(UserService, WorldService, $http,
 
     });
 
+    vm.showAlert = function(ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    // Modal dialogs should fully cover application
+    // to prevent interaction outside of dialog
+    $mdDialog.show(
+      $mdDialog.alert()
+        // .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title('Level completed in ' + vm.now + ' seconds!')
+        // .textContent('You can specify some description text in here.')
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Awesome')
+        .targetEvent(ev)
+    );
+  };
+
 
     Events.on(engine, 'collisionStart', function(event) {
       var pairs = event.pairs;
@@ -91,7 +134,15 @@ myApp.controller('PlayingController', function(UserService, WorldService, $http,
         if (pair.bodyA === bucket) {
           console.log('collision dog <3', vm.now);
 
-          //mdDialog here
+
+          vm.showAlert(event);
+          finish.time = vm.now;
+          finish.complete = true;
+          WorldService.postFinish(finish);
+
+          //this works...but it really seems like we should be able to target the "Click" or "Close" events.....
+          setTimeout(vm.goHome, 1200);
+
 
 
           // world.gravity.y = -world.gravity.y;
