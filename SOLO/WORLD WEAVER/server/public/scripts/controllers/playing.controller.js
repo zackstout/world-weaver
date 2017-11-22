@@ -1,8 +1,12 @@
 
 myApp.controller('PlayingController', function(UserService, $location, WorldService, $http, $interval, $mdDialog) {
-  console.log('playingController created');
+
+
+  // window.onload = function() {
+    console.log('playingController created');
   var vm = this;
   vm.world = [];
+
 
   vm.goHome = function() {
     $location.path('/all');
@@ -81,7 +85,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
     //rotate the cannon:
     window.onkeydown = function(e) {
-      x -= 0.14;
+      x -= 0.18;
       Body.setAngle(cannon, x);
     };
 
@@ -127,6 +131,28 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
   };
 
 
+  vm.showConfirm = function(ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog.confirm()
+          .clickOutsideToClose(true)
+
+          .title('Level completed in ' + vm.now + ' seconds!')
+          // .textContent('May weaving bring you peace.')
+          .ariaLabel('Lucky day')
+          .targetEvent(ev)
+          .ok('Awesome');
+          // .cancel('SAVED WORLD');
+
+    $mdDialog.show(confirm).then(function() {
+      // vm.status = 'A new world it shall be!';
+      vm.goHome();
+    }, function() {
+      // vm.status = 'Let\'s grab your saved worlds...';
+      vm.goHome();
+    });
+  };
+
+
     Events.on(engine, 'collisionStart', function(event) {
       var pairs = event.pairs;
       for (var i = 0, j = pairs.length; i != j; i++) {
@@ -136,13 +162,13 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
           console.log('collision dog <3', vm.now);
 
 
-          vm.showAlert(event);
+          vm.showConfirm(event);
           finish.time = vm.now;
           finish.complete = true;
           WorldService.postFinish(finish);
 
           //this works...but it really seems like we should be able to target the "Click" or "Close" events.....
-          setTimeout(vm.goHome, 1200);
+          // setTimeout(vm.goHome, 1200);
 
 
 
@@ -203,5 +229,5 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
 
   }
-
+// };
 });

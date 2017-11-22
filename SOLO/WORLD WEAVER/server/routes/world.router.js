@@ -150,7 +150,7 @@ router.post('/', function(req, res) {
         done();
         if(err) {
           console.log('Error making query', err);
-          res.sendStatus(500);
+          // res.sendStatus(500);
         } else {
           //don't send anything just yet amigo! UNLESS THERE ARE NO OBSTACLES!
           var leng = newWorld.obstacles.length;

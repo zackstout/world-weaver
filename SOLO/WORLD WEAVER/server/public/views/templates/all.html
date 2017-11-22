@@ -12,34 +12,41 @@
 
     <p>Author: {{world.world.username}}</p>
     <p>Title: {{world.world.title}}, {{world.id}}
-    <p>Cannon-x: {{world.world.start_x}}</p>
+    <p>Cannon: ({{world.world.start_x}}, {{world.world.start_y}})</p>
 
-    <p>Cannon-y: {{world.world.start_y}}</p>
+    <!-- <p>Cannon-y: </p> -->
 
-    <p>Bucket-x: {{world.world.end_x}}</p>
-    <p>Bucket-y: {{world.world.end_y}}</p>
+    <p>Bucket: ({{world.world.end_x}}, {{world.world.end_y}})</p>
+    <!-- <p>Bucket-y: {{world.world.end_y}}</p> -->
     <p>Views: {{world.world.attempts}}</p>
     <p>Favorites: {{world.favs}}</p>
     <p>Completions: {{world.completions}}</p>
     <div ng-repeat="completion in world.compList | orderBy: 'time' | limitTo: 3">
       <ul>
-        <li>User: {{completion.username}}</li>
-        <li>Time: {{completion.time}}</li>
+        <li>{{completion.username}}: {{completion.time}} sec.</li>
+        <!-- <li>Time: {{completion.time}}</li> -->
       </ul>
     </div>
     <!-- <canvas height=120 width=200></canvas> -->
+    <br>
     <p>Obstacles:</p>
-    <p><button ng-click="ac.playWorld(world)">PLAY</button></p>
-    <p><button ng-click="ac.faveWorld(world)" ng-hide="world.isFavorited">FAVORITE</button></p>
-    <p ng-show="world.isFavorited">YOU LOVE THIS!</p>
 
-    <div ng-repeat="obstacle in world.obstacles " class="col-lg-3 col-md-4">
-      <p>Type: {{obstacle.type}}</p>
+
+    <div ng-repeat="obstacle in world.obstacles ">
+      <ul>
+        <li>Type: {{obstacle.type}}</li>
+      </ul>
+      <!-- <p>Type: {{obstacle.type}}</p>
       <p>Height: {{obstacle.h}}</p>
       <p>Width: {{obstacle.w}}</p>
       <p>x-location: {{obstacle.x}}</p>
-      <p>y-location: {{obstacle.y}}</p>
+      <p>y-location: {{obstacle.y}}</p> -->
     </div>
+    <br>
+
+    <p><button ng-click="ac.playWorld(world)">PLAY</button></p>
+    <button ng-click="ac.faveWorld(world)" ng-hide="world.isFavorited">FAVORITE</button>
+    <p ng-show="world.isFavorited">YOU LOVE THIS!</p><br>
 
   </div>
 </div>
