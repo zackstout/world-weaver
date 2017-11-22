@@ -61,6 +61,35 @@ router.get('/favorites', function(req, res) {
   });
 }); //END ALL WORLDS GET ROUTE (lol "end all worlds")
 
+router.get('/favorites2', function(req, res) {
+  // console.log('get it boi', req.params.id);
+  pool.connect(function(err, db, done) {
+    if(err) {
+      console.log('Error connecting', err);
+      res.sendStatus(500);
+    } else {
+      //we connected to DB
+      //issue: will only return worlds that have obstacles in them:
+      // var queryText = 'SELECT * FROM "worlds";';
+      var queryText = 'SELECT * FROM "favorites" JOIN "worlds" ON "favorites"."world_id" = "worlds"."id" WHERE "favorites"."user_id" = $1;';
+      // JOIN "favorites" on "worlds"."id" = "favorites"."world_id"
+
+      // var queryText = 'SELECT * FROM "worlds" JOIN "obstacles" ON "worlds"."id" = "obstacles"."world_id" WHERE "maker_id" = $1 GROUP BY "worlds"."id", "obstacles"."id";';
+      // JOIN "favorites" on "worlds"."id" = "favorites"."world_id"
+      db.query(queryText, [req.user.id], function(err, result){
+        done();
+        if(err) {
+          console.log('Error making query', err);
+          res.sendStatus(500);
+        } else {
+          // console.log(result.rows);
+          res.send(result.rows);
+        }
+      });
+    }
+  });
+}); //END ALL WORLDS GET ROUTE (lol "end all worlds")
+
 router.get('/obstacles', function(req, res) {
   // console.log('get it boi', req.params.id);
   pool.connect(function(err, db, done) {

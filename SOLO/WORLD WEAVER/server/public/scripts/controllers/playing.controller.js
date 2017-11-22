@@ -10,6 +10,7 @@ myApp.controller('PlayingController', function(UserService, WorldService, $http,
     console.log(WorldService.world.world);
     var wor = WorldService.world.world;
 
+
     var Engine = Matter.Engine,
     Render = Matter.Render,
     World = Matter.World,

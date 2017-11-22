@@ -11,6 +11,10 @@
     </div>
 
   <h4>My Favorite Worlds:</h4>
+  <button ng-click="ic.getFaves()">Get 'em!</button>
+  <div ng-repeat="fave in ic.faves">
+    {{fave}}
+  </div>
 
 
   <h4>My History:</h4>
