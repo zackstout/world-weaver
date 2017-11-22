@@ -8,6 +8,14 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
   vm.allObstacles = [];
   var faves = [];
 
+  var myCanvas = document.getElementsByTagName("canvas");
+  console.log(myCanvas);
+  if (myCanvas.length !== 0) {
+    for (var l=0; l<myCanvas.length; l++) {
+      myCanvas[l].remove();
+    }
+  }
+
   vm.playWorld = function(world) {
     WorldService.play(world);
   };

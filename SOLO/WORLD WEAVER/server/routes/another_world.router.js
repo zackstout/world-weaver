@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
       //we connected to DB
       //issue: will only return worlds that have obstacles in them:
       // var queryText = 'SELECT * FROM "worlds";';
-      var queryText = 'SELECT "worlds"."id" as id, "users"."id" as user_id, "attempts", "completions", "title", "start_x", "start_y", "end_x", "end_y", "username" FROM "worlds" JOIN "users" ON "worlds"."maker_id" = "users"."id";';
+      var queryText = 'SELECT "worlds"."id" as id, "users"."id" as user_id, "attempts", "title", "start_x", "start_y", "end_x", "end_y", "username" FROM "worlds" JOIN "users" ON "worlds"."maker_id" = "users"."id";';
       // var queryText = 'SELECT * FROM "worlds" JOIN "obstacles" ON "worlds"."id" = "obstacles"."world_id" WHERE "maker_id" = $1 GROUP BY "worlds"."id", "obstacles"."id";';
       // JOIN "favorites" on "worlds"."id" = "favorites"."world_id"
       db.query(queryText, [], function(err, result){
@@ -248,8 +248,8 @@ router.post('/times', function(req, res){
     //   res.sendStatus(201);
     // }
     } else {
-      var queryText = 'INSERT INTO "plays" ("world_id", "user_id", "success", "time") VALUES ($1, $2, $3, $4);';
-      db.query(queryText, [finish.worldId, req.user.id, finish.complete, finish.time], function (err, result) {
+      var queryText = 'INSERT INTO "plays" ("world_id", "user_id", "time") VALUES ($1, $2, $3);';
+      db.query(queryText, [finish.worldId, req.user.id, finish.time], function (err, result) {
         done(); // pool +1
         if (err) {
           console.log('Error making query', err);
