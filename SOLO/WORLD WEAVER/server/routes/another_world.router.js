@@ -120,6 +120,38 @@ router.get('/completions', function(req, res) {
 }); //END ALL WORLDS GET ROUTE (lol "end all worlds")
 
 
+
+
+router.delete('/delete/:id', function(req, res) {
+  console.log('get it boi', req.params.id, req.user.id);
+  pool.connect(function(err, db, done) {
+    if(err) {
+      console.log('Error connecting', err);
+      res.sendStatus(500);
+    } else {
+      //we connected to DB
+
+      var queryText = 'DELETE FROM "favorites" WHERE "world_id" = $1 AND "user_id" = $2;';
+
+      db.query(queryText, [req.params.id, req.user.id], function(err, result){
+        done();
+        if(err) {
+          console.log('Error making query', err);
+          res.sendStatus(500);
+        } else {
+          // console.log(result.rows);
+          res.sendStatus(201);
+        }
+      });
+      // res.sendStatus(201);
+    }
+  });
+}); //END ALL WORLDS GET ROUTE (lol "end all worlds")
+
+
+
+
+
 router.get('/completions/list/', function(req, res) {
   // console.log('get it boi', req.params.id);
   pool.connect(function(err, db, done) {

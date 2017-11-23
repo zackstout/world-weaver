@@ -27,7 +27,7 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
 
   vm.userService = UserService;
 
-//we're gonna have to implement a service to go between the info and playing controllers:
+  //we're gonna have to implement a service to go between the info and playing controllers:
   vm.play2World = function(world) {
     WorldService.play2(world);
     // $location.path('/playing');
@@ -42,12 +42,13 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
 
   };
 
-//VERY ODD!!!....only works once...:
+  //VERY ODD!!!....only works once...:
   vm.editWorld = function(world) {
     console.log(world);
     EditService.newWorld = false;
     EditService.editWorld(world);
   };
+
 
   //gonna have to be YET ANOTHER different one for the FAVES ......because that object isn't the same, i.e. doesn't have obstacles on it. Ughhhhhhh
   //also auto-directly back to ALL, even when we've clicked into PLAY from the INFO page.....
@@ -63,12 +64,7 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
             vm.worldIds[i].obstacles.push(vm.obstacles[j]);
             // vm.faveIds[i].obstacles.push(vm.obstacles[j]);
           }
-
-          // else if (vm.obstacles[j].world_id == vm.faveIds[i].id) {
-          //   vm.faveIds[i].obstacles.push(vm.obstacles[j]);
-
-          }
-        // }
+        }
       }
 
       for (var k=0; k<vm.faveIds.length; k++) {
@@ -77,12 +73,7 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
             vm.faveIds[k].obstacles.push(vm.obstacles[l]);
             // vm.faveIds[i].obstacles.push(vm.obstacles[j]);
           }
-
-          // else if (vm.obstacles[j].world_id == vm.faveIds[i].id) {
-          //   vm.faveIds[i].obstacles.push(vm.obstacles[j]);
-
-          }
-        // }
+        }
       }
 
       console.log(vm.worldIds);
@@ -120,37 +111,50 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
   // vm.getWorlds();
 
 
-vm.getFaves = function() {
-  // vm.getWorlds();
-  $http.get('/more/favorites2').then(function(response) {
+  vm.getFaves = function() {
     // vm.getWorlds();
+    $http.get('/more/favorites2').then(function(response) {
+      // vm.getWorlds();
 
-    vm.faves = response.data;
+      vm.faves = response.data;
+      vm.faveIds = [];
 
-    for (var j=0; j<vm.faves.length; j++) {
-      vm.faveIds.push({
-        id: vm.faves[j].id,
-        attempts: vm.faves[j].attempts,
-        // completions: vm.worlds[i].completions,
-        end_x: vm.faves[j].end_x,
-        end_y: vm.faves[j].end_y,
-        start_x: vm.faves[j].start_x,
-        start_y: vm.faves[j].start_y,
-        title: vm.faves[j].title,
-        obstacles: []
-      });
-    }
+      for (var j=0; j<vm.faves.length; j++) {
+        vm.faveIds.push({
+          id: vm.faves[j].id,
+          attempts: vm.faves[j].attempts,
+          // completions: vm.worlds[i].completions,
+          end_x: vm.faves[j].end_x,
+          end_y: vm.faves[j].end_y,
+          start_x: vm.faves[j].start_x,
+          start_y: vm.faves[j].start_y,
+          title: vm.faves[j].title,
+          obstacles: []
+        });
+      }
 
-    vm.getObstacles();
+      vm.getObstacles();
 
-    console.log(vm.faves);
-    console.log(vm.faveIds);
-    // console.log(self.worlds);
-    // return response.data;
-  }).catch(function(err) {
-    console.log('oh no dog', err);
-  });
-};
+      console.log(vm.faves);
+      console.log(vm.faveIds);
+      // console.log(self.worlds);
+      // return response.data;
+    }).catch(function(err) {
+      console.log('oh no dog', err);
+    });
+  };
+
+  //ODD that it doesn't immediately refresh.......
+  //fixed: needed to clear out FaveIds array on Get faves call:
+  vm.unfavorite = function(world) {
+    console.log(world);
+    $http.delete('/more/delete/' + world.id).then(function (response) {
+      console.log('Success');
+      vm.getFaves();
+    }).catch(function(error) {
+      console.log('nuts');
+    });
+  };
 
 
 

@@ -46,7 +46,9 @@
 
     <p><button ng-click="ac.playWorld(world)">PLAY</button></p>
     <button ng-click="ac.faveWorld(world)" ng-hide="world.isFavorited">FAVORITE</button>
-    <p ng-show="world.isFavorited">YOU LOVE THIS!</p><br>
+    <button ng-click="ac.unfavorite(world)" ng-show="world.isFavorited">UNFAVORITE :(</button>
+
+    <!-- <p ng-show="world.isFavorited">YOU LOVE THIS!</p><br> -->
 
   </div>
 </div>

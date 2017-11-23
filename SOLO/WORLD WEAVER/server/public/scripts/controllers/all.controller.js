@@ -169,6 +169,19 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
     });
   };
 
+  vm.unfavorite = function(world) {
+    console.log(world);
+    $http.delete('/more/delete/' + world.id).then(function (response) {
+      console.log('Success');
+      //WE REALLY shouldn't have to call both of these here, right....?
+      //yeah shoot, if we DON'T call getAllWorlds, then we don't see the change....but if we do, user gets taken to top of page:
+      vm.getAllWorlds();
+      vm.getMyFaves();
+    }).catch(function(error) {
+      console.log('nuts');
+    });
+  };
+
 
   vm.getAllWorlds();
   vm.getMyFaves();
