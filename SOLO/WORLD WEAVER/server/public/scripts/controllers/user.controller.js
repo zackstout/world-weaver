@@ -1,5 +1,5 @@
 
-myApp.controller('UserController', function(UserService, $location, $mdDialog) {
+myApp.controller('UserController', function(UserService, $location, $mdDialog, EditService) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
@@ -32,6 +32,7 @@ myApp.controller('UserController', function(UserService, $location, $mdDialog) {
 
     $mdDialog.show(confirm).then(function() {
       vm.status = 'A new world it shall be!';
+      EditService.newWorld = true;
       vm.go('/edit');
     }, function() {
       vm.status = 'Let\'s grab your saved worlds...';

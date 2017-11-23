@@ -31,18 +31,21 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
   vm.play2World = function(world) {
     WorldService.play2(world);
     // $location.path('/playing');
+    WorldService.origin = 'mine';
 
   };
 
   vm.play3World = function(world) {
     WorldService.play3(world);
     // $location.path('/playing');
+    WorldService.origin = 'faves';
 
   };
 
 //VERY ODD!!!....only works once...:
   vm.editWorld = function(world) {
     console.log(world);
+    EditService.newWorld = false;
     EditService.editWorld(world);
   };
 

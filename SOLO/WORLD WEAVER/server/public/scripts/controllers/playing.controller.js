@@ -7,10 +7,17 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
   var vm = this;
   vm.world = [];
   vm.count = 0;
+  vm.origin = WorldService.origin;
 
 
   vm.goHome = function() {
-    $location.path('/all');
+    if (vm.origin == 'all') {
+      $location.path('/all');
+    } else if (vm.origin == 'mine') {
+      $location.path('/info');
+    } else if (vm.origin == 'faves') {
+      $location.path('/info');
+    }
   };
 
   var myCanvas = document.getElementsByTagName("canvas");

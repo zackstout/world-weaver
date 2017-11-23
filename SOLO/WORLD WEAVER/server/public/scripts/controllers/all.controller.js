@@ -19,6 +19,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
 
   vm.playWorld = function(world) {
     WorldService.play(world);
+    WorldService.origin = 'all';
   };
 
   vm.getCompletions = function() {

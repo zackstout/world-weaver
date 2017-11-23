@@ -3,7 +3,9 @@ myApp.service('WorldService', function($http, $location){
   console.log('WorldService Loaded');
   var self = this;
   self.world = {};
-  self.editWorld = {};
+  // self.editWorld = {};
+
+  self.origin = '';
 
 
   self.postFinish = function(fin) {
@@ -74,11 +76,11 @@ myApp.service('WorldService', function($http, $location){
 
   };
 
-  self.editWorld = function(world) {
-    console.log(world);
-    self.editWorld = world;
-    $location.path('/edit');
-  };
+  // self.editWorld = function(world) {
+  //   console.log(world);
+  //   self.editWorld = world;
+  //   $location.path('/edit');
+  // };
 
 
 

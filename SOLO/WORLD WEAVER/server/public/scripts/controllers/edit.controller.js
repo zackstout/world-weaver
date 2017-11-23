@@ -9,6 +9,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   };
 
   vm.world = EditService.editingWorld;
+  vm.newWorld = EditService.newWorld;
   console.log(vm.world);
 
   vm.moving = false;

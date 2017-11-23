@@ -11,6 +11,7 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
 
   vm.editWorld = function(world) {
     console.log(world);
+    EditService.newWorld = false;
     EditService.editWorld(world);
 
   };
