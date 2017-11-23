@@ -3,6 +3,7 @@ myApp.service('WorldService', function($http, $location){
   console.log('WorldService Loaded');
   var self = this;
   self.world = {};
+  self.editWorld = {};
 
 
   self.postFinish = function(fin) {
@@ -55,6 +56,30 @@ myApp.service('WorldService', function($http, $location){
     });
 
   };
+
+  self.play3 = function(world) {
+    console.log('hi', world);
+    //can we just change this?
+    self.world.world = world;
+    self.world.obstacles = world.obstacles;
+    console.log('yooo', self.world);
+
+    $location.path('/playing');
+
+    $http.post('/more/stats2', world).then(function(response) {
+      console.log("good job friendo");
+    }).catch(function(err) {
+      console.log('nuts');
+    });
+
+  };
+
+  self.editWorld = function(world) {
+    console.log(world);
+    self.editWorld = world;
+    $location.path('/edit');
+  };
+
 
 
 });

@@ -8,7 +8,7 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
   console.log(myCanvas);
   if (myCanvas.length !== 0) {
     for (var l=0; l<myCanvas.length; l++) {
-      myCanvas[l].style.display = 'none';
+      myCanvas[l].remove();
     }
   }
 
@@ -22,16 +22,31 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
   // vm.allWorlds = [];
   // vm.allWorldIds = [];
   // vm.allObstacles = [];
+  vm.faveIds = [];
 
 
   vm.userService = UserService;
 
 //we're gonna have to implement a service to go between the info and playing controllers:
-  vm.playWorld = function(world) {
+  vm.play2World = function(world) {
     WorldService.play2(world);
     // $location.path('/playing');
 
   };
+
+  vm.play3World = function(world) {
+    WorldService.play3(world);
+    // $location.path('/playing');
+
+  };
+
+  vm.editWorld = function(world) {
+    WorldService.editWorld(world);
+  };
+
+  //gonna have to be YET ANOTHER different one for the FAVES ......because that object isn't the same, i.e. doesn't have obstacles on it. Ughhhhhhh
+  //also auto-directly back to ALL, even when we've clicked into PLAY from the INFO page.....
+
 
   vm.getObstacles = function() {
     UserService.getObstacles().then(function(res) {
@@ -41,9 +56,30 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
         for (var j=0; j<vm.obstacles.length; j++) {
           if (vm.obstacles[j].world_id == vm.worldIds[i].id) {
             vm.worldIds[i].obstacles.push(vm.obstacles[j]);
+            // vm.faveIds[i].obstacles.push(vm.obstacles[j]);
           }
-        }
+
+          // else if (vm.obstacles[j].world_id == vm.faveIds[i].id) {
+          //   vm.faveIds[i].obstacles.push(vm.obstacles[j]);
+
+          }
+        // }
       }
+
+      for (var k=0; k<vm.faveIds.length; k++) {
+        for (var l=0; l<vm.obstacles.length; l++) {
+          if (vm.obstacles[l].world_id == vm.faveIds[k].id) {
+            vm.faveIds[k].obstacles.push(vm.obstacles[l]);
+            // vm.faveIds[i].obstacles.push(vm.obstacles[j]);
+          }
+
+          // else if (vm.obstacles[j].world_id == vm.faveIds[i].id) {
+          //   vm.faveIds[i].obstacles.push(vm.obstacles[j]);
+
+          }
+        // }
+      }
+
       console.log(vm.worldIds);
     });
   };
@@ -71,6 +107,7 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
           obstacles: []
         });
       }
+
       vm.getObstacles();
     });
   };
@@ -79,9 +116,30 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
 
 
 vm.getFaves = function() {
+  // vm.getWorlds();
   $http.get('/more/favorites2').then(function(response) {
+    // vm.getWorlds();
+
     vm.faves = response.data;
+
+    for (var j=0; j<vm.faves.length; j++) {
+      vm.faveIds.push({
+        id: vm.faves[j].id,
+        attempts: vm.faves[j].attempts,
+        // completions: vm.worlds[i].completions,
+        end_x: vm.faves[j].end_x,
+        end_y: vm.faves[j].end_y,
+        start_x: vm.faves[j].start_x,
+        start_y: vm.faves[j].start_y,
+        title: vm.faves[j].title,
+        obstacles: []
+      });
+    }
+
+    vm.getObstacles();
+
     console.log(vm.faves);
+    console.log(vm.faveIds);
     // console.log(self.worlds);
     // return response.data;
   }).catch(function(err) {

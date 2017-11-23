@@ -21,8 +21,8 @@
       <p>Favorited by: </p>
       <p>Best times:</p>
 
-      <button ng-click="ic.playWorld(world)">Play!</button>
-      <button ng-click="editWorld()">Edit!</button>
+      <button ng-click="ic.play2World(world)">Play!</button>
+      <button ng-click="ic.editWorld(world)">Edit!</button>
       <button ng-click="delWorld()">Delete!</button>
 
 
@@ -36,7 +36,7 @@
   <h4>My Favorite Worlds:</h4>
   <button ng-click="ic.getFaves()">Get 'em!</button>
   <br>
-  <div ng-repeat="fave in ic.faves | filter:searchText" class="favBox col-md-3 col-lg-3">
+  <div ng-repeat="fave in ic.faveIds | filter:searchText" class="favBox col-md-3 col-lg-3">
     <p>Title: {{fave.title}}, {{fave.id}}</p>
     <p>Cannon: ({{fave.start_x}}, {{fave.start_y}})</p>
     <p>Bucket: ({{fave.end_x}}, {{fave.end_y}})</p>
@@ -45,7 +45,7 @@
     <p>My best time:</p>
 
     <p></p>
-    <button ng-click="playWorld()">Play!</button>
+    <button ng-click="ic.play3World(fave)">Play!</button>
     <button ng-click="unFave()">Unfavorite :( </button>
 
   </div>
