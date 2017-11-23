@@ -1,5 +1,5 @@
 
-myApp.controller('InfoController', function(UserService, $http, $location, WorldService) {
+myApp.controller('InfoController', function(UserService, $http, $location, WorldService, EditService) {
   console.log('InfoController created');
   var vm = this;
 
@@ -40,8 +40,10 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
 
   };
 
+//VERY ODD!!!....only works once...:
   vm.editWorld = function(world) {
-    WorldService.editWorld(world);
+    console.log(world);
+    EditService.editWorld(world);
   };
 
   //gonna have to be YET ANOTHER different one for the FAVES ......because that object isn't the same, i.e. doesn't have obstacles on it. Ughhhhhhh

@@ -1,5 +1,5 @@
 
-myApp.controller('SavedController', function(UserService, $http, $location, WorldService) {
+myApp.controller('SavedController', function(UserService, $http, $location, WorldService, EditService) {
   console.log('savedController created');
   var vm = this;
 
@@ -9,7 +9,9 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
   vm.obstaclesSaved = [];
   vm.savedWorldIds = [];
 
-  vm.editWorld = function() {
+  vm.editWorld = function(world) {
+    console.log(world);
+    EditService.editWorld(world);
 
   };
 

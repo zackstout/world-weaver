@@ -1,5 +1,5 @@
 
-myApp.controller('EditController', function(UserService, $mdDialog, WorldService) {
+myApp.controller('EditController', function(UserService, $mdDialog, WorldService, EditService) {
   console.log('IeditController created');
   var vm = this;
 
@@ -8,7 +8,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     doMatterStart();
   };
 
-  vm.world = WorldService.editWorld;
+  vm.world = EditService.editingWorld;
   console.log(vm.world);
 
   vm.moving = false;
