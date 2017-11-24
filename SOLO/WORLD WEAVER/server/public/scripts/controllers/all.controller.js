@@ -165,6 +165,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
       console.log(response.data);
       vm.getAllWorlds();
       vm.getMyFaves();
+      setTimeout(logCanvas, 200);
 
     }).catch(function (err) {
       console.log(error);
@@ -179,6 +180,8 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
       //yeah shoot, if we DON'T call getAllWorlds, then we don't see the change....but if we do, user gets taken to top of page:
       vm.getAllWorlds();
       vm.getMyFaves();
+      setTimeout(logCanvas, 200);
+
     }).catch(function(error) {
       console.log('nuts');
     });
@@ -196,7 +199,35 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
     console.log(can);
     for (var i=0; i<can.length;i++) {
       var canvas = can[i];
+      // console.log(canvas.id.slice(6));
+      var canvasId = canvas.id.slice(6);
+
       var ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = 'lightblue';
+      ctx.fillRect(0,0,270,200);
+
+
+      for (var j=0; j<vm.allWorldIds.length; j++) {
+        if (vm.allWorldIds[j].id == canvasId) {
+          // console.log(vm.allWorldIds[j]);
+          var cannonX = vm.allWorldIds[j].world.start_x/3;
+          var cannonY = vm.allWorldIds[j].world.start_y/3;
+          var bucketX = vm.allWorldIds[j].world.end_x/3;
+          var bucketY = vm.allWorldIds[j].world.end_y/3;
+          // console.log(cannonX, cannonY, bucketX, bucketY);
+
+          //draw cannon and bucket:
+          ctx.fillStyle = 'yellow';
+          //it's x, y, width, height:
+          ctx.fillRect(cannonX-8, cannonY-4, 16, 8);
+          ctx.fillStyle = 'green';
+          ctx.fillRect(bucketX-5, bucketY-5, 10, 10);
+
+          // ctx.moveTo()
+        }
+      }
+
       //draw border:
       ctx.moveTo(0,0);
       ctx.lineTo(0,200);
@@ -214,11 +245,10 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
       ctx.lineTo(0,200);
       ctx.stroke();
 
-
     }
   }
 
-  setTimeout(logCanvas, 2000);
+  setTimeout(logCanvas, 200);
 
 
   //

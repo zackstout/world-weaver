@@ -12,15 +12,17 @@
 
     <p>Author: {{world.world.username}}</p>
     <p>Title: {{world.world.title}}, {{world.id}}
-    <p>Cannon: ({{world.world.start_x}}, {{world.world.start_y}})</p>
+    <!-- <p>Cannon: ({{world.world.start_x}}, {{world.world.start_y}})</p> -->
 
     <!-- <p>Cannon-y: </p> -->
 
-    <p>Bucket: ({{world.world.end_x}}, {{world.world.end_y}})</p>
+    <!-- <p>Bucket: ({{world.world.end_x}}, {{world.world.end_y}})</p> -->
     <!-- <p>Bucket-y: {{world.world.end_y}}</p> -->
     <p>Views: {{world.world.attempts}}</p>
     <p>Favorites: {{world.favs}}</p>
     <p>Completions: {{world.completions}}</p>
+    <p>Best times:</p>
+
     <div ng-repeat="completion in world.compList | orderBy: 'time' | limitTo: 3">
       <ul>
         <li>{{completion.username}}: {{completion.time}} sec.</li>

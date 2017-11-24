@@ -3,11 +3,52 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
 
   // window.onload = function() {
-    console.log('playingController created');
+  console.log('playingController created');
   var vm = this;
   vm.world = [];
   vm.count = 0;
   vm.origin = WorldService.origin;
+  vm.done = false;
+
+
+
+  // vm.showAlert = function(ev) {
+  //   // Appending dialog to document.body to cover sidenav in docs app
+  //   // Modal dialogs should fully cover application
+  //   // to prevent interaction outside of dialog
+  //   $mdDialog.show(
+  //     $mdDialog.alert()
+  //     // .parent(angular.element(document.querySelector('#popupContainer')))
+  //     .clickOutsideToClose(true)
+  //     .title('Level completed in ' + vm.now + ' seconds!')
+  //     // .textContent('You can specify some description text in here.')
+  //     .ariaLabel('Alert Dialog Demo')
+  //     .ok('Awesome')
+  //     .targetEvent(ev)
+  //   );
+  // };
+
+
+      vm.showConfirm = function(ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+        .clickOutsideToClose(true)
+
+        .title('Level completed in ' + vm.now + ' seconds!')
+        // .textContent('May weaving bring you peace.')
+        .ariaLabel('Lucky day')
+        .targetEvent(ev)
+        .ok('Awesome');
+        // .cancel('SAVED WORLD');
+
+        $mdDialog.show(confirm).then(function() {
+          // vm.status = 'A new world it shall be!';
+          vm.goHome();
+        }, function() {
+          // vm.status = 'Let\'s grab your saved worlds...';
+          vm.goHome();
+        });
+      };
 
 
   vm.goHome = function() {
@@ -31,7 +72,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
   doMatterStart();
 
 
-//ok this is not working:
+  //ok this is not working:
   vm.reset = function() {
     myCanvas = document.getElementsByTagName("canvas");
     console.log(myCanvas);
@@ -99,7 +140,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
 
 
-//ok it does work, as long as we don't start on the PLAYING page without any info from the service:
+    //ok it does work, as long as we don't start on the PLAYING page without any info from the service:
     if (world1.start_x != undefined) {
       cannon = Bodies.rectangle(world1.start_x, world1.start_y, 40, 20, {isStatic: true});
       bucket = Bodies.rectangle(world1.end_x, world1.end_y, 30, 30, {isStatic: true});
@@ -123,43 +164,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       vm.count++;
     });
 
-    vm.showAlert = function(ev) {
-    // Appending dialog to document.body to cover sidenav in docs app
-    // Modal dialogs should fully cover application
-    // to prevent interaction outside of dialog
-    $mdDialog.show(
-      $mdDialog.alert()
-        // .parent(angular.element(document.querySelector('#popupContainer')))
-        .clickOutsideToClose(true)
-        .title('Level completed in ' + vm.now + ' seconds!')
-        // .textContent('You can specify some description text in here.')
-        .ariaLabel('Alert Dialog Demo')
-        .ok('Awesome')
-        .targetEvent(ev)
-    );
-  };
 
-
-  vm.showConfirm = function(ev) {
-    // Appending dialog to document.body to cover sidenav in docs app
-    var confirm = $mdDialog.confirm()
-          .clickOutsideToClose(true)
-
-          .title('Level completed in ' + vm.now + ' seconds!')
-          // .textContent('May weaving bring you peace.')
-          .ariaLabel('Lucky day')
-          .targetEvent(ev)
-          .ok('Awesome');
-          // .cancel('SAVED WORLD');
-
-    $mdDialog.show(confirm).then(function() {
-      // vm.status = 'A new world it shall be!';
-      vm.goHome();
-    }, function() {
-      // vm.status = 'Let\'s grab your saved worlds...';
-      vm.goHome();
-    });
-  };
 
 
     Events.on(engine, 'collisionStart', function(event) {
@@ -171,10 +176,16 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
           console.log('collision dog <3', vm.now);
 
 
-          vm.showConfirm(event);
-          finish.time = vm.now;
-          finish.complete = true;
-          WorldService.postFinish(finish);
+
+          if (vm.done == false) {
+            vm.showConfirm(event);
+            finish.time = vm.now;
+            finish.complete = true;
+            WorldService.postFinish(finish);
+          }
+
+          vm.done = true;
+
 
           //this works...but it really seems like we should be able to target the "Click" or "Close" events.....
           // setTimeout(vm.goHome, 1200);
@@ -186,13 +197,13 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
         else if (pair.bodyB === bucket) {
           console.log('whatup');
 
-          //mdDialog here though it doesn't seem to ever run this..
+          //mdDialog here though it doesn't seem to ever run this.. HOW ODD!
 
 
 
           // world.gravity.y = -world.gravity.y;
         }
-}
+      }
     });
 
 
@@ -238,5 +249,5 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
 
   }
-// };
+  // };
 });

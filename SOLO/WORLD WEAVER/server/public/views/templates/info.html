@@ -21,6 +21,9 @@
       <p>Favorited by: </p>
       <p>Best times:</p>
 
+      <canvas height=200 width=270 id="mine{{world.id}}"></canvas>
+
+
       <button ng-click="ic.play2World(world)">Play!</button>
       <button ng-click="ic.editWorld(world)">Edit!</button>
       <button ng-click="delWorld()">Delete!</button>
@@ -43,6 +46,9 @@
     <p>Attempts: {{fave.attempts}}</p>
     <p>Completions: </p>
     <p>My best time:</p>
+
+    <canvas height=200 width=270 id="fav{{world.id}}"></canvas>
+
 
     <p></p>
     <button ng-click="ic.play3World(fave)">Play!</button>

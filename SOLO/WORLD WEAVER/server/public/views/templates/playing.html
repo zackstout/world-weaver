@@ -9,12 +9,14 @@
     </screenshot> -->
   </p>
 
-  <button ng-click="pc.reset()">Reset</button>
+  <!-- <button ng-click="pc.reset()">Reset</button> -->
   <br><br>
   <button ng-click="pc.goHome()">Give up</button>
   <br><br>
 
+<div ng-hide="pc.done">
   TIME: {{pc.now}}
+</div>
   <br><br>
   SHOTS: {{pc.count}}
   <br><br>

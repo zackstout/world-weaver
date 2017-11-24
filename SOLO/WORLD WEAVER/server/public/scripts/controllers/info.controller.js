@@ -82,6 +82,10 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
 
   vm.getWorlds = function() {
     // UserService.getuser();
+    setTimeout(logCanvas, 200);
+    // logCanvas();
+    // logCanvas();
+
     vm.worldIds = [];
     UserService.getWorlds().then(function(res) {
       vm.worlds = res;
@@ -113,6 +117,9 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
 
   vm.getFaves = function() {
     // vm.getWorlds();
+    setTimeout(logCanvas, 200);
+    // logCanvas();
+
     $http.get('/more/favorites2').then(function(response) {
       // vm.getWorlds();
 
@@ -155,6 +162,51 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
       console.log('nuts');
     });
   };
+
+
+
+  function logCanvas() {
+    var can = document.getElementsByTagName("canvas");
+    console.log(can);
+    for (var i=0; i<can.length;i++) {
+      var canvas = can[i];
+      // console.log(canvas.id.slice(6));
+      // var canvasId = canvas.id.slice(6);
+
+      // for (var j=0; j<vm.allWorldIds.length; j++) {
+      //   if (vm.allWorldIds[j].id == canvasId) {
+      //     console.log(vm.allWorldIds[j]);
+      //
+      //   }
+      // }
+
+      var ctx = canvas.getContext("2d");
+      ctx.fillStyle = 'blue';
+      ctx.fillRect(0,0,270,200);
+      //draw border:
+      ctx.moveTo(0,0);
+      ctx.lineTo(0,200);
+      ctx.stroke();
+
+      ctx.moveTo(0,0);
+      ctx.lineTo(270,0);
+      ctx.stroke();
+
+      ctx.moveTo(270,0);
+      ctx.lineTo(270,200);
+      ctx.stroke();
+
+      ctx.moveTo(270,200);
+      ctx.lineTo(0,200);
+      ctx.stroke();
+
+
+    }
+  }
+
+  // setTimeout(logCanvas, 1000);
+
+
 
 
   //Hmmmm.....in order for user to delete their own world, will need to delete all
