@@ -93,42 +93,5 @@ myApp.config(function($routeProvider, $locationProvider) {
   // WorldService.getWorld();
 });
 
-//
-// var Engine = Matter.Engine;
-// var World = Matter.World;
-// var Bodies = Matter.Bodies;
-// var Render = Matter.Render;
-// var engine;
-//
-// var world;
-// var box1 = Bodies.rectangle(200, 100, 20, 20);
-//
-// // engine = Engine.create();
-// // var render = Render.create({
-// //     element: document.body,
-// //     engine: engine
-// // });
-// // world = engine.world;
-//
-// // World.add(world, box1);
-// //
-// // Engine.run(engine);
-//
-//
-// // Render.run(render);
-//
-// function setup() {
-//   var canvas = createCanvas(1000,1000);
-//   engine = Engine.create();
-//   world = engine.world;
-//   Engine.run(engine);
-//
-//   World.add(world, box1);
-//
-// }
-//
-// function draw() {
-//   background(180);
-//   rect(box1.position.x,box1.position.y, 20, 20);
-//
-// }
+
+//OK ALSO WANT TO:

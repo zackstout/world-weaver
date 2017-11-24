@@ -6,6 +6,37 @@ One Paragraph of project description goes here. Link to the live version of the 
 
 List technologies and frameworks here
 
+
+
+
+## GOALS:
+
+-add completions etc to FAVES and MYWORLDS
+-finesse timing to tenth of a second
+-get MY best time for FAVES
+-figure a better way to freeze the timer on completion
+-figure out why things break on page refresh sometimes
+-figure out why Views aren't saving the data, like where you've pulled a slider to
+-let a user delete their own levels: ASK HOLLY how she did this in queries (nested??)
+-figure out user permissions for the first five levels, look into image overlays (of a lock!)
+-look into coloring things individually with Matter.Render
+
+
+STRETCH: implement MAGNETS, ZONES OF GRAVITY, FLYERS (for real, no bugs), SUPER-BOUNCE, STICKINESS
+
+CORE:
+-Build a few levels
+
+-Editing interface.......yeah
+
+-Styling (cards?)
+
+-Organize code (routers, services,....etc.)
+
+
+
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.

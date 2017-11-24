@@ -181,7 +181,7 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
       // }
 
       var ctx = canvas.getContext("2d");
-      ctx.fillStyle = 'blue';
+      ctx.fillStyle = 'lightblue';
       ctx.fillRect(0,0,270,200);
       //draw border:
       ctx.moveTo(0,0);
