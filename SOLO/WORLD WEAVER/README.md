@@ -22,9 +22,14 @@ List technologies and frameworks here
 -look into coloring things individually with Matter.Render
 
 
-STRETCH: implement MAGNETS, ZONES OF GRAVITY, FLYERS (for real, no bugs), SUPER-BOUNCE, STICKINESS
+### STRETCH:
+-implement MAGNETS
+-ZONES OF GRAVITY
+-FLYERS (for real, no bugs)
+-SUPER-BOUNCE
+-STICKINESS
 
-CORE:
+### CORE:
 -Build a few levels
 
 -Editing interface.......yeah
