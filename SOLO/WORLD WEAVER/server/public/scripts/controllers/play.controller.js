@@ -20,6 +20,12 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     type: 'rect'
   };
 
+  vm.showObst = false;
+
+  vm.showObstacle = function() {
+    vm.showObst = !vm.showObst;
+  };
+
   var canvas = document.getElementById('hi');
   console.log(canvas);
 
@@ -35,17 +41,28 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     ctx.fillRect(vm.newWorld.start_x, vm.newWorld.start_y, 40, 20);
     ctx.fillStyle = 'green';
     ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
+    // console.log('before showobst');
+    if (vm.showObst) {
+      // console.log('in showobst');
+      ctx.fillStyle = 'red';
+      // ctx.fillRect(vm.newObstacle.x, vm.newObstacle.y, vm.newObstacle.h, vm.newObstacle.w);
+      ctx.fillRect(vm.newObstacle.x, vm.newObstacle.y, 30, 30);
 
+    }
 
   }
 
-  function changeBucket() {
-    // ctx.fillStyle = 'lightblue';
-    // ctx.fillRect(0,0,800,600);
-    ctx.fillStyle = 'green';
-    ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
-
-  }
+  // function changeObstacle() {
+  //   ctx.fillStyle = 'lightblue';
+  // }
+  //
+  // function changeBucket() {
+  //   // ctx.fillStyle = 'lightblue';
+  //   // ctx.fillRect(0,0,800,600);
+  //   ctx.fillStyle = 'green';
+  //   ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
+  //
+  // }
 
   function resetCanvas() {
     ctx.fillStyle = 'lightblue';

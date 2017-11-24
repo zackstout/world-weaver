@@ -3,7 +3,7 @@
 <div class="container" id="canvasHolder">
   <p>
     In play
-    <button ng-click="pc.capture()">Capture!</button>
+    <!-- <button ng-click="pc.capture()">Capture!</button> -->
 
   </p>
 
@@ -11,8 +11,8 @@
   <br><br>
 
   <button ng-click="pc.getWorld()">Get it</button>
-  <br><br>
-  <button ng-click="pc.addWorld(pc.newWorld)">Add it to DB</button>
+  <!-- <br><br> -->
+  <!-- <button ng-click="pc.addWorld(pc.newWorld)">Add it to DB</button> -->
   <br><br>
   <button ng-click="pc.saveWorld(pc.newWorld)">Save for Later</button>
 
@@ -23,7 +23,7 @@
     <div class="col-lg-3 col-md-3">
   <md-slider-container>
         <span>Cannon-x</span>
-        <md-slider flex min="50" max="750" ng-model="pc.newWorld.start_x" aria-label="red" class="md-primary">
+        <md-slider flex min="50" max="750" ng-model="pc.newWorld.start_x" aria-label="startx" class="md-primary">
         </md-slider>
         <md-input-container>
           <input flex type="number" ng-model="pc.newWorld.start_x" aria-label="startx" aria-controls="startx-slider">
@@ -71,6 +71,70 @@
 </div>
 </form>
 <br><br>
+
+ADD AN OBSTACLE:
+<button ng-click="pc.showObstacle()">New obstacle</button>
+
+
+<form ng-submit="pc.addObstacle(pc.newObstacle)" ng-show="pc.showObst">
+<!-- Start x: <input type="number" ng-model="pc.newWorld.start_x"> -->
+<div class="row">
+  <div class="col-lg-3 col-md-3">
+<md-slider-container>
+      <span>Cannon-x</span>
+      <md-slider flex min="50" max="750" ng-model="pc.newObstacle.x" aria-label="obstx" class="md-primary">
+      </md-slider>
+      <md-input-container>
+        <input flex type="number" ng-model="pc.newObstacle.x" aria-label="obstx" aria-controls="obstx-slider">
+      </md-input-container>
+    </md-slider-container>
+  </div>
+<!-- Start y: <input type="number" ng-model="pc.newWorld.start_y"> -->
+<div class="col-lg-3 col-md-3">
+
+<md-slider-container>
+      <span>Cannon-y</span>
+      <md-slider flex min="50" max="550" ng-model="pc.newObstacle.y" aria-label="obsty" class="md-primary">
+      </md-slider>
+      <md-input-container>
+        <input flex type="number" ng-model="pc.newObstacle.y" aria-label="obsty" aria-controls="obsty-slider">
+      </md-input-container>
+    </md-slider-container>
+
+  </div>
+<!-- End x: <input type="number" ng-model="pc.newWorld.end_x"> -->
+<div class="col-lg-3 col-md-3">
+
+<md-slider-container>
+      <span>Bucket-x</span>
+      <md-slider flex min="50" max="750" ng-model="pc.newObstacle.h" aria-label="obsth" class="md-primary">
+      </md-slider>
+      <md-input-container>
+        <input flex type="number" ng-model="pc.newObstacle.h" aria-label="obsth" aria-controls="obsth-slider">
+      </md-input-container>
+    </md-slider-container>
+  </div>
+<!-- End y: <input type="number" ng-model="pc.newWorld.end_y"> -->
+<div class="col-lg-3 col-md-3">
+
+<md-slider-container>
+      <span>Bucket-y</span>
+      <md-slider flex min="50" max="550" ng-model="pc.newObstalce.w" aria-label="obstw" class="md-primary">
+      </md-slider>
+      <md-input-container>
+        <input flex type="number" ng-model="pc.newObstalce.w" aria-label="obstw" aria-controls="obstw-slider">
+      </md-input-container>
+    </md-slider-container>
+  </div>
+<input type="submit">
+</div>
+</form>
+
+
+
+
+
+<!--
 <form ng-submit="pc.addObstacle(pc.newObstacle)">
   Center-x: <input type="number" ng-model="pc.newObstacle.x">
   Center-y: <input type="number" ng-model="pc.newObstacle.y">
@@ -79,7 +143,9 @@
   Type ('rect' or 'circle'): <input type="text" ng-model="pc.newObstacle.type">
 
   <input type="submit">
-</form>
+</form> -->
+
+
   <br><br>
   <div ng-repeat="obstacle in pc.newWorld.obstacles">
     {{obstacle}}

@@ -11,7 +11,7 @@ List technologies and frameworks here
 
 ## GOALS:
 
-- add completions etc to FAVES and MYWORLDS
+- add completions etc to FAVES and MYWORLDS (and default to 0)
 - finesse timing to tenth of a second
 - get MY best time for FAVES
 - figure a better way to freeze the timer on completion
@@ -24,6 +24,9 @@ List technologies and frameworks here
 - EDIT should keep track of whether user came from MY WORLDS (vs saved worlds), because in that case should be a post rather than a put route, i think
 - Should be two buttons in EDIT: SAVE and POST (which takes to Titling modal)
 - Make cards clickable so you can blow them up to like double size and center in screen
+- to start we could just do an ng-show on the NEW OBSTACLE thing rather than a modal, to avoid the new-controller problem that everyone seems to be having
+- finish drawing onto all the canvases stuff, for FAVES and MYWORLDS, and add OBSTACLES, etc.... (angles will be slightly tricky, will need matrices??)
+- what's up with force bar bug??
 
 
 
