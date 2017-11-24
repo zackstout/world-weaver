@@ -20,11 +20,39 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     type: 'rect'
   };
 
+  var canvas = document.getElementById('hi');
+  console.log(canvas);
+
+  var ctx = canvas.getContext("2d");
+  ctx.fillStyle = 'lightblue';
+  ctx.fillRect(0,0,800,600);
+
+
+  function changeCannon() {
+    // ctx.fillStyle = 'lightblue';
+    // ctx.fillRect(0,0,800,600);
+    ctx.fillStyle = 'yellow';
+    ctx.fillRect(vm.newWorld.start_x, vm.newWorld.start_y, 40, 20);
+
+  }
+
+  function changeBucket() {
+    // ctx.fillStyle = 'lightblue';
+    // ctx.fillRect(0,0,800,600);
+    ctx.fillStyle = 'green';
+    ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
+
+  }
+
+  setInterval(changeCannon, 50);
+  setInterval(changeBucket, 50);
+
+
   vm.status = '';
 
   vm.showPrompt = function(ev) {
-  // Appending dialog to document.body to cover sidenav in docs app
-  var confirm = $mdDialog.prompt()
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog.prompt()
     .title('Has your world a name?')
     // .textContent('Bowser is a common name.')
     .placeholder('King\'s Keep')
@@ -35,15 +63,15 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     .ok('Post World!')
     .cancel('Untitled');
 
-  $mdDialog.show(confirm).then(function(result) {
-    vm.status = 'You decided to name your dog ' + result + '.';
-    // console.log(vm.newWorld);
-    vm.newWorld.title = result;
-    UserService.addWorld(vm.newWorld);
-  }, function() {
-    vm.status = 'You didn\'t name your dog.';
-  });
-};
+    $mdDialog.show(confirm).then(function(result) {
+      vm.status = 'You decided to name your dog ' + result + '.';
+      // console.log(vm.newWorld);
+      vm.newWorld.title = result;
+      UserService.addWorld(vm.newWorld);
+    }, function() {
+      vm.status = 'You didn\'t name your dog.';
+    });
+  };
 
   //so strange....for now i'm just going to move the request into the service:
   //could prob also solve this with promises like we did with the GET routes, connecting the service to the Info Controller;

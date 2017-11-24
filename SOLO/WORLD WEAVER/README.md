@@ -20,6 +20,12 @@ List technologies and frameworks here
 - let a user delete their own levels: ASK HOLLY how she did this in queries (nested??)
 - figure out user permissions for the first five levels, look into image overlays (of a lock!)
 - look into coloring things individually with Matter.Render
+- BUG: when you search for a second thing, the canvases won't show up anymore! (perhaps this is a disadvantage of the illusory simplicity of | filter .... )
+- EDIT should keep track of whether user came from MY WORLDS (vs saved worlds), because in that case should be a post rather than a put route, i think
+- Should be two buttons in EDIT: SAVE and POST (which takes to Titling modal)
+- Make cards clickable so you can blow them up to like double size and center in screen
+
+
 
 
 ### STRETCH:
@@ -28,6 +34,7 @@ List technologies and frameworks here
 - FLYERS (for real, no bugs)
 - SUPER-BOUNCE
 - STICKINESS
+- FIX PORTALS
 
 ### CORE:
 - Build a few levels
