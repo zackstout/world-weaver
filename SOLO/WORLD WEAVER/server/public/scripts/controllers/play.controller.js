@@ -29,22 +29,22 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
 
 
   function changeCannon() {
-    // ctx.fillStyle = 'lightblue';
-    // ctx.fillRect(0,0,800,600);
+    ctx.fillStyle = 'lightblue';
+    ctx.fillRect(0,0,800,600);
     ctx.fillStyle = 'yellow';
     ctx.fillRect(vm.newWorld.start_x, vm.newWorld.start_y, 40, 20);
 
   }
 
   function changeBucket() {
-    // ctx.fillStyle = 'lightblue';
-    // ctx.fillRect(0,0,800,600);
+    ctx.fillStyle = 'lightblue';
+    ctx.fillRect(0,0,800,600);
     ctx.fillStyle = 'green';
     ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
 
   }
 
-  setInterval(changeCannon, 50);
+  setInterval(changeCannon, 60);
   setInterval(changeBucket, 50);
 
 
