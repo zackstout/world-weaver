@@ -129,7 +129,11 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     //can we affect how large it is, where it is, here?
     var render = Render.create({
       element: document.body,
-      engine: engine
+      engine: engine,
+      options: {
+        showShadows: true,
+        wireframes: false
+      }
     });
 
     //rotate the cannon:
@@ -176,7 +180,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
           console.log('collision dog <3', vm.now);
 
 
-
+//huh, can't capitalize false, that's kind of disappointing:
           if (vm.done == false) {
             vm.showConfirm(event);
             finish.time = vm.now;
