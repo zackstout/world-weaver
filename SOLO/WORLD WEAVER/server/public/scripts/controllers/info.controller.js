@@ -157,5 +157,9 @@ myApp.controller('InfoController', function(UserService, $http, $location, World
   };
 
 
+  //Hmmmm.....in order for user to delete their own world, will need to delete all
+  //RUNS, FAVORITES, OBSTACLES for that world.
+
+
 
 });

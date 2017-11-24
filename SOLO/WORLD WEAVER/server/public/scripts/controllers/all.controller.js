@@ -17,6 +17,8 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
     }
   }
 
+
+
   vm.playWorld = function(world) {
     WorldService.play(world);
     WorldService.origin = 'all';
@@ -44,7 +46,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
 
   vm.getCompletionsList = function() {
     $http.get('/more/completions/list').then(function(response) {
-      console.log(response.data);
+      // console.log(response.data);
       var compsList = response.data;
 
       for (var i=0; i<vm.allWorldIds.length; i++) {
@@ -186,6 +188,37 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
   vm.getAllWorlds();
   vm.getMyFaves();
 
+
+  //why can't i get this to work?????
+
+  function logCanvas() {
+    var can = document.getElementsByTagName("canvas");
+    console.log(can);
+    for (var i=0; i<can.length;i++) {
+      var canvas = can[i];
+      var ctx = canvas.getContext("2d");
+      //draw border:
+      ctx.moveTo(0,0);
+      ctx.lineTo(0,200);
+      ctx.stroke();
+
+      ctx.moveTo(0,0);
+      ctx.lineTo(270,0);
+      ctx.stroke();
+
+      ctx.moveTo(270,0);
+      ctx.lineTo(270,200);
+      ctx.stroke();
+
+      ctx.moveTo(270,200);
+      ctx.lineTo(0,200);
+      ctx.stroke();
+
+
+    }
+  }
+
+  setTimeout(logCanvas, 2000);
 
 
   //
