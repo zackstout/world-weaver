@@ -33,19 +33,28 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     ctx.fillRect(0,0,800,600);
     ctx.fillStyle = 'yellow';
     ctx.fillRect(vm.newWorld.start_x, vm.newWorld.start_y, 40, 20);
+    ctx.fillStyle = 'green';
+    ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
+
 
   }
 
   function changeBucket() {
-    ctx.fillStyle = 'lightblue';
-    ctx.fillRect(0,0,800,600);
+    // ctx.fillStyle = 'lightblue';
+    // ctx.fillRect(0,0,800,600);
     ctx.fillStyle = 'green';
     ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
 
   }
 
-  setInterval(changeCannon, 60);
-  setInterval(changeBucket, 50);
+  function resetCanvas() {
+    ctx.fillStyle = 'lightblue';
+    ctx.fillRect(0,0,800,600);
+  }
+
+  setInterval(changeCannon, 22);
+  // setInterval(changeBucket, 25);
+  // setInterval(resetCanvas, 20);
 
 
   vm.status = '';
