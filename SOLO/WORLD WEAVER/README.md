@@ -11,7 +11,26 @@ List technologies and frameworks here
 
 ## GOALS:
 
+### HIGHEST PRIORITY
+- fix editing interface: the obstacles you see yourself drawing must be the same as the obstacles that get added to the world
+
+ok so it thinks the center is where the upper left of canvas was: e.g. (500, 100)...
+then it flips width and height. So you intended it to start with left upper at (500, 100), but it shows up as having its center there. The math here is easy.
+
+### HIGH PRIORITY
 - add completions etc to FAVES and MYWORLDS (and default to 0)
+- look into coloring things individually with Matter.Render
+- EDIT should keep track of whether user came from MY WORLDS (vs saved worlds), because in that case should be a post rather than a put route, i think
+- Should be two buttons in EDIT: SAVE and POST (which takes to Titling modal)
+- to start we could just do an ng-show on the NEW OBSTACLE thing rather than a modal, to avoid the new-controller problem that everyone seems to be having
+- finish drawing onto all the canvases stuff, for FAVES and MYWORLDS, and add OBSTACLES, etc.... (angles will be slightly tricky, will need matrices??)
+- add two kinds of simulation button: with cannonballs, or with many random balls
+- add ORDERBY to mYWORLDS AND FAVS so that they show up in same order always, as with all worlds
+
+
+
+### LOW PRIORITY
+- Make cards clickable so you can blow them up to like double size and center in screen
 - finesse timing to tenth of a second
 - get MY best time for FAVES
 - figure a better way to freeze the timer on completion
@@ -19,16 +38,10 @@ List technologies and frameworks here
 - figure out why Views aren't saving the data, like where you've pulled a slider to
 - let a user delete their own levels: ASK HOLLY how she did this in queries (nested??)
 - figure out user permissions for the first five levels, look into image overlays (of a lock!)
-- look into coloring things individually with Matter.Render
 - BUG: when you search for a second thing, the canvases won't show up anymore! (perhaps this is a disadvantage of the illusory simplicity of | filter .... )
-- EDIT should keep track of whether user came from MY WORLDS (vs saved worlds), because in that case should be a post rather than a put route, i think
-- Should be two buttons in EDIT: SAVE and POST (which takes to Titling modal)
-- Make cards clickable so you can blow them up to like double size and center in screen
-- to start we could just do an ng-show on the NEW OBSTACLE thing rather than a modal, to avoid the new-controller problem that everyone seems to be having
-- finish drawing onto all the canvases stuff, for FAVES and MYWORLDS, and add OBSTACLES, etc.... (angles will be slightly tricky, will need matrices??)
 - what's up with force bar bug??
 
-
+- one way of introducing puzzles (without portals) would be "have to do x y number of times" or something
 
 
 ### STRETCH:

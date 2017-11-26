@@ -15,8 +15,8 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
   vm.newObstacle = {
     x: 0,
     y: 0,
-    h: 0,
-    w: 0,
+    h: 10,
+    w: 10,
     type: 'rect'
   };
 
@@ -45,9 +45,21 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     if (vm.showObst) {
       // console.log('in showobst');
       ctx.fillStyle = 'red';
-      // ctx.fillRect(vm.newObstacle.x, vm.newObstacle.y, vm.newObstacle.h, vm.newObstacle.w);
-      ctx.fillRect(vm.newObstacle.x, vm.newObstacle.y, 30, 30);
+      var x = vm.newObstacle.x, y = vm.newObstacle.y, w = vm.newObstacle.w, h = vm.newObstacle.h;
+      ctx.fillRect(x - w/2, y - h/2, w, h);
+      // ctx.fillRect(vm.newObstacle.x, vm.newObstacle.y, 30, 30);
 
+    }
+
+    // console.log(vm.newWorld.obstacles);
+    for (var i=0; i<vm.newWorld.obstacles.length; i++) {
+      ctx.fillStyle = 'pink';
+      var x1 = vm.newWorld.obstacles[i].x;
+      var y1 = vm.newWorld.obstacles[i].y;
+      var h1 = vm.newWorld.obstacles[i].h;
+      var w1 = vm.newWorld.obstacles[i].w;
+
+      ctx.fillRect(x1 - w1/2, y1 - h1/2, w1, h1);
     }
 
   }
@@ -69,7 +81,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     ctx.fillRect(0,0,800,600);
   }
 
-  setInterval(changeCannon, 22);
+  setInterval(changeCannon, 20);
   // setInterval(changeBucket, 25);
   // setInterval(resetCanvas, 20);
 
@@ -167,13 +179,18 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
   vm.addObstacle = function(obstacle) {
     console.log(obstacle);
     vm.newWorld.obstacles.push(obstacle);
+    vm.showObst = false;
+
+    //comment this out while working on interface:
+    // doMatterStart();
+
     //reset object to avoid over-data-binding:
-    doMatterStart();
+
     vm.newObstacle = {
       x: 0,
       y: 0,
-      h: 0,
-      w: 0,
+      h: 10,
+      w: 10,
       type: 'rect'
     };
   };
@@ -332,7 +349,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
 
 
 
-
+//wait when is this used?
 
   //for getting worlds from DB:
   function doMatter() {

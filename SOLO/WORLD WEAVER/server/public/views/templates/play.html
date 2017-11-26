@@ -81,7 +81,7 @@ ADD AN OBSTACLE:
 <div class="row">
   <div class="col-lg-3 col-md-3">
 <md-slider-container>
-      <span>Cannon-x</span>
+      <span>x-center:</span>
       <md-slider flex min="50" max="750" ng-model="pc.newObstacle.x" aria-label="obstx" class="md-primary">
       </md-slider>
       <md-input-container>
@@ -93,7 +93,7 @@ ADD AN OBSTACLE:
 <div class="col-lg-3 col-md-3">
 
 <md-slider-container>
-      <span>Cannon-y</span>
+      <span>y-center:</span>
       <md-slider flex min="50" max="550" ng-model="pc.newObstacle.y" aria-label="obsty" class="md-primary">
       </md-slider>
       <md-input-container>
@@ -106,7 +106,7 @@ ADD AN OBSTACLE:
 <div class="col-lg-3 col-md-3">
 
 <md-slider-container>
-      <span>Bucket-x</span>
+      <span>Height:</span>
       <md-slider flex min="50" max="750" ng-model="pc.newObstacle.h" aria-label="obsth" class="md-primary">
       </md-slider>
       <md-input-container>
@@ -118,11 +118,11 @@ ADD AN OBSTACLE:
 <div class="col-lg-3 col-md-3">
 
 <md-slider-container>
-      <span>Bucket-y</span>
-      <md-slider flex min="50" max="550" ng-model="pc.newObstalce.w" aria-label="obstw" class="md-primary">
+      <span>Width:</span>
+      <md-slider flex min="50" max="550" ng-model="pc.newObstacle.w" aria-label="obstw" class="md-primary">
       </md-slider>
       <md-input-container>
-        <input flex type="number" ng-model="pc.newObstalce.w" aria-label="obstw" aria-controls="obstw-slider">
+        <input flex type="number" ng-model="pc.newObstacle.w" aria-label="obstw" aria-controls="obstw-slider">
       </md-input-container>
     </md-slider-container>
   </div>
@@ -153,6 +153,7 @@ ADD AN OBSTACLE:
   <br><br>
 
   {{pc.now}}
+
   <br><br>
   <canvas id="hi" height="600px" width="800px"></canvas>
 
