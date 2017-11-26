@@ -125,6 +125,15 @@ ADD AN OBSTACLE:
         <input flex type="number" ng-model="pc.newObstacle.w" aria-label="obstw" aria-controls="obstw-slider">
       </md-input-container>
     </md-slider-container>
+
+    <md-slider-container>
+          <span>Angle:</span>
+          <md-slider flex min="-3.14" max="3.14" step="0.1" ng-model="pc.newObstacle.a" aria-label="obsta" class="md-primary">
+          </md-slider>
+          <md-input-container>
+            <input flex type="number" ng-model="pc.newObstacle.a" aria-label="obsta" aria-controls="obsta-slider">
+          </md-input-container>
+        </md-slider-container>
   </div>
 <input type="submit">
 </div>

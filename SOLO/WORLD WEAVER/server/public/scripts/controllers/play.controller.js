@@ -17,6 +17,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     y: 0,
     h: 10,
     w: 10,
+    a: 0,
     type: 'rect'
   };
 
@@ -46,7 +47,12 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
       // console.log('in showobst');
       ctx.fillStyle = 'red';
       var x = vm.newObstacle.x, y = vm.newObstacle.y, w = vm.newObstacle.w, h = vm.newObstacle.h;
-      ctx.fillRect(x - w/2, y - h/2, w, h);
+      ctx.translate(x, y);
+      ctx.rotate(vm.newObstacle.a);
+      ctx.fillRect(-w/2, -h/2, w, h);
+      ctx.rotate(-vm.newObstacle.a);
+      ctx.translate(-x, -y);
+
       // ctx.fillRect(vm.newObstacle.x, vm.newObstacle.y, 30, 30);
 
     }
