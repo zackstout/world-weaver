@@ -132,6 +132,8 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       engine: engine,
       options: {
         showShadows: true,
+
+        //this will add coloring but obliterate our force bar:
         // wireframes: false
       }
     });
