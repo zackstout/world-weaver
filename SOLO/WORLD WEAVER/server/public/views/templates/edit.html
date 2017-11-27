@@ -96,6 +96,7 @@ ADD AN OBSTACLE:
         <option value="circle">Circle</option>
 
       </select>
+
     </div>
     <div class="row">
   <div class="col-lg-3 col-md-3">
@@ -146,6 +147,10 @@ ADD AN OBSTACLE:
       </md-input-container>
     </md-slider-container>
 
+  </div>
+
+  <div class="col-lg-3 col-md-3">
+
     <md-slider-container ng-show="ec.newObstacle.type == 'rect'">
           <span>Angle:</span>
           <md-slider flex min="0" max="360" ng-model="ec.newObstacle.a" aria-label="obsta" class="md-primary">
@@ -158,6 +163,44 @@ ADD AN OBSTACLE:
 <input type="submit">
 </div>
 </form>
+
+<button ng-click="ec.showPortal()">New Portal</button>
+
+<form ng-show="ec.isNewPortal" ng-submit="ec.addPortal(ec.newPortal)">
+  <div class="row">
+    <div class="col-lg-3 col-md-3">
+
+      <md-slider-container>
+            <span>FIRST:</span>
+            <md-slider flex min="30" max="770" ng-model="ec.newPortal.y1" aria-label="port1" class="md-primary">
+            </md-slider>
+            <md-input-container>
+              <input flex type="number" ng-model="ec.newPortal.y1" aria-label="port1" aria-controls="port1-slider">
+            </md-input-container>
+          </md-slider-container>
+    </div>
+
+    <div class="col-lg-3 col-md-3">
+
+      <md-slider-container>
+            <span>SECOND:</span>
+            <md-slider flex min="30" max="770" ng-model="ec.newPortal.y2" aria-label="port2" class="md-primary">
+            </md-slider>
+            <md-input-container>
+              <input flex type="number" ng-model="ec.newPortal.y2" aria-label="port2" aria-controls="port2-slider">
+            </md-input-container>
+          </md-slider-container>
+
+          <input type="submit">
+    </div>
+
+
+
+  </div>
+
+</form>
+
+
 
 
   <br><br>

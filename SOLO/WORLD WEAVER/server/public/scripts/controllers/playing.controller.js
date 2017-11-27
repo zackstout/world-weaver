@@ -9,25 +9,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
   vm.count = 0;
   vm.origin = WorldService.origin;
   vm.done = false;
-
-
-
-  // vm.showAlert = function(ev) {
-  //   // Appending dialog to document.body to cover sidenav in docs app
-  //   // Modal dialogs should fully cover application
-  //   // to prevent interaction outside of dialog
-  //   $mdDialog.show(
-  //     $mdDialog.alert()
-  //     // .parent(angular.element(document.querySelector('#popupContainer')))
-  //     .clickOutsideToClose(true)
-  //     .title('Level completed in ' + vm.now + ' seconds!')
-  //     // .textContent('You can specify some description text in here.')
-  //     .ariaLabel('Alert Dialog Demo')
-  //     .ok('Awesome')
-  //     .targetEvent(ev)
-  //   );
-  // };
-
+  var newPortal = false;
 
       vm.showConfirm = function(ev) {
         // Appending dialog to document.body to cover sidenav in docs app
@@ -71,20 +53,6 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
   doMatterStart();
 
-  //
-  // //ok this is not working:
-  // vm.reset = function() {
-  //   myCanvas = document.getElementsByTagName("canvas");
-  //   console.log(myCanvas);
-  //   if (myCanvas.length !== 0) {
-  //     for (var l=0; l<myCanvas.length; l++) {
-  //       myCanvas[l].remove();
-  //     }
-  //   }
-  //   doMatterStart();
-  // };
-
-
   function doMatterStart() {
     // console.log(vm.newWorld.obstacles);
     console.log(WorldService.world);
@@ -96,7 +64,6 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       complete: false,
       worldId: WorldService.world.world.id
     };
-
 
     var Engine = Matter.Engine,
     Render = Matter.Render,
@@ -110,9 +77,6 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     var world = engine.world;
     // var obstacle, cannon, cannonball, bucket, x=0;
     var cannon, bucket, t=0, x=0;
-    // var box = Bodies.rectangle(100,100,100,100);
-    // World.add(world, box);
-
 
     var now = 0;
     vm.now = 0;
@@ -155,6 +119,42 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
 
 
+    Events.on(engine, 'collisionStart', function(event) {
+      var pairs = event.pairs;
+      for (var i = 0, j = pairs.length; i != j; i++) {
+        var pair = pairs[i];
+
+        //attempting portals:
+        if (newPortal) {
+        if (pair.bodyA === portal1) {
+          console.log(pair.bodyB, portal1);
+
+          Body.setPosition(pair.bodyB, {x: portal2.position.x, y: portal2.position.y});
+          // Body.setVelocity(pair.bodyB, {x: -10, y: 5});
+          newPortal = false;
+        }
+        else if (pair.bodyA === portal2) {
+          console.log(pair.bodyB, portal1);
+          Body.setPosition(pair.bodyB, {x: portal1.position.x, y: portal1.position.y});
+          // Body.setVelocity(pair.bodyB, {x: -10, y: 5});
+          newPortal = false;
+        }
+      }
+      }
+    });
+
+    var portals = WorldService.world.portals;
+
+    var portal1 = Bodies.circle(780, portals.y1, 15, { isStatic: true, isSensor: true });
+
+    //a pretty poor way of trying to rig reflecting portals (i.e. same-wall portals):
+    // var portal1wall = Bodies.rectangle(785, 210, 15, 60, { isStatic: true });
+    var portal2 = Bodies.circle(20, portals.y2, 15, { isStatic: true, isSensor: true });
+    // portal2 = Bodies.circle(780, 550, 15, { isStatic: true, isSensor: true });
+
+    World.add(world, [portal1, portal2]);
+
+
     //ok it does work, as long as we don't start on the PLAYING page without any info from the service:
     if (world1.start_x != undefined) {
       cannon = Bodies.rectangle(world1.start_x, world1.start_y, 40, 20, {isStatic: true});
@@ -177,6 +177,8 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       Body.applyForce(cannonball, {x: cannon.position.x, y: cannon.position.y}, {x: 0.04*Math.cos(cannon.angle)*(1+Math.sin(t)), y: 0.04*Math.sin(cannon.angle)*(1+Math.sin(t))});
 
       vm.count++;
+      newPortal = true;
+
     });
 
 
@@ -204,28 +206,13 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
           vm.done = true;
 
-
-          //this works...but it really seems like we should be able to target the "Click" or "Close" events.....
-          // setTimeout(vm.goHome, 1200);
-
-
-
-          // world.gravity.y = -world.gravity.y;
         }
         else if (pair.bodyB === bucket) {
           console.log('whatup');
 
-          //mdDialog here though it doesn't seem to ever run this.. HOW ODD!
-
-
-
-          // world.gravity.y = -world.gravity.y;
         }
       }
     });
-
-
-
 
 
     //add force level or "heat" bar:
@@ -244,8 +231,6 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     setInterval(moveHeat, 50);
 
 
-
-
     console.log(obstacles);
 
     //add obstacles:
@@ -258,7 +243,6 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       }
       World.add(world, [obstacle]);
     }
-
 
     //ahh yes, a few key ingredients we forgot:
     Engine.run(engine);

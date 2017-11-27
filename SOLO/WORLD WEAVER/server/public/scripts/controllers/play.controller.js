@@ -23,6 +23,7 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
   };
 
 
+//needed to prevent feedback loop of ball stuck between the two portals, figuratively:
   var newPortal = false;
 
   vm.showObst = false;
@@ -366,6 +367,10 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
       newPortal = true;
     });
 
+    var flyingBall;
+    function whereIsBall() {
+      console.log(flyingBall);
+    }
 
 
     //listen for collisions:
@@ -375,7 +380,7 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
         var pair = pairs[i];
         // console.log(pair);
         if (pair.bodyA === bucket) {
-          console.log('collision dog <3');
+          console.log('collision dog <3', pair.bodyB);
           // world.gravity.y = -world.gravity.y;
           // world.gravity.y=0;
         }
@@ -390,14 +395,17 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
 
         if (pair.bodyA === portal1) {
           console.log(pair.bodyB, portal1);
+          flyingBall = pair.bodyB;
+          setTimeout(whereIsBall, 100);
           Body.setPosition(pair.bodyB, {x: portal2.position.x, y: portal2.position.y});
           // Body.setVelocity(pair.bodyB, {x: -10, y: 5});
           newPortal = false;
-        } else if (pair.bodyB === portal1) {
-          console.log(pair.bodyA, portal1);
-          Body.setPosition(pair.bodyA, {x: portal2.position.x, y: portal2.position.y});
-          // Body.setVelocity(pair.bodyA, {x: -10, y: 5});
         }
+        // else if (pair.bodyB === portal1) {
+        //   console.log(pair.bodyA, portal1);
+        //   Body.setPosition(pair.bodyA, {x: portal2.position.x, y: portal2.position.y});
+        //   // Body.setVelocity(pair.bodyA, {x: -10, y: 5});
+        // }
 
         else if (pair.bodyA === portal2) {
           console.log(pair.bodyB, portal1);
@@ -405,11 +413,12 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
           // Body.setVelocity(pair.bodyB, {x: -10, y: 5});
           newPortal = false;
 
-        } else if (pair.bodyB === portal1) {
-          console.log(pair.bodyA, portal2);
-          Body.setPosition(pair.bodyA, {x: portal1.position.x, y: portal1.position.y});
-          // Body.setVelocity(pair.bodyA, {x: -10, y: 5});
         }
+        //  else if (pair.bodyB === portal1) {
+        //   console.log(pair.bodyA, portal2);
+        //   Body.setPosition(pair.bodyA, {x: portal1.position.x, y: portal1.position.y});
+        //   // Body.setVelocity(pair.bodyA, {x: -10, y: 5});
+        // }
       }
 
         // else if (pair.bodyA.position.x == 600) {
@@ -487,8 +496,11 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
 
     //attempting portals:
     portal1 = Bodies.circle(780, 200, 15, { isStatic: true, isSensor: true });
+
+    //a pretty poor way of trying to rig reflecting portals (i.e. same-wall portals):
+    // var portal1wall = Bodies.rectangle(785, 210, 15, 60, { isStatic: true });
     portal2 = Bodies.circle(20, 300, 15, { isStatic: true, isSensor: true });
-    // var portal2 = Bodies.circle(780, 500, 15, { isStatic: true, isSensor: true });
+    // portal2 = Bodies.circle(780, 550, 15, { isStatic: true, isSensor: true });
 
     World.add(world, [portal1, portal2]);
 

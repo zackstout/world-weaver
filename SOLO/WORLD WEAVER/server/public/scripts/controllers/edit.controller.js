@@ -13,7 +13,8 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     end_x: 0,
     end_y: 0,
     title: 'Untitled',
-    obstacles: []
+    obstacles: [],
+    portals: {}
   };
 
   vm.newObstacle = {
@@ -25,17 +26,34 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     type: 'rect'
   };
 
+  vm.isNewPortal = false;
+  vm.portalExists = false;
+  vm.newPortal = {
+    y1: 30,
+    y2: 30
+  };
+
+  vm.showPortal = function() {
+    vm.isNewPortal = !vm.isNewPortal;
+  };
+
+  vm.addPortal = function(portal) {
+    vm.newWorld.portals = portal;
+    console.log(vm.newWorld);
+    vm.isNewPortal = false;
+    vm.portalExists = true;
+  };
 
 
-    var canvas = document.getElementById('hi');
-    console.log(canvas);
+  var canvas = document.getElementById('hi');
+  console.log(canvas);
 
-    var ctx = canvas.getContext("2d");
-    ctx.fillStyle = 'lightblue';
-    ctx.fillRect(0,0,800,600);
+  var ctx = canvas.getContext("2d");
+  ctx.fillStyle = 'lightblue';
+  ctx.fillRect(0,0,800,600);
 
 
-//populate existing world if coming from SavedWorlds:
+  //populate existing world if coming from SavedWorlds:
   if (!vm.isNewWorld) {
     console.log(vm.world);
     vm.newWorld = vm.world;
@@ -100,7 +118,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
 
 
 
-//for a NEW WORLD:
+  //for a NEW WORLD:
   function alterCanvas() {
     ctx.fillStyle = 'lightblue';
     ctx.fillRect(0, 0, 800, 600);
@@ -128,16 +146,51 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
         ctx.fill();
       }
 
-
     }
+
+    if (vm.isNewPortal) {
+      ctx.fillStyle = 'orange';
+
+      var p1 = vm.newPortal.y1;
+      var p2 = vm.newPortal.y2;
+
+      ctx.beginPath();
+      ctx.arc(780, p1, 15, 0, 2*Math.PI);
+      ctx.stroke();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(20, p2, 15, 0, 2*Math.PI);
+      ctx.stroke();
+      ctx.fill();
+    }
+
+    if (vm.portalExists) {
+
+          var por1 = vm.newPortal.y1;
+          var por2 = vm.newPortal.y2;
+          ctx.fillStyle = 'purple';
+          ctx.beginPath();
+          ctx.arc(780, por1, 15, 0, 2*Math.PI);
+          ctx.stroke();
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(20, por2, 15, 0, 2*Math.PI);
+          ctx.stroke();
+          ctx.fill();
+    }
+
+
 
     // console.log(vm.newWorld.obstacles);
     for (var i=0; i<vm.newWorld.obstacles.length; i++) {
-      ctx.fillStyle = 'blue';
       var x1 = vm.newWorld.obstacles[i].x;
       var y1 = vm.newWorld.obstacles[i].y;
       var h1 = vm.newWorld.obstacles[i].h;
       var w1 = vm.newWorld.obstacles[i].w;
+
+      ctx.fillStyle = 'blue';
 
       if (vm.newWorld.obstacles[i].type == 'rect') {
         ctx.translate(x1, y1);
@@ -158,54 +211,54 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
 
   // setInterval(alterCanvas, 20);
 
-    vm.titleWorld = function(ev) {
-      // Appending dialog to document.body to cover sidenav in docs app
-      var confirm = $mdDialog.prompt()
-      .title('Has your world a name?')
-      // .textContent('Bowser is a common name.')
-      .placeholder('King\'s Keep')
-      .ariaLabel('Dog name')
-      // .initialValue('Buddy')
-      .targetEvent(ev)
-      // .required(true)
-      .ok('Post World!')
-      .cancel('Untitled');
+  vm.titleWorld = function(ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog.prompt()
+    .title('Has your world a name?')
+    // .textContent('Bowser is a common name.')
+    .placeholder('King\'s Keep')
+    .ariaLabel('Dog name')
+    // .initialValue('Buddy')
+    .targetEvent(ev)
+    // .required(true)
+    .ok('Post World!')
+    .cancel('Untitled');
 
-      $mdDialog.show(confirm).then(function(result) {
-        // vm.status = 'You decided to name your dog ' + result + '.';
-        // console.log(vm.newWorld);
-        vm.newWorld.title = result;
-        EditService.postEdit(vm.newWorld);
-      }, function() {
-        // vm.status = 'You didn\'t name your dog.';
-      });
+    $mdDialog.show(confirm).then(function(result) {
+      // vm.status = 'You decided to name your dog ' + result + '.';
+      // console.log(vm.newWorld);
+      vm.newWorld.title = result;
+      EditService.postEdit(vm.newWorld);
+    }, function() {
+      // vm.status = 'You didn\'t name your dog.';
+    });
+  };
+
+  vm.showWorld = function() {
+    console.log('clickin new world');
+    // doMatterStart();
+  };
+
+  vm.saveWorld = function(world) {
+    EditService.saveWorld(world);
+  };
+
+  vm.addObstacle = function(obstacle) {
+    console.log(obstacle);
+    vm.newWorld.obstacles.push(obstacle);
+    // vm.world.obstacles.push(obstacle);
+    vm.showObst = false;
+
+    //reset object to avoid over-data-binding:
+    vm.newObstacle = {
+      x: 0,
+      y: 0,
+      h: 10,
+      w: 10,
+      a: 0,
+      type: 'rect'
     };
-
-      vm.showWorld = function() {
-        console.log('clickin new world');
-        // doMatterStart();
-      };
-
-      vm.saveWorld = function(world) {
-        EditService.saveWorld(world);
-      };
-
-      vm.addObstacle = function(obstacle) {
-        console.log(obstacle);
-        vm.newWorld.obstacles.push(obstacle);
-        // vm.world.obstacles.push(obstacle);
-        vm.showObst = false;
-
-        //reset object to avoid over-data-binding:
-        vm.newObstacle = {
-          x: 0,
-          y: 0,
-          h: 10,
-          w: 10,
-          a: 0,
-          type: 'rect'
-        };
-      };
+  };
 
 
 });

@@ -44,6 +44,30 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
     });
   };
 
+
+  vm.getPortals = function() {
+    $http.get('/edit/portals').then(function(response) {
+      console.log(response.data);
+      var portals = response.data;
+
+      for (var i=0; i<vm.allWorldIds.length; i++) {
+        for (var j=0; j<portals.length; j++) {
+          if (portals[j].world_id == vm.allWorldIds[i].id) {
+            vm.allWorldIds[i].portals = portals[j];
+            // world: vm.worlds[i],
+
+          }
+        }
+      }
+
+      console.log(vm.allWorldIds);
+
+    }).catch(function(err) {
+      console.log(error);
+    });
+  };
+
+
   vm.getCompletionsList = function() {
     $http.get('/more/completions/list').then(function(response) {
       console.log(response.data);
@@ -160,6 +184,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
       vm.getFavs();
       vm.getCompletions();
       vm.getCompletionsList();
+      vm.getPortals();
 
       //this is the KEY console LOG:
     console.log(vm.allWorldIds);
