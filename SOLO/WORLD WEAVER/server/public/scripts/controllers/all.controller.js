@@ -252,6 +252,21 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
           var bucketX = vm.allWorldIds[j].world.end_x/3;
           var bucketY = vm.allWorldIds[j].world.end_y/3;
 
+          if (vm.allWorldIds[j].portals) {
+            var port1 = vm.allWorldIds[j].portals.y1/3;
+            var port2 = vm.allWorldIds[j].portals.y2/3;
+            ctx.fillStyle = 'purple';
+            ctx.beginPath();
+            ctx.arc(265, port1, 5, 0, 2*Math.PI);
+            ctx.stroke();
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(5, port2, 5, 0, 2*Math.PI);
+            ctx.stroke();
+            ctx.fill();
+          }
+
 
           for (var k=0; k<vm.allWorldIds[j].obstacles.length; k++) {
             var obs = vm.allWorldIds[j].obstacles[k];
