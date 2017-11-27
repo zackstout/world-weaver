@@ -232,11 +232,20 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
             var obs = vm.allWorldIds[j].obstacles[k];
             var x = obs.x/3, y = obs.y/3, h = obs.h/3, w = obs.w/3, a = obs.a;
             ctx.fillStyle = 'blue';
-            ctx.translate(x, y);
-            ctx.rotate(a*Math.PI/180);
-            ctx.fillRect(-w/2, -h/2, w, h);
-            ctx.rotate(-a*Math.PI/180);
-            ctx.translate(-x, -y);
+
+            if (obs.type == 'rect') {
+              ctx.translate(x, y);
+              ctx.rotate(a*Math.PI/180);
+              ctx.fillRect(-w/2, -h/2, w, h);
+              ctx.rotate(-a*Math.PI/180);
+              ctx.translate(-x, -y);
+            } else if (obs.type == 'circle') {
+              ctx.beginPath();
+              ctx.arc(x, y, h, 0, 2*Math.PI);
+              ctx.stroke();
+              ctx.fill();
+            }
+
           }
 
 

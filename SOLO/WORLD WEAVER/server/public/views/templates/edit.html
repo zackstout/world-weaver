@@ -87,7 +87,7 @@
 ADD AN OBSTACLE:
 <button ng-click="ec.showObstacle()">New obstacle</button>
 
-
+{{ec.newObstacle.type}}
 <form ng-submit="ec.addObstacle(ec.newObstacle)" ng-show="ec.showObst">
 <!-- Start x: <input type="number" ng-model="pc.newWorld.start_x"> -->
 <div class="row">
@@ -125,7 +125,8 @@ ADD AN OBSTACLE:
 <div class="col-lg-3 col-md-3">
 
 <md-slider-container>
-      <span>Height:</span>
+      <span ng-show="ec.newObstacle.type == 'rect'">Height:</span>
+      <span ng-show="ec.newObstacle.type == 'circle'">Radius:</span>
       <md-slider flex min="50" max="750" ng-model="ec.newObstacle.h" aria-label="obsth" class="md-primary">
       </md-slider>
       <md-input-container>
@@ -136,7 +137,7 @@ ADD AN OBSTACLE:
 <!-- End y: <input type="number" ng-model="pc.newWorld.end_y"> -->
 <div class="col-lg-3 col-md-3">
 
-<md-slider-container>
+<md-slider-container ng-show="ec.newObstacle.type == 'rect'">
       <span>Width:</span>
       <md-slider flex min="50" max="550" ng-model="ec.newObstacle.w" aria-label="obstw" class="md-primary">
       </md-slider>
@@ -145,7 +146,7 @@ ADD AN OBSTACLE:
       </md-input-container>
     </md-slider-container>
 
-    <md-slider-container>
+    <md-slider-container ng-show="ec.newObstacle.type == 'rect'">
           <span>Angle:</span>
           <md-slider flex min="0" max="360" ng-model="ec.newObstacle.a" aria-label="obsta" class="md-primary">
           </md-slider>

@@ -142,7 +142,14 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
     //rotate the cannon:
     window.onkeydown = function(e) {
-      x -= 0.18;
+      console.log(e.keyCode);
+      //'s' key:
+      if (e.keyCode == 83) {
+        x -= 0.18;
+      //'f' key:
+      } else if (e.keyCode == 70) {
+        x += 0.18;
+      }
       Body.setAngle(cannon, x);
     };
 
@@ -190,7 +197,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
             //changing to deci-seconds:
             finish.time = vm.now*10;
-            
+
             finish.complete = true;
             WorldService.postFinish(finish);
           }

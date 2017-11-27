@@ -26,6 +26,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   };
 
 
+
     var canvas = document.getElementById('hi');
     console.log(canvas);
 
@@ -98,6 +99,8 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   }
 
 
+
+//for a NEW WORLD:
   function alterCanvas() {
     ctx.fillStyle = 'lightblue';
     ctx.fillRect(0, 0, 800, 600);
@@ -109,12 +112,22 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     if (vm.showObst) {
       // console.log('in showobst');
       ctx.fillStyle = 'red';
-      var x = vm.newObstacle.x, y = vm.newObstacle.y, w = vm.newObstacle.w, h = vm.newObstacle.h;
-      ctx.translate(x, y);
-      ctx.rotate(vm.newObstacle.a*Math.PI/180);
-      ctx.fillRect(-w/2, -h/2, w, h);
-      ctx.rotate(-vm.newObstacle.a*Math.PI/180);
-      ctx.translate(-x, -y);
+
+      if (vm.newObstacle.type == 'rect') {
+        var x = vm.newObstacle.x, y = vm.newObstacle.y, w = vm.newObstacle.w, h = vm.newObstacle.h;
+        ctx.translate(x, y);
+        ctx.rotate(vm.newObstacle.a*Math.PI/180);
+        ctx.fillRect(-w/2, -h/2, w, h);
+        ctx.rotate(-vm.newObstacle.a*Math.PI/180);
+        ctx.translate(-x, -y);
+      } else if (vm.newObstacle.type == 'circle') {
+        var xC = vm.newObstacle.x, yC = vm.newObstacle.y, r = vm.newObstacle.h;
+        ctx.beginPath();
+        ctx.arc(xC, yC, r, 0, 2*Math.PI);
+        ctx.stroke();
+        ctx.fill();
+      }
+
 
     }
 
@@ -126,11 +139,19 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
       var h1 = vm.newWorld.obstacles[i].h;
       var w1 = vm.newWorld.obstacles[i].w;
 
-      ctx.translate(x1, y1);
-      ctx.rotate(vm.newWorld.obstacles[i].a*Math.PI/180);
-      ctx.fillRect(-w1/2, -h1/2, w1, h1);
-      ctx.rotate(-vm.newWorld.obstacles[i].a*Math.PI/180);
-      ctx.translate(-x1, -y1);
+      if (vm.newWorld.obstacles[i].type == 'rect') {
+        ctx.translate(x1, y1);
+        ctx.rotate(vm.newWorld.obstacles[i].a*Math.PI/180);
+        ctx.fillRect(-w1/2, -h1/2, w1, h1);
+        ctx.rotate(-vm.newWorld.obstacles[i].a*Math.PI/180);
+        ctx.translate(-x1, -y1);
+      } else if (vm.newWorld.obstacles[i].type == 'circle') {
+        ctx.beginPath();
+        ctx.arc(x1, y1, h1, 0, 2*Math.PI);
+        ctx.stroke();
+        ctx.fill();
+      }
+
     }
 
   }
