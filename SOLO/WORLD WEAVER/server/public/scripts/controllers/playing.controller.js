@@ -132,7 +132,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       engine: engine,
       options: {
         showShadows: true,
-        wireframes: false
+        // wireframes: false
       }
     });
 
@@ -238,7 +238,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     for (var i=0; i<obstacles.length; i++) {
       var wor = obstacles[i];
       if (wor.type == "rect") {
-        obstacle = Bodies.rectangle(wor.x, wor.y, wor.w, wor.h, { isStatic: true });
+        obstacle = Bodies.rectangle(wor.x, wor.y, wor.w, wor.h, { isStatic: true, angle: wor.a });
       } else if (wor.type == "circle") {
         obstacle = Bodies.circle(wor.x, wor.y, wor.h, { isStatic: true });
       }
