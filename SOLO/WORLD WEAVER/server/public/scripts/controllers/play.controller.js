@@ -22,6 +22,9 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
     type: 'rect'
   };
 
+
+  var newPortal = false;
+
   vm.showObst = false;
 
   vm.showObstacle = function() {
@@ -360,7 +363,10 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
       // Body.applyForce(cannonball, {x: cannon.position.x, y: cannon.position.y}, {x: 0.04*Math.cos(cannon.angle), y: 0.04*Math.sin(cannon.angle)});
       Body.applyForce(cannonball, {x: cannon.position.x, y: cannon.position.y}, {x: 0.04*Math.cos(cannon.angle)*(1+Math.sin(t)), y: 0.04*Math.sin(cannon.angle)*(1+Math.sin(t))});
 
+      newPortal = true;
     });
+
+
 
     //listen for collisions:
     Events.on(engine, 'collisionStart', function(event) {
@@ -370,7 +376,8 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
         // console.log(pair);
         if (pair.bodyA === bucket) {
           console.log('collision dog <3');
-          world.gravity.y = -world.gravity.y;
+          // world.gravity.y = -world.gravity.y;
+          // world.gravity.y=0;
         }
         else if (pair.bodyB === bucket) {
           console.log('whatup');
@@ -378,26 +385,42 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
         }
 
         //attempting portals:
-        else if (pair.bodyA === portal1) {
+        if (newPortal) {
+
+
+        if (pair.bodyA === portal1) {
           console.log(pair.bodyB, portal1);
           Body.setPosition(pair.bodyB, {x: portal2.position.x, y: portal2.position.y});
           // Body.setVelocity(pair.bodyB, {x: -10, y: 5});
+          newPortal = false;
         } else if (pair.bodyB === portal1) {
           console.log(pair.bodyA, portal1);
           Body.setPosition(pair.bodyA, {x: portal2.position.x, y: portal2.position.y});
           // Body.setVelocity(pair.bodyA, {x: -10, y: 5});
         }
 
+        else if (pair.bodyA === portal2) {
+          console.log(pair.bodyB, portal1);
+          Body.setPosition(pair.bodyB, {x: portal1.position.x, y: portal1.position.y});
+          // Body.setVelocity(pair.bodyB, {x: -10, y: 5});
+          newPortal = false;
 
-        else if (pair.bodyA.position.x == 780) {
-          console.log('OMEGA <3', pair.bodyB);
+        } else if (pair.bodyB === portal1) {
+          console.log(pair.bodyA, portal2);
+          Body.setPosition(pair.bodyA, {x: portal1.position.x, y: portal1.position.y});
+          // Body.setVelocity(pair.bodyA, {x: -10, y: 5});
+        }
+      }
 
-          // world.gravity.y = -world.gravity.y;
-        }
-        else if (pair.bodyB.position.x == 780) {
-          console.log('OMEGA', pair.bodyA);
-          // world.gravity.y = -world.gravity.y;
-        }
+        // else if (pair.bodyA.position.x == 600) {
+        //   console.log('OMEGA <3', pair.bodyB);
+        //
+        //   // world.gravity.y = -world.gravity.y;
+        // }
+        // else if (pair.bodyB.position.x == 780) {
+        //   console.log('OMEGA', pair.bodyA);
+        //   // world.gravity.y = -world.gravity.y;
+        // }
         //why isn't this working??
         // else if (pair.bodyA === portal2) {
         //   console.log(pair.bodyB);
