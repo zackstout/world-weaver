@@ -228,6 +228,8 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
             ctx.rotate(-a*Math.PI/180);
             ctx.translate(-x, -y);
           }
+
+          
           // console.log(cannonX, cannonY, bucketX, bucketY);
 
           //draw cannon and bucket:
