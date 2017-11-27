@@ -71,18 +71,18 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
   doMatterStart();
 
-
-  //ok this is not working:
-  vm.reset = function() {
-    myCanvas = document.getElementsByTagName("canvas");
-    console.log(myCanvas);
-    if (myCanvas.length !== 0) {
-      for (var l=0; l<myCanvas.length; l++) {
-        myCanvas[l].remove();
-      }
-    }
-    doMatterStart();
-  };
+  //
+  // //ok this is not working:
+  // vm.reset = function() {
+  //   myCanvas = document.getElementsByTagName("canvas");
+  //   console.log(myCanvas);
+  //   if (myCanvas.length !== 0) {
+  //     for (var l=0; l<myCanvas.length; l++) {
+  //       myCanvas[l].remove();
+  //     }
+  //   }
+  //   doMatterStart();
+  // };
 
 
   function doMatterStart() {
@@ -235,13 +235,13 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
 
 
-
+    console.log(obstacles);
 
     //add obstacles:
     for (var i=0; i<obstacles.length; i++) {
       var wor = obstacles[i];
       if (wor.type == "rect") {
-        obstacle = Bodies.rectangle(wor.x, wor.y, wor.w, wor.h, { isStatic: true, angle: wor.a });
+        obstacle = Bodies.rectangle(wor.x, wor.y, wor.w, wor.h, { isStatic: true, angle: wor.a*Math.PI/180 });
       } else if (wor.type == "circle") {
         obstacle = Bodies.circle(wor.x, wor.y, wor.h, { isStatic: true });
       }
