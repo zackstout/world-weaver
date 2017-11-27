@@ -210,11 +210,24 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
 
       for (var j=0; j<vm.allWorldIds.length; j++) {
         if (vm.allWorldIds[j].id == canvasId) {
-          // console.log(vm.allWorldIds[j]);
+
+          console.log(vm.allWorldIds[j]);
           var cannonX = vm.allWorldIds[j].world.start_x/3;
           var cannonY = vm.allWorldIds[j].world.start_y/3;
           var bucketX = vm.allWorldIds[j].world.end_x/3;
           var bucketY = vm.allWorldIds[j].world.end_y/3;
+
+
+          for (var k=0; k<vm.allWorldIds[j].obstacles.length; k++) {
+            var obs = vm.allWorldIds[j].obstacles[k];
+            var x = obs.x/3, y = obs.y/3, h = obs.h/3, w = obs.w/3, a = obs.a;
+            ctx.fillStyle = 'blue';
+            ctx.translate(x, y);
+            ctx.rotate(a*Math.PI/180);
+            ctx.fillRect(-w/2, -h/2, w, h);
+            ctx.rotate(-a*Math.PI/180);
+            ctx.translate(-x, -y);
+          }
           // console.log(cannonX, cannonY, bucketX, bucketY);
 
           //draw cannon and bucket:
