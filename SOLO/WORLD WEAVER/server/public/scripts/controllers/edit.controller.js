@@ -21,9 +21,30 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     y: 0,
     h: 10,
     w: 10,
-    angle: 0,
+    a: 0,
     type: 'rect'
   };
+
+
+    var canvas = document.getElementById('hi');
+    console.log(canvas);
+
+    var ctx = canvas.getContext("2d");
+    ctx.fillStyle = 'lightblue';
+    ctx.fillRect(0,0,800,600);
+
+
+//populate existing world if coming from SavedWorlds:
+  if (!vm.isNewWorld) {
+    console.log(vm.world);
+    vm.newWorld = vm.world;
+    var cannonX = vm.world.start_x, cannonY = vm.world.start_y, bucketX = vm.world.end_x, bucketY = vm.world.end_y;
+    var obstacles = vm.world.obstacles;
+    setInterval(alterCanvasSaved, 20);
+  } else {
+    setInterval(alterCanvas, 20);
+
+  }
 
   vm.showObst = false;
 
@@ -31,12 +52,42 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     vm.showObst = !vm.showObst;
   };
 
-  var canvas = document.getElementById('hi');
-  console.log(canvas);
+  function alterCanvasSaved() {
+    ctx.fillStyle = 'lightblue';
+    ctx.fillRect(0, 0, 800, 600);
+    ctx.fillStyle = 'yellow';
+    ctx.fillRect(cannonX, cannonY, 40, 20);
+    ctx.fillStyle = 'green';
+    ctx.fillRect(bucketX, bucketY, 30, 30);
+    // console.log('before showobst');
+    if (vm.showObst) {
+      // console.log('in showobst');
+      ctx.fillStyle = 'red';
+      var x = vm.newObstacle.x, y = vm.newObstacle.y, w = vm.newObstacle.w, h = vm.newObstacle.h;
+      ctx.translate(x, y);
+      ctx.rotate(vm.newObstacle.a*Math.PI/180);
+      ctx.fillRect(-w/2, -h/2, w, h);
+      ctx.rotate(-vm.newObstacle.a*Math.PI/180);
+      ctx.translate(-x, -y);
 
-  var ctx = canvas.getContext("2d");
-  ctx.fillStyle = 'lightblue';
-  ctx.fillRect(0,0,800,600);
+    }
+
+    // console.log(vm.newWorld.obstacles);
+    for (var i=0; i<obstacles.length; i++) {
+      ctx.fillStyle = 'blue';
+      var x1 = obstacles[i].x;
+      var y1 = obstacles[i].y;
+      var h1 = obstacles[i].h;
+      var w1 = obstacles[i].w;
+
+      ctx.translate(x1, y1);
+      ctx.rotate(obstacles[i].a*Math.PI/180);
+      ctx.fillRect(-w1/2, -h1/2, w1, h1);
+      ctx.rotate(-obstacles[i].a*Math.PI/180);
+      ctx.translate(-x1, -y1);
+    }
+
+  }
 
 
   function alterCanvas() {
@@ -76,7 +127,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
 
   }
 
-  setInterval(alterCanvas, 20);
+  // setInterval(alterCanvas, 20);
 
     vm.titleWorld = function(ev) {
       // Appending dialog to document.body to cover sidenav in docs app
@@ -113,6 +164,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
       vm.addObstacle = function(obstacle) {
         console.log(obstacle);
         vm.newWorld.obstacles.push(obstacle);
+        // vm.world.obstacles.push(obstacle);
         vm.showObst = false;
 
         //reset object to avoid over-data-binding:

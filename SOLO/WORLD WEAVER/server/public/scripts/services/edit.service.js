@@ -40,7 +40,7 @@ myApp.service('EditService', function($http, $location){
 
   self.postEdit = function(world) {
     console.log(world);
-    console.log(self.newWorld);
+    // console.log(self.newWorld);
     $http.post('/edit/world', world).then(function (response) {
       //why isn't it logging this stuff out, even though it did do the post to DB???
       //ahhhh because we were only sending 201 back if there were obstacles attached!

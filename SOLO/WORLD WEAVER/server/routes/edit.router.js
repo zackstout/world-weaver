@@ -32,12 +32,12 @@ router.post('/world', function(req, res) {
           if (leng !== 0) {
 
             for (var i = 0; i < leng - 1; i++) {
-              queryText = 'INSERT INTO "obstacles" ("world_id", "x", "y", "h", "w", "type", "angle") VALUES ($1, $2, $3, $4, $5, $6, $7);';
-              db.query(queryText, [result.rows[0].id, newWorld.obstacles[i].x, newWorld.obstacles[i].y, newWorld.obstacles[i].h, newWorld.obstacles[i].w, newWorld.obstacles[i].type, newWorld.obstacles[i].angle], handlePost);
+              queryText = 'INSERT INTO "obstacles" ("world_id", "x", "y", "h", "w", "type", "a") VALUES ($1, $2, $3, $4, $5, $6, $7);';
+              db.query(queryText, [result.rows[0].id, newWorld.obstacles[i].x, newWorld.obstacles[i].y, newWorld.obstacles[i].h, newWorld.obstacles[i].w, newWorld.obstacles[i].type, newWorld.obstacles[i].a], handlePost);
             }
 
-            queryText = 'INSERT INTO "obstacles" ("world_id", "x", "y", "h", "w", "type", "angle") VALUES ($1, $2, $3, $4, $5, $6, $7);';
-            db.query(queryText, [result.rows[0].id, newWorld.obstacles[leng - 1].x, newWorld.obstacles[leng - 1].y, newWorld.obstacles[leng - 1].h, newWorld.obstacles[leng - 1].w, newWorld.obstacles[leng - 1].type, newWorld.obstacles[leng - 1].angle], function(err, result) {
+            queryText = 'INSERT INTO "obstacles" ("world_id", "x", "y", "h", "w", "type", "a") VALUES ($1, $2, $3, $4, $5, $6, $7);';
+            db.query(queryText, [result.rows[0].id, newWorld.obstacles[leng - 1].x, newWorld.obstacles[leng - 1].y, newWorld.obstacles[leng - 1].h, newWorld.obstacles[leng - 1].w, newWorld.obstacles[leng - 1].type, newWorld.obstacles[leng - 1].a], function(err, result) {
               done();
               if(err) {
                 console.log('Error making query', err);
@@ -83,12 +83,12 @@ router.post('/world', function(req, res) {
             if (leng !== 0) {
 
               for (var i = 0; i < leng - 1; i++) {
-                queryText = 'INSERT INTO "obstacles_saved" ("world_id", "x", "y", "h", "w", "type", "angle") VALUES ($1, $2, $3, $4, $5, $6, $7);';
-                db.query(queryText, [result.rows[0].id, newWorld.obstacles[i].x, newWorld.obstacles[i].y, newWorld.obstacles[i].h, newWorld.obstacles[i].w, newWorld.obstacles[i].type, newWorld.obstacles[i].angle], handlePost);
+                queryText = 'INSERT INTO "obstacles_saved" ("world_id", "x", "y", "h", "w", "type", "a") VALUES ($1, $2, $3, $4, $5, $6, $7);';
+                db.query(queryText, [result.rows[0].id, newWorld.obstacles[i].x, newWorld.obstacles[i].y, newWorld.obstacles[i].h, newWorld.obstacles[i].w, newWorld.obstacles[i].type, newWorld.obstacles[i].a], handlePost);
               }
 
-              queryText = 'INSERT INTO "obstacles_saved" ("world_id", "x", "y", "h", "w", "type", "angle") VALUES ($1, $2, $3, $4, $5, $6, $7);';
-              db.query(queryText, [result.rows[0].id, newWorld.obstacles[leng - 1].x, newWorld.obstacles[leng - 1].y, newWorld.obstacles[leng - 1].h, newWorld.obstacles[leng - 1].w, newWorld.obstacles[leng - 1].type, newWorld.obstacles[leng - 1].angle], function(err, result) {
+              queryText = 'INSERT INTO "obstacles_saved" ("world_id", "x", "y", "h", "w", "type", "a") VALUES ($1, $2, $3, $4, $5, $6, $7);';
+              db.query(queryText, [result.rows[0].id, newWorld.obstacles[leng - 1].x, newWorld.obstacles[leng - 1].y, newWorld.obstacles[leng - 1].h, newWorld.obstacles[leng - 1].w, newWorld.obstacles[leng - 1].type, newWorld.obstacles[leng - 1].a], function(err, result) {
                 done();
                 if(err) {
                   console.log('Error making query', err);

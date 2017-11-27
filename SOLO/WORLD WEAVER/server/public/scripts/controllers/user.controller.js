@@ -32,10 +32,11 @@ myApp.controller('UserController', function(UserService, $location, $mdDialog, E
 
     $mdDialog.show(confirm).then(function() {
       vm.status = 'A new world it shall be!';
-      EditService.newWorld = true;
+      EditService.isNewWorld = true;
       vm.go('/edit');
     }, function() {
       vm.status = 'Let\'s grab your saved worlds...';
+      EditService.isNewWorld = false;
       vm.go('/saved_games');
     });
   };
