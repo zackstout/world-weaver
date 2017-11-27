@@ -89,7 +89,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
       // console.log(vm.allWo);
 
     }).catch(function(err) {
-      console.log(error);
+      console.log(err);
     });
   };
 
@@ -117,7 +117,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
         // if (!vm.allWorldIds[k])
       }
     }).catch(function(err) {
-      console.log(error);
+      console.log(err);
     });
   };
 

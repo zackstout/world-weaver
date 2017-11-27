@@ -14,11 +14,11 @@
   <br>
     <div ng-repeat="world in ic.worldIds | filter:searchText | orderBy: 'id'" class="myBox col-md-3 col-lg-3">
       <p>Title: {{world.title}}, {{world.id}}</p>
-      <p>Cannon: ({{world.start_x}}, {{world.start_y}})</p>
-      <p>Bucket: ({{world.end_x}}, {{world.end_y}})</p>
+      <!-- <p>Cannon: ({{world.start_x}}, {{world.start_y}})</p>
+      <p>Bucket: ({{world.end_x}}, {{world.end_y}})</p> -->
       <p>Attempts: {{world.attempts}}</p>
-      <p>Completions: </p>
-      <p>Favorited by: </p>
+      <p>Completions: {{world.completions}} </p>
+      <p>Favorited by: {{world.favs}} </p>
       <!-- <p>Best times:</p> -->
 
       <canvas height=200 width=270 id="mine{{world.id}}"></canvas>
@@ -41,13 +41,13 @@
   <br>
   <div ng-repeat="fave in ic.faveIds | filter:searchText | orderBy: 'id'" class="favBox col-md-3 col-lg-3">
     <p>Title: {{fave.title}}, {{fave.id}}</p>
-    <p>Cannon: ({{fave.start_x}}, {{fave.start_y}})</p>
-    <p>Bucket: ({{fave.end_x}}, {{fave.end_y}})</p>
+    <!-- <p>Cannon: ({{fave.start_x}}, {{fave.start_y}})</p>
+    <p>Bucket: ({{fave.end_x}}, {{fave.end_y}})</p> -->
     <p>Attempts: {{fave.attempts}}</p>
-    <p>Completions: </p>
+    <p>Completions: {{fave.completions}} </p>
     <p>My best time:</p>
 
-    <canvas height=200 width=270 id="fav{{world.id}}"></canvas>
+    <canvas height=200 width=270 id="fav{{fave.id}}"></canvas>
 
 
     <p></p>
