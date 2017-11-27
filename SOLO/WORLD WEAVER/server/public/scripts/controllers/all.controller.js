@@ -229,7 +229,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
             ctx.translate(-x, -y);
           }
 
-          
+
           // console.log(cannonX, cannonY, bucketX, bucketY);
 
           //draw cannon and bucket:
