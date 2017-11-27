@@ -118,12 +118,13 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     vm.now = 0;
 
     function tick() {
-      vm.now += 1;
-      now += 1;
+      // vm.now = (vm.now + 0.1).toFixed(1);
+      now += 0.1;
+      vm.now = now.toFixed(1);
       // console.log(vm.now);
     }
     //will have to figure out how to cancel the clock on goal-achievement:
-    $interval(tick, 1000);
+    $interval(tick, 100);
 
     // create a renderer
     //can we affect how large it is, where it is, here?
@@ -135,7 +136,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
         background: '#ADD8E6',
 
         //this will add coloring but obliterate our force bar:
-        wireframes: false
+        // wireframes: false
       }
     });
 
@@ -186,7 +187,10 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 //huh, can't capitalize false, that's kind of disappointing:
           if (vm.done == false) {
             vm.showConfirm(event);
-            finish.time = vm.now;
+
+            //changing to deci-seconds:
+            finish.time = vm.now*10;
+            
             finish.complete = true;
             WorldService.postFinish(finish);
           }

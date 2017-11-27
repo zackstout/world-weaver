@@ -46,7 +46,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
 
   vm.getCompletionsList = function() {
     $http.get('/more/completions/list').then(function(response) {
-      // console.log(response.data);
+      console.log(response.data);
       var compsList = response.data;
 
       for (var i=0; i<vm.allWorldIds.length; i++) {
@@ -81,6 +81,16 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
 
           }
         }
+      }
+
+      for (var k=0; k<vm.allWorldIds.length; k++) {
+        if (!vm.allWorldIds[k].favs) {
+          vm.allWorldIds[k].favs = 0;
+        }
+        if (!vm.allWorldIds[k].completions) {
+          vm.allWorldIds[k].completions = 0;
+        }
+        // if (!vm.allWorldIds[k])
       }
     }).catch(function(err) {
       console.log(error);
@@ -164,7 +174,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
     $http.post('/more/favorites', world).then(function (response) {
       console.log(response.data);
       vm.getAllWorlds();
-      vm.getMyFaves();
+      // vm.getMyFaves();
       setTimeout(logCanvas, 200);
 
     }).catch(function (err) {
@@ -179,7 +189,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
       //WE REALLY shouldn't have to call both of these here, right....?
       //yeah shoot, if we DON'T call getAllWorlds, then we don't see the change....but if we do, user gets taken to top of page:
       vm.getAllWorlds();
-      vm.getMyFaves();
+      // vm.getMyFaves();
       setTimeout(logCanvas, 200);
 
     }).catch(function(error) {
@@ -211,7 +221,7 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
       for (var j=0; j<vm.allWorldIds.length; j++) {
         if (vm.allWorldIds[j].id == canvasId) {
 
-          console.log(vm.allWorldIds[j]);
+          // console.log(vm.allWorldIds[j]);
           var cannonX = vm.allWorldIds[j].world.start_x/3;
           var cannonY = vm.allWorldIds[j].world.start_y/3;
           var bucketX = vm.allWorldIds[j].world.end_x/3;

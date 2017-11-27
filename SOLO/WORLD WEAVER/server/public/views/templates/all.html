@@ -25,7 +25,7 @@
 
     <div ng-repeat="completion in world.compList | orderBy: 'time' | limitTo: 3">
       <ul>
-        <li>{{completion.username}}: {{completion.time}} sec.</li>
+        <li>{{completion.username}}: {{completion.time/10}} sec.</li>
         <!-- <li>Time: {{completion.time}}</li> -->
       </ul>
     </div>

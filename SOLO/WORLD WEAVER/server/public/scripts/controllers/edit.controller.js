@@ -72,6 +72,14 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
 
     }
 
+    //
+    // ctx.fillStyle = 'yellow';
+    // ctx.fillRect(vm.newWorld.start_x, vm.newWorld.start_y, 40, 20);
+    // ctx.fillStyle = 'green';
+    // ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
+
+
+
     // console.log(vm.newWorld.obstacles);
     for (var i=0; i<obstacles.length; i++) {
       ctx.fillStyle = 'blue';
