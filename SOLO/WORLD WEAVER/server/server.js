@@ -13,6 +13,8 @@ var userRouter = require('./routes/user.router');
 var registerRouter = require('./routes/register.router');
 var worldRouter = require('./routes/world.router.js');
 var moreRouter = require('./routes/another_world.router.js');
+var editRouter = require('./routes/edit.router.js');
+
 
 
 var port = process.env.PORT || 5000;
@@ -33,6 +35,7 @@ app.use(passport.session());
 
 // Routes
 
+app.use('/edit', editRouter);
 app.use('/worlds', worldRouter);
 app.use('/more', moreRouter);
 app.use('/register', registerRouter);

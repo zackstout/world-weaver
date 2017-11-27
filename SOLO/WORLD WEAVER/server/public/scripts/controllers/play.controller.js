@@ -1,5 +1,5 @@
 
-myApp.controller('PlayController', function(UserService, WorldService, $http, $interval, $mdDialog) {
+myApp.controller('PlayController', function(EditService, UserService, WorldService, $http, $interval, $mdDialog) {
   console.log('playController created');
   var vm = this;
 
@@ -10,6 +10,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     start_y: 0,
     end_x: 0,
     end_y: 0,
+    title: 'Untitled',
     obstacles: []
   };
   vm.newObstacle = {
@@ -74,18 +75,18 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     }
 
   }
-
-  function resetCanvas() {
-    ctx.fillStyle = 'lightblue';
-    ctx.fillRect(0,0,800,600);
-  }
+  //
+  // function resetCanvas() {
+  //   ctx.fillStyle = 'lightblue';
+  //   ctx.fillRect(0,0,800,600);
+  // }
 
   setInterval(alterCanvas, 20);
   // setInterval(changeBucket, 25);
   // setInterval(resetCanvas, 20);
 
-
-  vm.status = '';
+  //
+  // vm.status = '';
 
   vm.showPrompt = function(ev) {
     // Appending dialog to document.body to cover sidenav in docs app
@@ -101,12 +102,12 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
     .cancel('Untitled');
 
     $mdDialog.show(confirm).then(function(result) {
-      vm.status = 'You decided to name your dog ' + result + '.';
+      // vm.status = 'You decided to name your dog ' + result + '.';
       // console.log(vm.newWorld);
       vm.newWorld.title = result;
-      UserService.addWorld(vm.newWorld);
+      EditService.addWorld(vm.newWorld);
     }, function() {
-      vm.status = 'You didn\'t name your dog.';
+      // vm.status = 'You didn\'t name your dog.';
     });
   };
 

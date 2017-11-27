@@ -3,107 +3,128 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   console.log('IeditController created');
   var vm = this;
 
-  vm.showWorld = function() {
-    console.log('clickin new world');
-    doMatterStart();
-  };
-
   vm.world = EditService.editingWorld;
-  vm.newWorld = EditService.newWorld;
-  console.log(vm.world);
+  vm.isNewWorld = EditService.isNewWorld;
+  // console.log(vm.world, vm.isNewWorld);
 
-  vm.moving = false;
-  vm.status = '';
-
-  vm.showConfirm = function(ev) {
-    // Appending dialog to document.body to cover sidenav in docs app
-    var confirm = $mdDialog.confirm()
-          .title('Many worlds have yet to be woven!')
-          .textContent('May weaving bring you peace.')
-          .ariaLabel('Lucky day')
-          .targetEvent(ev)
-          .ok('NEW WORLD')
-          .cancel('SAVED WORLD');
-
-    $mdDialog.show(confirm).then(function() {
-      vm.status = 'A new world it shall be!';
-    }, function() {
-      vm.status = 'Let\'s grab your saved worlds...';
-    });
+  vm.newWorld = {
+    start_x: 0,
+    start_y: 0,
+    end_x: 0,
+    end_y: 0,
+    title: 'Untitled',
+    obstacles: []
   };
 
-  vm.toggleMouse = function() {
-    vm.moving = !vm.moving;
+  vm.newObstacle = {
+    x: 0,
+    y: 0,
+    h: 10,
+    w: 10,
+    angle: 0,
+    type: 'rect'
   };
 
-  // var making = true;
+  vm.showObst = false;
 
-  function doMatterStart() {
+  vm.showObstacle = function() {
+    vm.showObst = !vm.showObst;
+  };
+
+  var canvas = document.getElementById('hi');
+  console.log(canvas);
+
+  var ctx = canvas.getContext("2d");
+  ctx.fillStyle = 'lightblue';
+  ctx.fillRect(0,0,800,600);
+
+
+  function alterCanvas() {
+    ctx.fillStyle = 'lightblue';
+    ctx.fillRect(0, 0, 800, 600);
+    ctx.fillStyle = 'yellow';
+    ctx.fillRect(vm.newWorld.start_x, vm.newWorld.start_y, 40, 20);
+    ctx.fillStyle = 'green';
+    ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
+    // console.log('before showobst');
+    if (vm.showObst) {
+      // console.log('in showobst');
+      ctx.fillStyle = 'red';
+      var x = vm.newObstacle.x, y = vm.newObstacle.y, w = vm.newObstacle.w, h = vm.newObstacle.h;
+      ctx.translate(x, y);
+      ctx.rotate(vm.newObstacle.a*Math.PI/180);
+      ctx.fillRect(-w/2, -h/2, w, h);
+      ctx.rotate(-vm.newObstacle.a*Math.PI/180);
+      ctx.translate(-x, -y);
+
+    }
+
     // console.log(vm.newWorld.obstacles);
-    var Engine = Matter.Engine,
-    Render = Matter.Render,
-    World = Matter.World,
-    Mouse = Matter.Mouse,
-    MouseConstraint = Matter.MouseConstraint,
-    Body = Matter.Body,
-    Events = Matter.Events,
-    Bodies = Matter.Bodies;
-    var engine = Engine.create();
-    var world = engine.world;
-    var box;
+    for (var i=0; i<vm.newWorld.obstacles.length; i++) {
+      ctx.fillStyle = 'blue';
+      var x1 = vm.newWorld.obstacles[i].x;
+      var y1 = vm.newWorld.obstacles[i].y;
+      var h1 = vm.newWorld.obstacles[i].h;
+      var w1 = vm.newWorld.obstacles[i].w;
 
-    // create a renderer
-    var render = Render.create({
-      element: document.body,
-      engine: engine
-    });
+      ctx.translate(x1, y1);
+      ctx.rotate(vm.newWorld.obstacles[i].a*Math.PI/180);
+      ctx.fillRect(-w1/2, -h1/2, w1, h1);
+      ctx.rotate(-vm.newWorld.obstacles[i].a*Math.PI/180);
+      ctx.translate(-x1, -y1);
+    }
 
-    var mouse = Mouse.create(render.canvas);
-    var mc = MouseConstraint.create(engine, {
-      mouse: mouse
-    });
-    console.log(mc);
+  }
 
-    var ourBoy;
+  setInterval(alterCanvas, 20);
 
-    Events.on(mc, "mousedown", function() {
-      console.log('hello sir', mouse.position.x, mouse.position.y);
-      cannonball = Bodies.circle(50, 50, 15, {restitution: 1, friction: 0});
-      World.add(world, cannonball);
-      Body.applyForce(cannonball, {x: 50, y: 50}, {x: 0.04, y: 0.04});
+    vm.titleWorld = function(ev) {
+      // Appending dialog to document.body to cover sidenav in docs app
+      var confirm = $mdDialog.prompt()
+      .title('Has your world a name?')
+      // .textContent('Bowser is a common name.')
+      .placeholder('King\'s Keep')
+      .ariaLabel('Dog name')
+      // .initialValue('Buddy')
+      .targetEvent(ev)
+      // .required(true)
+      .ok('Post World!')
+      .cancel('Untitled');
 
-      if (vm.moving) {
-        Events.on(mc, "startdrag", function() {
-          console.log('we draggin', mc.body);
-          ourBoy = mc.body;
-          // ourBoy.isStatic = false;
-        });
+      $mdDialog.show(confirm).then(function(result) {
+        // vm.status = 'You decided to name your dog ' + result + '.';
+        // console.log(vm.newWorld);
+        vm.newWorld.title = result;
+        EditService.postEdit(vm.newWorld);
+      }, function() {
+        // vm.status = 'You didn\'t name your dog.';
+      });
+    };
 
-        Events.on(mc, "enddrag", function() {
-          console.log('alllll done hoss');
-          // ourBoy.isStatic = true;
-        });
-      } else {
-        box = Bodies.rectangle(mouse.position.x, mouse.position.y, 60, 60, {isStatic: true});
-        var mousePos = {x: mouse.position.x, y: mouse.position.y};
-        World.add(world, box);
-        // setInterval(staticBox, 5);
-      }
+      vm.showWorld = function() {
+        console.log('clickin new world');
+        // doMatterStart();
+      };
 
-      function staticBox() {
-        Body.setVelocity(box, {x: 0, y: 0});
-      }
+      vm.saveWorld = function(world) {
+        EditService.saveWorld(world);
+      };
 
+      vm.addObstacle = function(obstacle) {
+        console.log(obstacle);
+        vm.newWorld.obstacles.push(obstacle);
+        vm.showObst = false;
 
+        //reset object to avoid over-data-binding:
+        vm.newObstacle = {
+          x: 0,
+          y: 0,
+          h: 10,
+          w: 10,
+          a: 0,
+          type: 'rect'
+        };
+      };
 
-    });
-
-
-
-
-        Engine.run(engine);
-        Render.run(render);
-
-      }
 
 });
