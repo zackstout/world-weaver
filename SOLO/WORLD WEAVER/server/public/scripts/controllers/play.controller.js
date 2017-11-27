@@ -35,9 +35,9 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
   ctx.fillRect(0,0,800,600);
 
 
-  function changeCannon() {
+  function alterCanvas() {
     ctx.fillStyle = 'lightblue';
-    ctx.fillRect(0,0,800,600);
+    ctx.fillRect(0, 0, 800, 600);
     ctx.fillStyle = 'yellow';
     ctx.fillRect(vm.newWorld.start_x, vm.newWorld.start_y, 40, 20);
     ctx.fillStyle = 'green';
@@ -48,9 +48,9 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
       ctx.fillStyle = 'red';
       var x = vm.newObstacle.x, y = vm.newObstacle.y, w = vm.newObstacle.w, h = vm.newObstacle.h;
       ctx.translate(x, y);
-      ctx.rotate(vm.newObstacle.a);
+      ctx.rotate(vm.newObstacle.a*Math.PI/180);
       ctx.fillRect(-w/2, -h/2, w, h);
-      ctx.rotate(-vm.newObstacle.a);
+      ctx.rotate(-vm.newObstacle.a*Math.PI/180);
       ctx.translate(-x, -y);
 
       // ctx.fillRect(vm.newObstacle.x, vm.newObstacle.y, 30, 30);
@@ -59,35 +59,28 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
 
     // console.log(vm.newWorld.obstacles);
     for (var i=0; i<vm.newWorld.obstacles.length; i++) {
-      ctx.fillStyle = 'pink';
+      ctx.fillStyle = 'blue';
       var x1 = vm.newWorld.obstacles[i].x;
       var y1 = vm.newWorld.obstacles[i].y;
       var h1 = vm.newWorld.obstacles[i].h;
       var w1 = vm.newWorld.obstacles[i].w;
 
-      ctx.fillRect(x1 - w1/2, y1 - h1/2, w1, h1);
+      ctx.translate(x1, y1);
+      ctx.rotate(vm.newWorld.obstacles[i].a*Math.PI/180);
+      ctx.fillRect(-w1/2, -h1/2, w1, h1);
+      ctx.rotate(-vm.newWorld.obstacles[i].a*Math.PI/180);
+      ctx.translate(-x1, -y1);
+      // ctx.fillRect(x1 - w1/2, y1 - h1/2, w1, h1);
     }
 
   }
-
-  // function changeObstacle() {
-  //   ctx.fillStyle = 'lightblue';
-  // }
-  //
-  // function changeBucket() {
-  //   // ctx.fillStyle = 'lightblue';
-  //   // ctx.fillRect(0,0,800,600);
-  //   ctx.fillStyle = 'green';
-  //   ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
-  //
-  // }
 
   function resetCanvas() {
     ctx.fillStyle = 'lightblue';
     ctx.fillRect(0,0,800,600);
   }
 
-  setInterval(changeCannon, 20);
+  setInterval(alterCanvas, 20);
   // setInterval(changeBucket, 25);
   // setInterval(resetCanvas, 20);
 
@@ -120,54 +113,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
   //so strange....for now i'm just going to move the request into the service:
   //could prob also solve this with promises like we did with the GET routes, connecting the service to the Info Controller;
   vm.userObject = UserService.userObject;
-  // UserService.getuser();
-  // console.log(UserService.userObject);
-  // console.log(vm.userObject);
 
-  //Kris's suggestion:
-  // if userObject isn't there
-  // service.getuser
-  // then do the thing
-
-  // vm.realvassin = '';
-  // vm.yes = true;
-  //
-  vm.capture = function() {
-    var vassin = document.getElementsByTagName('canvas');
-    var realvassin = vassin[0];
-    // vm.realvassin = realvassin;
-    // var t = realvassin.getContext('2d');
-    console.log('capturing', vassin, realvassin);
-    window.open('', realvassin.toDataURL());
-
-
-  };
-  //
-  // vm.capture2 = function() {
-  //
-  // };
-  //
-  // vm.addTitle = function(ev) {
-  //   var confirm = $mdDialog.prompt()
-  //     .title('What would you name your dog?')
-  //     .textContent('Bowser is a common name.')
-  //     .placeholder('Dog name')
-  //     .ariaLabel('Dog name')
-  //     .initialValue('Buddy')
-  //     .targetEvent(ev)
-  //     .required(true)
-  //     .ok('Okay!')
-  //     .cancel('I\'m a cat person');
-  //
-  //   $mdDialog.show(confirm).then(function(result) {
-  //     vm.status = 'You decided to name your dog ' + result + '.';
-  //     // world.title = result;
-  //     // console.log(vm.newWorld);
-  //     // UserService.addWorld(world);
-  //   }, function() {
-  //     vm.status = 'You didn\'t name your dog.';
-  //   });
-  // };
 
   vm.showWorld = function() {
     console.log('clickin new world');
@@ -197,6 +143,7 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
       y: 0,
       h: 10,
       w: 10,
+      a: 0,
       type: 'rect'
     };
   };
@@ -548,95 +495,4 @@ myApp.controller('PlayController', function(UserService, WorldService, $http, $i
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // function setup() {
-  // console.log('hi', vm.world);
-  // var Engine = Matter.Engine,
-  // Render = Matter.Render,
-  // World = Matter.World,
-  // Bodies = Matter.Bodies;
-  // var engine = Engine.create();
-  // var world = engine.world;
-  // var obstacle;
-  // var cannon;
-  // var bucket;
-  // var canvas = createCanvas(1000,1000);
-  //
-  // Engine.run(engine);
-  //
-  // var ourWorld = vm.world[0];
-  // cannon = Bodies.rectangle(ourWorld.start_x, ourWorld.start_y, 40, 20, {isStatic: true});
-  // bucket = Bodies.rectangle(ourWorld.end_x, ourWorld.end_y, 30, 30, {isStatic: true});
-  // // console.log(cannon, bucket);
-  // World.add(world, [cannon, bucket]);
-  //
-  // for (var i=0; i<vm.world.length; i++) {
-  //   var wor = vm.world[i];
-  //   if (wor.type == "rect") {
-  //     obstacle = Bodies.rectangle(wor.x, wor.y, wor.w, wor.h, { isStatic: true });
-  //   } else if (wor.type == "ellipse") {
-  //     obstacle = Bodies.circle(wor.x, wor.y, wor.h, { isStatic: true });
-  //   }
-  //   World.add(world, [obstacle]);
-  // }
-  //
-  // }
-  //
-  // function draw() {
-  //   background(160);
-  //   rect(100, 100, 200, 200);
-  //   // World.add(world, obstacle);
-  // // rect(box1.position.x,box1.position.y, 20, 20);
-  // // rect(obstacle.position.x, obstacle.position.y, 100, 100);
-  //
-  // }
-
 });
-
-
-
-
-//
-// var Engine = Matter.Engine;
-// var World = Matter.World;
-// var Bodies = Matter.Bodies;
-// var engine;
-// console.log(x, y, w, h);
-//
-// var world;
-// var box1 = Bodies.rectangle(200, 100, 20, 20);
-// var obstacle = Bodies.rectangle(x, y, h, w, {isStatic: true});
-//
-// //
-// function setup() {
-// console.log('hi');
-// var canvas = createCanvas(1000,1000);
-// engine = Engine.create();
-//
-// world = engine.world;
-// Engine.run(engine);
-//
-// World.add(world, [box1]);
-// console.log(obstacle);
-//
-// }
-//
-// function draw() {
-//   background(160);
-//   World.add(world, obstacle);
-// rect(box1.position.x,box1.position.y, 20, 20);
-// rect(obstacle.position.x, obstacle.position.y, 100, 100);
-//
-// }
