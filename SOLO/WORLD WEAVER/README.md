@@ -27,6 +27,14 @@ then it flips width and height. So you intended it to start with left upper at (
 - add two kinds of simulation button: with cannonballs, or with many random balls
 [x] add ORDERBY to mYWORLDS AND FAVS so that they show up in same order always, as with all worlds
 
+- UH OH! bringing in portals broke all the PLAY game functionality....
+
+- also we really need to be able to load up a world from SAVED WORLDS properly, and update it
+
+- this calls for being able to update i.e. delete or change old obstacles, and then do a PUT route, from WEAVE/SAVED
+
+
+
 
 
 ### LOW PRIORITY
