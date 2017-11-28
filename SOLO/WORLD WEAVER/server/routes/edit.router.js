@@ -8,6 +8,9 @@ var pool = require('../modules/pool.js');
 router.post('/world', function(req, res) {
   console.log("BODY: ", req.body, "USER: ", req.user.id);
   var newWorld = req.body;
+  if (!newWorld.title) {
+    newWorld.title = 'Untitled';
+  }
   pool.connect(function(err, db, done) {
     if(err) {
       console.log('Error connecting', err);

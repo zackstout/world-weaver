@@ -1,0 +1,35 @@
+
+<div ng-include="'views/partials/nav.html'"></div>
+<div class="container" id="canvasHolder">
+
+  <div layout layout-align="center center">
+  <h3>My Fave Worlds</h3>
+</div>
+
+  <input type="text" placeholder="Search" ng-model="searchText" />
+
+
+  <!-- <button ng-click="fc.getFaves()">Get 'em!</button> -->
+  <br>
+
+  <div layout="row" layout-padding layout-wrap layout-fill>
+
+  <div flex-sm="45" flex-md="30" flex-lg="25" flex-gt-lg="20" ng-repeat="fave in fc.faveIds | filter:searchText | orderBy: 'id'" class="favBox col-md-3 col-lg-3">
+    <p>Title: {{fave.title}}, {{fave.id}}</p>
+    <!-- <p>Cannon: ({{fave.start_x}}, {{fave.start_y}})</p>
+    <p>Bucket: ({{fave.end_x}}, {{fave.end_y}})</p> -->
+    <p><span class ="material-icons" title="Attempts">directions_run</span>: {{fave.attempts}}</p>
+    <p><span class ="material-icons" title="Completions">check_circle</span>: {{fave.completions}} </p>
+    <p>My best time:</p>
+
+    <canvas height=200 width=270 id="fav{{fave.id}}"></canvas>
+
+
+    <p></p>
+    <button ng-click="fc.play3World(fave)"><span class ="material-icons" title="Play">play_arrow</span></button>
+    <button ng-click="fc.unfavorite(fave)"><span class ="material-icons" title="Unfavorite">star</span></button>
+
+  </div>
+  </div>
+
+</div>

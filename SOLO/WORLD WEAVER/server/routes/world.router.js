@@ -138,13 +138,17 @@ router.get('/save/obstacles/:id', function(req, res) {
 
 
 router.post('/', function(req, res) {
-  console.log("BODY: ", req.body);
+  console.log("BODY in this route: ", req.body);
   var newWorld = req.body;
+  if (!req.body.title) {
+    newWorld.title = 'Untitled';
+  }
   pool.connect(function(err, db, done) {
     if(err) {
       console.log('Error connecting', err);
       res.sendStatus(500);
     } else {
+
       var queryText = 'INSERT INTO "worlds" ("start_x", "start_y", "end_x", "end_y", "maker_id", "title") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id";';
       db.query(queryText, [newWorld.start_x, newWorld.start_y, newWorld.end_x, newWorld.end_y, newWorld.userId, newWorld.title], function(err, result){
         done();

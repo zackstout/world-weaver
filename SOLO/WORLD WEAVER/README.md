@@ -46,9 +46,11 @@ then it flips width and height. So you intended it to start with left upper at (
 - let a user delete their own levels: ASK HOLLY how she did this in queries (nested??)
 - figure out user permissions for the first five levels, look into image overlays (of a lock!)
 
-- [] BUG: when you search for a second thing, the canvases won't show up anymore! (perhaps this is a disadvantage of the illusory simplicity of | filter .... )
-- [] BUG: what's up with force bar bug??
-- [] BUG: figure out why things break on page refresh sometimes
+- [ ! ] BUG: when you search for a second thing, the canvases won't show up anymore! (perhaps this is a disadvantage of the illusory simplicity of | filter .... )
+- [ ! ] BUG: what's up with force bar bug??
+- [ ! ] BUG: figure out why things break on page refresh sometimes
+- [ ! ] BUG: why can't we favorite without being taken to top of page???? we can unfave on /INFO page!
+- [ ! ] BUG: can't open both FAVES and MY WORLDS without erasing the canvases of the other....
 
 
 - one way of introducing puzzles (without portals) would be "have to do x y number of times" or something
@@ -64,6 +66,12 @@ then it flips width and height. So you intended it to start with left upper at (
 - ah, clearly the way i'm doing zero-gravity is the way to do zones of gravity: just partition up into sections and apply  a different gravity based on what seciton they're in....that would actually be easier than what i'm trying to do now. Ok, onto attempt number 3.
 
 - a couple n00b mistakes with Matter: we were increasing the force with each setInterval iteration, and we were also inserting a new force (in the earlier attempt) with each iteration, instead of just at the initiation (i.e. mouseclick)
+
+- ok We can use "title" to show hover text....however it's not quite the ...sexiest way of doing it
+
+- "expand more" and "expand less" in material.io ICONS
+
+- possibly "directions run" for attempts
 
 
 

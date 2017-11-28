@@ -2,6 +2,8 @@
 myApp.controller('UserController', function(UserService, $location, $mdDialog, EditService) {
   console.log('UserController created');
   var vm = this;
+
+  //now I see, we do this so we can call functions in the service directly from HTML:
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
 

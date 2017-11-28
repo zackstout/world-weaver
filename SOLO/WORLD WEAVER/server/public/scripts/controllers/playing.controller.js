@@ -37,9 +37,9 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     if (vm.origin == 'all') {
       $location.path('/all');
     } else if (vm.origin == 'mine') {
-      $location.path('/info');
+      $location.path('/myworlds');
     } else if (vm.origin == 'faves') {
-      $location.path('/info');
+      $location.path('/favs');
     }
   };
 
@@ -143,16 +143,19 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       }
     });
 
-    var portals = WorldService.world.portals;
+    if (WorldService.world.portals) {
+      var portals = WorldService.world.portals;
 
-    var portal1 = Bodies.circle(780, portals.y1, 15, { isStatic: true, isSensor: true });
+      var portal1 = Bodies.circle(780, portals.y1, 15, { isStatic: true, isSensor: true });
 
-    //a pretty poor way of trying to rig reflecting portals (i.e. same-wall portals):
-    // var portal1wall = Bodies.rectangle(785, 210, 15, 60, { isStatic: true });
-    var portal2 = Bodies.circle(20, portals.y2, 15, { isStatic: true, isSensor: true });
-    // portal2 = Bodies.circle(780, 550, 15, { isStatic: true, isSensor: true });
+      //a pretty poor way of trying to rig reflecting portals (i.e. same-wall portals):
+      // var portal1wall = Bodies.rectangle(785, 210, 15, 60, { isStatic: true });
+      var portal2 = Bodies.circle(20, portals.y2, 15, { isStatic: true, isSensor: true });
+      // portal2 = Bodies.circle(780, 550, 15, { isStatic: true, isSensor: true });
 
-    World.add(world, [portal1, portal2]);
+      World.add(world, [portal1, portal2]);
+    }
+
 
 
     //ok it does work, as long as we don't start on the PLAYING page without any info from the service:

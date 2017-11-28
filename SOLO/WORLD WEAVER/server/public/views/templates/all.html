@@ -1,64 +1,77 @@
 
 <div ng-include="'views/partials/nav.html'"></div>
 
-<p>in all worlds....</p>
-<input type="text" placeholder="Search" ng-model="searchText" />
+<input type="text" placeholder="Search" ng-model="searchText" /><i class="material-icons">search</i>
 <br><br>
 
-<div class="row">
+<div layout="row" layout-padding layout-wrap layout-fill>
 
 <!-- needing the weird world.world stuff here because need allWorldIds to contain both the world and the obstacles array -->
-  <div ng-repeat="world in ac.allWorldIds | filter:searchText | orderBy:'id'" class="col-lg-3 col-md-4 boxMain">
+  <div flex-sm="45" flex-md="30" flex-lg="25" flex-gt-lg="20" ng-repeat="world in ac.allWorldIds | filter:searchText | orderBy:'id'" class="col-lg-3 col-md-4 boxMain">
 
-    <p>Weaver: {{world.world.username}}</p>
-    <p>Title: {{world.world.title}}, {{world.id}}
-    <!-- <p>Cannon: ({{world.world.start_x}}, {{world.world.start_y}})</p> -->
-
-    <!-- <p>Cannon-y: </p> -->
-
-    <!-- <p>Bucket: ({{world.world.end_x}}, {{world.world.end_y}})</p> -->
-    <!-- <p>Bucket-y: {{world.world.end_y}}</p> -->
-    <p>Views: {{world.world.attempts}}</p>
-    <p>Favorites: {{world.favs}}</p>
-    <p>Completions: {{world.completions}}</p>
-    <p>Best times:</p>
-
-    <div ng-repeat="completion in world.compList | orderBy: 'time' | limitTo: 3">
-      <ul>
-        <li>{{completion.username}}: {{completion.time/10}} sec.</li>
-        <!-- <li>Time: {{completion.time}}</li> -->
-      </ul>
+    <div layout layout-align="center center">
+      <h4>{{world.world.title}}</h4>
     </div>
+
+    <!-- <p><span class ="material-icons" title="Attempts">directions_run</span>: {{world.world.attempts}}</p>
+    <p><span class ="material-icons" title="Favorites">star</span>: {{world.favs}}</p>
+    <p><span class ="material-icons" title="Completions">check_circle</span>: {{world.completions}}</p> -->
+    <!-- <p>Best times:</p> -->
+    <!-- <i class="material-icons">radio</i> -->
+
     <br>
-    <canvas height=200 width=270 id="canvas{{world.id}}"></canvas>
+
+    <canvas class="allCan" height=200 width=270 id="canvas{{world.id}}"></canvas>
     <!-- id="canvas{{world.id}}" -->
     <br>
-    <!-- <p>Obstacles:</p>
+    Weaver: <i>{{world.world.username}}</i>
+    <br><br>
 
+    <div class="tableContainer" ng-show="world.completions">
+      <table>
+        <thead>
+          <th>No.</th>
+          <th>Player</th>
+          <th>Time</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="completion in world.compList | orderBy: 'time' | limitTo: 3">
+          <td>{{$index + 1}}</td>
+          <td>{{completion.username}}</td>
+          <td>{{completion.time/10}} sec.</td>
+              <!-- <li>Time: {{completion.time}}</li> -->
 
-    <div ng-repeat="obstacle in world.obstacles ">
-      <ul>
-        <li>Type: {{obstacle.type}}</lifdsrasa>
-      </ul>
-      <p>Type: {{obstacle.type}}</p>
-      <p>Height: {{obstacle.h}}</p>
-      <p>Width: {{obstacle.w}}</p>
-      <p>x-location: {{obstacle.x}}</p>
-      <p>y-location: {{obstacle.y}}</p>
+          </tr>
+        </tbody>
+
+      </table>
     </div>
-    <br> -->
 
-    <p><button ng-click="ac.playWorld(world)">
-      PLay
+
+    <div layout="row" layout-padding class="stats">
+
+      <span class ="material-icons" title="Attempts">directions_run</span> {{world.world.attempts}}
+      <span class ="material-icons" title="Completions">check_circle</span> {{world.completions}}
+      <span class ="material-icons" title="Favorites">star</span> {{world.favs}}
+    </div>
+
+    <button ng-click="ac.playWorld(world)">
+      <!-- PLay -->
     <!-- <span class ="glyphicon glyphicon-play"></span> -->
-  </button></p>
+    <span class="material-icons">play_arrow</span>
+  </button>
+
+  &emsp;
 
     <span>
       <button ng-click="ac.faveWorld(world)" ng-hide="world.isFavorited">
-        <span class ="glyphicon glyphicon-star-empty"></span>
+        <!-- <span class ="glyphicon glyphicon-star-empty"></span> -->
+        <span class="material-icons">star_border</span>
       </button>
       <button ng-click="ac.unfavorite(world)" ng-show="world.isFavorited">
-        <span class ="glyphicon glyphicon-star"></span>
+        <!-- <span class ="glyphicon glyphicon-star"></span> -->
+        <span class="material-icons">star</span>
+
       </button></span>
 
     <!-- <p ng-show="world.isFavorited">YOU LOVE THIS!</p><br> -->

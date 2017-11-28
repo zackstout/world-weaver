@@ -22,24 +22,57 @@
   border-radius: 7px;
 }
 
+.mainNav, .gameNav {
+  margin-left: 200px;
+  background-color: lightblue;
+  border-radius: 8px;
+  width: 400px;
+  padding: 10px;
+}
+
+
 .myBox {
   background-color: MediumSeaGreen;
-  margin: 5px;
+  margin: 15px;
   border-radius: 7px;
+  padding: 10px;
 }
 
 .favBox {
   background-color: MediumSlateBlue;
-  margin: 5px;
+  margin: 15px;
   border-radius: 7px;
+  padding: 10px;
+
+}
+
+.stats {padding-left: 80px;}
+
+
+/*.mineCan, .allCan {
+  padding-left: 26px;
+}*/
+
+
+
+td {
+  width: 60px;
+}
+
+.tableContainer {
+  padding-left: 80px;
+  border-radius: 8px;
+  background-color: goldenrod;
+  /*width: 200px;*/
 }
 
 
-
 .level-btn {
-  /*display: inline-block;
+  /*display: inline-block;*/
 
-  position: relative;*/
+  position: absolute;
+  top: 0;
+  left: 0;
 
   /*opacity: 0.5;*/
   width: 80px;
@@ -47,35 +80,35 @@
   background-color: gray;
   color: crimson;
   font-size: 19px;
-  opacity: 0.6;
+  z-index: 99;
+  /*opacity: 0.6;*/
   /*position: absolute;
   left: 10px;*/
 }
 
-.level-btn2 {
-  position: relative;
 
-}
 
-.level-btn2 img {
-  position: absolute;
-top: 0; /* or whatever */
-left: 0; /* or whatever, position according to taste */
-opacity: 0.5; /* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
-}
-
-.level-container {
+.level-container, .level-container img {
   /*display: inline-block;*/
  position: relative;
  /*left: 20px;*/
  /*height: 90px;
  width: 60px;*/
- background-image: url("https://imageog.flaticon.com/icons/png/512/44/44594.png?size=100x52f&pad=10,10,10,10&ext=png&bg=FFFFFFFF");
- background-position: 0 0;
- background-repeat: no-repeat;
+ /*background-image: url(https://imageog.flaticon.com/icons/png/512/44/44594.png?size=100x52f&pad=10,10,10,10&ext=png&bg=FFFFFFFF);*/
+ /*background-position: 0 0;*/
+ /*background-repeat: no-repeat;*/
 
- /*z-index:100;*/
+ z-index: 100;
 }
+
+/*.stargate {
+  background-image: url(http://www.danlessmann.com/FullSizeImages/Astro/Cygnus_2006-10-21_1_PS.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}*/
+
+
+
 
 /*img {
   position: absolute;
@@ -113,6 +146,9 @@ body, html {
   background-color: #333333;
   color: #DDDDDD;
   padding: 15px;
+  background-image: url(http://www.danlessmann.com/FullSizeImages/Astro/Cygnus_2006-10-21_1_PS.jpg);
+  /*background-repeat: no-repeat;*/
+  background-size: 100%;
 }
 
 #entryForm {

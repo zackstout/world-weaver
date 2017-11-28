@@ -60,6 +60,24 @@ myApp.config(function($routeProvider, $locationProvider) {
       }
     }
   })
+  .when('/favs', {
+    templateUrl: '/views/templates/favs.html',
+    controller: 'FavController as fc',
+    resolve: {
+      getuser : function(UserService){
+        return UserService.getuser();
+      }
+    }
+  })
+  .when('/myworlds', {
+    templateUrl: '/views/templates/myworlds.html',
+    controller: 'MyController as mc',
+    resolve: {
+      getuser : function(UserService){
+        return UserService.getuser();
+      }
+    }
+  })
   .when('/saved_games', {
     templateUrl: '/views/templates/saved_games.html',
     controller: 'SavedController as sc',

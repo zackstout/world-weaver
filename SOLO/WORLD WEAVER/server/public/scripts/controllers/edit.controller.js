@@ -222,7 +222,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     .targetEvent(ev)
     // .required(true)
     .ok('Post World!')
-    .cancel('Untitled');
+    .cancel('Cancel');
 
     $mdDialog.show(confirm).then(function(result) {
       // vm.status = 'You decided to name your dog ' + result + '.';

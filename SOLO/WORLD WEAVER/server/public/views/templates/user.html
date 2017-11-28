@@ -1,6 +1,6 @@
 
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
+<div class="container stargate">
 
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <!-- <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
@@ -9,29 +9,52 @@
     <br><button class="btn btn-default" ng-click="uc.go('/play')">Play</button>
     <br><button class="btn btn-default" ng-click="uc.go('/edit')">Edit</button> -->
 
+<div class="mainNav" flex="50">
+  <div layout layout-align="center center" >
     <md-button class="md-primary md-raised" ng-click="uc.go('/game')">
       Play
     </md-button>
-    <br><br>
+  </div>
 
-    <md-button class="md-primary md-raised" ng-click="uc.showConfirm($event)">
-      Weave a World
-    </md-button>
-    {{uc.status}}
-    <br><br>
+  <br>
 
-    <md-button class="md-primary md-raised" ng-click="uc.go('/all')">
-      See all worlds
-    </md-button>
-    <br><br>
+  <div layout layout-align="center center" >
+  <md-button class="md-primary md-raised" ng-click="uc.showConfirm($event)">
+    Weave a World
+  </md-button>
+  </div>
+  <!-- {{uc.status}} -->
+  <br>
 
-    <md-button class="md-primary md-raised" ng-click="uc.go('/info')">
-      My Profile
-    </md-button>
-    <br><br>
+  <div layout layout-align="center center" >
+  <md-button class="md-primary md-raised" ng-click="uc.go('/all')">
+    See all worlds
+  </md-button>
+</div>
+  <br>
 
-    <md-button class="md-primary md-raised" ng-click="uc.userService.logout()">
-      Log out
-    </md-button>
+  <!-- <div layout layout-align="center center" >
+  <md-button class="md-primary md-raised" ng-click="uc.go('/info')">
+    My Profile
+  </md-button>
+</div>
+  <br> -->
+
+  <div layout layout-align="center center" >
+  <md-button class="md-primary md-raised" ng-click="uc.go('/favs')">
+    My Faves
+  </md-button>
+</div>
+  <br>
+
+  <div layout layout-align="center center" >
+  <md-button class="md-primary md-raised" ng-click="uc.go('/myworlds')">
+    My Worlds
+  </md-button>
+</div>
+  <br>
+
+</div>
+
 
 </div>

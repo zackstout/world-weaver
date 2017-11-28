@@ -191,7 +191,7 @@ function zeroGrav() {
   }
 
 
-  setInterval(zoneGravity, 100);
+  setInterval(applyGravity, 100);
 
   // setInterval(applyGravity, 20);
 
