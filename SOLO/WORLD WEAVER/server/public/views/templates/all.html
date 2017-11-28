@@ -48,9 +48,17 @@
     </div>
     <br> -->
 
-    <p><button ng-click="ac.playWorld(world)">PLAY</button></p>
-    <span><button ng-click="ac.faveWorld(world)" ng-hide="world.isFavorited">FAVORITE</button>
-    <button ng-click="ac.unfavorite(world)" ng-show="world.isFavorited">UNFAVORITE :(</button></span>
+    <p><button ng-click="ac.playWorld(world)">
+    <span class ="glyphicon glyphicon-play"></span>
+  </button></p>
+
+    <span>
+      <button ng-click="ac.faveWorld(world)" ng-hide="world.isFavorited">
+        <span class ="glyphicon glyphicon-star-empty"></span>
+      </button>
+      <button ng-click="ac.unfavorite(world)" ng-show="world.isFavorited">
+        <span class ="glyphicon glyphicon-star"></span>
+      </button></span>
 
     <!-- <p ng-show="world.isFavorited">YOU LOVE THIS!</p><br> -->
 

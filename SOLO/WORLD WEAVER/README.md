@@ -47,6 +47,7 @@ then it flips width and height. So you intended it to start with left upper at (
 
 - bootstrap floppy disk glyph icon is nice
 - the "screenshot" icon look sa bit like a bullseye, like we hit the target? (could give info on mouseover)
+- maybe "flash" icon for attempts...?
 
 - oh wow can you do sliders with just input type="range"?
 
