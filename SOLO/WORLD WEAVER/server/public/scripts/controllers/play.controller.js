@@ -22,6 +22,59 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
     type: 'rect'
   };
 
+  var cans = document.getElementsByTagName('canvas');
+  // console.log(cans);
+  matterMatter();
+  matterMatter();
+  matterMatter();
+  matterMatter();
+
+
+  function matterMatter() {
+    var Engine = Matter.Engine,
+    Render = Matter.Render,
+    World = Matter.World,
+    Mouse = Matter.Mouse,
+    MouseConstraint = Matter.MouseConstraint,
+    Body = Matter.Body,
+    Events = Matter.Events,
+    Bodies = Matter.Bodies;
+    var engine = Engine.create();
+    var world = engine.world;
+
+    console.log(document.getElementById('canvas'));
+
+    // create a renderer
+    var render = Render.create({
+      element: document.body,
+      engine: engine,
+      // element: document.getElementById('canvas')
+      options: {
+        height: 200,
+        width: 300
+      }
+    });
+
+
+    var bar = Bodies.rectangle(780, 100, 40, 150);
+    World.add(world, bar);
+
+    Engine.run(engine);
+    Render.run(render);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //needed to prevent feedback loop of ball stuck between the two portals, figuratively:
   var newPortal = false;

@@ -45,7 +45,9 @@
   width: 80px;
   height: 50px;
   background-color: gray;
-  opacity: 0.4;
+  color: crimson;
+  font-size: 19px;
+  opacity: 0.6;
   /*position: absolute;
   left: 10px;*/
 }
