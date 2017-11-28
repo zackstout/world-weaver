@@ -118,6 +118,28 @@ myApp.controller('FavController', function(UserService, $http, $location, WorldS
       });
     }
 
+    function getBestTime() {
+      $http.get('/more/best').then(function(response) {
+        // console.log(response.data);
+        console.log(response.data);
+        var allTimes = response.data;
+
+        for (var k=0; k<vm.faveIds.length; k++) {
+          for (var l=0; l<allTimes.length; l++) {
+            if (allTimes[l].world_id == vm.faveIds[k].id) {
+              vm.faveIds[k].allTimes.push(allTimes[l]);
+              // vm.faveIds[i].obstacles.push(vm.obstacles[j]);
+            }
+          }
+        }
+
+        console.log(vm.faveIds, vm.worldIds);
+
+      }).catch(function(err) {
+        console.log('oooooo im mister bill!');
+      });
+    }
+
 
     vm.getFaves = function() {
       // vm.getWorlds();
@@ -136,6 +158,7 @@ myApp.controller('FavController', function(UserService, $http, $location, WorldS
         for (var j=0; j<vm.faves.length; j++) {
           vm.faveIds.push({
             id: vm.faves[j].id,
+            allTimes: [],
             attempts: vm.faves[j].attempts,
             // completions: vm.worlds[i].completions,
             end_x: vm.faves[j].end_x,
@@ -148,6 +171,7 @@ myApp.controller('FavController', function(UserService, $http, $location, WorldS
         }
 
         getObstacles();
+        getBestTime();
         getFavs();
         setDefaultsFave();
         getPortals();

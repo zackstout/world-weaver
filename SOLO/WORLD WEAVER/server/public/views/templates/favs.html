@@ -20,7 +20,12 @@
     <p>Bucket: ({{fave.end_x}}, {{fave.end_y}})</p> -->
     <p><span class ="material-icons" title="Attempts">directions_run</span>: {{fave.attempts}}</p>
     <p><span class ="material-icons" title="Completions">check_circle</span>: {{fave.completions}} </p>
-    <p>My best time:</p>
+    <span>
+      My best time:
+      <div ng-repeat="time in fave.allTimes | orderBy: 'time' | limitTo: 1">
+        {{time.time/10}} sec.
+    </div>
+  </span>
 
     <canvas height=200 width=270 id="fav{{fave.id}}"></canvas>
 
