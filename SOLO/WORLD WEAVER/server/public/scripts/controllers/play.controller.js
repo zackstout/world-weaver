@@ -24,10 +24,10 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
 
   var cans = document.getElementsByTagName('canvas');
   // console.log(cans);
-  matterMatter();
-  matterMatter();
-  matterMatter();
-  matterMatter();
+  // matterMatter();
+  // matterMatter();
+  // matterMatter();
+  // matterMatter();
 
 
   function matterMatter() {
@@ -66,6 +66,145 @@ myApp.controller('PlayController', function(EditService, UserService, WorldServi
 
 
 
+
+
+
+zeroGrav();
+
+function zeroGrav() {
+  var Engine = Matter.Engine,
+  Render = Matter.Render,
+  World = Matter.World,
+  Mouse = Matter.Mouse,
+  MouseConstraint = Matter.MouseConstraint,
+  Body = Matter.Body,
+  Events = Matter.Events,
+  Bodies = Matter.Bodies;
+  var engine = Engine.create();
+  var world = engine.world;
+
+  // create a renderer
+  var render = Render.create({
+    element: document.body,
+    engine: engine,
+
+  });
+
+  world.gravity.y = 0;
+
+  var mouse = Mouse.create(render.canvas);
+  var mc = MouseConstraint.create(engine, {
+    mouse: mouse
+  });
+  console.log(mc);
+  var cannonballs = [];
+
+
+  Events.on(mc, "mousedown", function() {
+    console.log('hello sir', mouse.position.x, mouse.position.y);
+    var cannonball = Bodies.circle(mouse.position.x, mouse.position.y, 15, {restitution: 0.2, friction: 0, frictionAir: 0});
+    World.add(world, cannonball);
+    cannonballs.push(cannonball);
+    // Body.applyForce(cannonball, {x: mouse.position.x, y: mouse.position.y}, {x: 0.03*Math.random() - 0.03*Math.random(), y: 0.03*Math.random() - 0.03*Math.random()});
+  });
+
+  var orb = Bodies.circle(400, 300, 60, { isStatic: true });
+
+
+  function applyGravity() {
+    for (var i=0; i<cannonballs.length; i++) {
+      var xPos = cannonballs[i].position.x, yPos = cannonballs[i].position.y;
+      var theta = Math.atan((yPos-300)/(xPos - 400));
+      // console.log(theta);
+      var distance = Math.pow(Math.pow(xPos - 400, 2) + Math.pow(yPos - 300, 2), 0.5);
+
+
+      //OH DUH, one obvious problem was that i was calling this with each iteration of applyGrav.....ugh, not just at the beginning, as i thought, like on mousedown:
+
+      Body.applyForce(cannonballs[i], {x: xPos, y: yPos}, {x: Math.random()*0.0005, y: Math.random()*0.0005});
+      if (xPos < 400 && yPos < 300) {
+        // console.log("CASE 1: ", theta);
+        Body.applyForce(cannonballs[i], {x: xPos, y: yPos}, {x: Math.cos(theta)* 20* Math.pow(distance, -2), y: Math.sin(theta)*20* Math.pow(distance, -2)});
+
+      } else if (xPos < 400 && yPos > 300) {
+        // console.log("CASE 2: ", theta);
+
+        Body.applyForce(cannonballs[i], {x: xPos, y: yPos}, {x: Math.cos(theta) * 20* Math.pow(distance, -2), y: Math.sin(theta)*20* Math.pow(distance, -2)});
+
+      } else if (xPos > 400 && yPos < 300) {
+        // console.log("CASE 3: ", theta);
+
+        Body.applyForce(cannonballs[i], {x: xPos, y: yPos}, {x: -Math.cos(theta)* 20* Math.pow(distance, -2), y: -Math.sin(theta)*20* Math.pow(distance, -2)});
+
+      } else if (xPos > 400 && yPos > 300){
+        // console.log("CASE 4: ", theta);
+
+        Body.applyForce(cannonballs[i], {x: xPos, y: yPos}, {x: -Math.cos(theta)*20* Math.pow(distance, -2), y: -Math.sin(theta)*20* Math.pow(distance, -2)});
+
+      }
+
+    }
+
+  }
+
+
+
+//OH and another obvious problem is that we are increasing the force with every iteration....should really be setting velocity manually:
+
+  function zoneGravity() {
+    for (var i=0; i<cannonballs.length; i++) {
+      var xPos = cannonballs[i].position.x, yPos = cannonballs[i].position.y;
+      // var theta = Math.atan((yPos-300)/(xPos - 400));
+      // console.log(theta);
+      // var distance = Math.pow(Math.pow(xPos - 400, 2) + Math.pow(yPos - 300, 2), 0.5);
+      // Body.applyForce(cannonballs[i], {x: xPos, y: yPos}, {x: Math.random()*0.0005, y: Math.random()*0.0005});
+      if (xPos < 400 && yPos < 300) {
+        // console.log("CASE 1: ", theta);
+        // Body.applyForce(cannonballs[i], {x: xPos, y: yPos}, {x: 0, y: 0.001});
+        Body.setVelocity(cannonballs[i], {x: 0, y: 1});
+
+      } else if (xPos < 400 && yPos > 300) {
+        // console.log("CASE 2: ", theta);
+
+        // Body.applyForce(cannonballs[i], {x: xPos, y: yPos}, {x: 0.001, y: 0});
+        Body.setVelocity(cannonballs[i], {x: 1, y: 0.0});
+
+
+      } else if (xPos > 400 && yPos < 300) {
+        // console.log("CASE 3: ", theta);
+
+        // Body.applyForce(cannonballs[i], {x: xPos, y: yPos}, {x: -0.001, y: 0});
+        Body.setVelocity(cannonballs[i], {x: -1, y: 0.0});
+
+
+      } else if (xPos > 400 && yPos > 300){
+        // console.log("CASE 4: ", theta);
+
+        // Body.applyForce(cannonballs[i], {x: xPos, y: yPos}, {x: 0, y: -0.001});
+        Body.setVelocity(cannonballs[i], {x: 0, y: -1});
+
+
+      }
+
+    }
+
+  }
+
+
+  setInterval(zoneGravity, 100);
+
+  // setInterval(applyGravity, 20);
+
+  // var bar = Bodies.rectangle(780, 100, 40, 150);
+  World.add(world, [ orb]);
+
+
+  Engine.run(engine);
+  Render.run(render);
+  console.log(World.Bodies);
+
+
+}
 
 
 

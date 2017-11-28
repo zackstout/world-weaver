@@ -50,12 +50,18 @@ then it flips width and height. So you intended it to start with left upper at (
 
 - oh wow can you do sliders with just input type="range"?
 
+- oh no do we need p5 for mousedrag? that cannot be!
+
+- ah, clearly the way i'm doing zero-gravity is the way to do zones of gravity: just partition up into sections and apply  a different gravity based on what seciton they're in....that would actually be easier than what i'm trying to do now. Ok, onto attempt number 3.
+
+- a couple n00b mistakes with Matter: we were increasing the force with each setInterval iteration, and we were also inserting a new force (in the earlier attempt) with each iteration, instead of just at the initiation (i.e. mouseclick)
+
 
 
 
 ### STRETCH:
 - implement MAGNETS
-- ZONES OF GRAVITY
+- ZONES OF GRAVITY (spent a bit of time here -- hard to get Matter inserting into specific canvases, but easy to stack them on each other to simulate zones...could maybe integrate them as a Composite??)
 - FLYERS (for real, no bugs)
 - SUPER-BOUNCE
 - STICKINESS
