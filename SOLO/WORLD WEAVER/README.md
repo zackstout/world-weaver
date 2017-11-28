@@ -17,7 +17,13 @@ List technologies and frameworks here
 ok so it thinks the center is where the upper left of canvas was: e.g. (500, 100)...
 then it flips width and height. So you intended it to start with left upper at (500, 100), but it shows up as having its center there. The math here is easy.
 
+- Ensure that user can get to PLAYING from ALL, FAVES, or MYWORLDS
+
+- Ensure that user can get to EDIT from WEAVE, SAVED, or MYWORLDS
+
 ### HIGH PRIORITY
+- add a DELETE route for MYWORLDS
+
 - [x] add completions etc to FAVES and MYWORLDS (and default to 0)
 - look into coloring things individually with Matter.Render
 - EDIT should keep track of whether user came from MY WORLDS (vs saved worlds), because in that case should be a post rather than a put route, i think (?????)
