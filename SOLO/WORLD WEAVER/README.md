@@ -34,12 +34,14 @@ then it flips width and height. So you intended it to start with left upper at (
 - finesse timing to tenth of a second
 - get MY best time for FAVES
 - figure a better way to freeze the timer on completion
-- figure out why things break on page refresh sometimes
 - figure out why Views aren't saving the data, like where you've pulled a slider to
 - let a user delete their own levels: ASK HOLLY how she did this in queries (nested??)
 - figure out user permissions for the first five levels, look into image overlays (of a lock!)
+
 - BUG: when you search for a second thing, the canvases won't show up anymore! (perhaps this is a disadvantage of the illusory simplicity of | filter .... )
-- what's up with force bar bug??
+- BUG: what's up with force bar bug??
+- BUG: figure out why things break on page refresh sometimes
+
 
 - one way of introducing puzzles (without portals) would be "have to do x y number of times" or something
 
@@ -55,11 +57,17 @@ then it flips width and height. So you intended it to start with left upper at (
 ### CORE:
 - Build a few levels
 
-- Editing interface.......yeah
+- Editing interface.......yeah: on-click edit that shape.
 
 - Styling (cards?)
 
 - Organize code (routers, services,....etc.)
+
+
+
+
+- bootstrap floppy disk glyph icon is nice
+- the "screenshot" icon look sa bit like a bullseye, like we hit the target? (could give info on mouseover)
 
 
 

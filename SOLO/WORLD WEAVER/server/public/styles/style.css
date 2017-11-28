@@ -36,6 +36,65 @@
 
 
 
+.level-btn {
+  /*display: inline-block;
+
+  position: relative;*/
+
+  /*opacity: 0.5;*/
+  width: 80px;
+  height: 50px;
+  background-color: gray;
+  opacity: 0.4;
+  /*position: absolute;
+  left: 10px;*/
+}
+
+.level-btn2 {
+  position: relative;
+
+}
+
+.level-btn2 img {
+  position: absolute;
+top: 0; /* or whatever */
+left: 0; /* or whatever, position according to taste */
+opacity: 0.5; /* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
+}
+
+.level-container {
+  /*display: inline-block;*/
+ position: relative;
+ /*left: 20px;*/
+ /*height: 90px;
+ width: 60px;*/
+ background-image: url("https://imageog.flaticon.com/icons/png/512/44/44594.png?size=100x52f&pad=10,10,10,10&ext=png&bg=FFFFFFFF");
+ background-position: 0 0;
+ background-repeat: no-repeat;
+
+ /*z-index:100;*/
+}
+
+/*img {
+  position: absolute;
+  right: 2px;
+  top: 10px;
+  height: 50px;
+  width: auto;
+  background: none;
+  z-index: 100;
+}*/
+
+
+
+
+
+
+
+
+
+
+
 body, html {
   margin: 0;
   padding: 0;
