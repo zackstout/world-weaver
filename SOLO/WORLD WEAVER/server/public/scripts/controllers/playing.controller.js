@@ -10,35 +10,18 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
   vm.origin = WorldService.origin;
   vm.done = false;
   var newPortal = false;
-
-      vm.showConfirm = function(ev) {
-        // Appending dialog to document.body to cover sidenav in docs app
-        var confirm = $mdDialog.confirm()
-        .clickOutsideToClose(true)
-
-        .title('Level completed in ' + vm.now + ' seconds!')
-        // .textContent('May weaving bring you peace.')
-        .ariaLabel('Lucky day')
-        .targetEvent(ev)
-        .ok('Awesome');
-        // .cancel('SAVED WORLD');
-
-        $mdDialog.show(confirm).then(function() {
-          // vm.status = 'A new world it shall be!';
-          vm.goHome();
-        }, function() {
-          // vm.status = 'Let\'s grab your saved worlds...';
-          vm.goHome();
-        });
-      };
+  var heatMoverGlobal;
 
 
   vm.goHome = function() {
     if (vm.origin == 'all') {
+      clearInterval(heatMoverGlobal);
       $location.path('/all');
     } else if (vm.origin == 'mine') {
+      clearInterval(heatMoverGlobal);
       $location.path('/myworlds');
     } else if (vm.origin == 'faves') {
+      clearInterval(heatMoverGlobal);
       $location.path('/favs');
     }
   };
@@ -51,9 +34,11 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     }
   }
 
+  var t = 0;
   doMatterStart();
 
   function doMatterStart() {
+    console.log("t is ", t);
     // console.log(vm.newWorld.obstacles);
     console.log(WorldService.world);
     var world1 = WorldService.world.world;
@@ -76,7 +61,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     var engine = Engine.create();
     var world = engine.world;
     // var obstacle, cannon, cannonball, bucket, x=0;
-    var cannon, bucket, t=0, x=0;
+    var cannon, bucket, x=0;
 
     var now = 0;
     vm.now = 0;
@@ -97,10 +82,13 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       engine: engine,
       options: {
         showShadows: true,
-        background: '#ADD8E6',
+        // background: '#ADD8E6',
+        // background: '#191970',
+        background: '#000000',
+        // background: '#00008b',
 
         //this will add coloring but obliterate our force bar:
-        // wireframes: false
+        wireframes: false
       }
     });
 
@@ -117,7 +105,33 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       Body.setAngle(cannon, x);
     };
 
+    // var luna = Bodies.circle(100, 200, 10, { isStatic: true, isSensor: true, render:
+    //   {sprite:
+    //     {texture:
+    //       'https://i.imgur.com/KBEqBvs.png'}}});
+    // World.add(world, luna);
 
+    var stars = Bodies.rectangle(400, 300, 500, 600, { isStatic: true , isSensor: true, render:
+      {sprite:
+        {texture:
+          'https://cdn.pixabay.com/photo/2017/08/24/03/41/milky-way-2675322_960_720.jpg'}}});
+          // 'https://wallpaperstudio10.com/static/wpdb/wallpapers/1920x1080/169995.jpg'}}});
+          // 'https://pbs.twimg.com/media/BxCkS0_IUAArl4T.jpg'}}});
+        // 'https://vignette.wikia.nocookie.net/starrysky/images/4/4f/Starry_sky_1.png/revision/latest?cb=20150724135550'}}});
+
+    // stars.render.sprite.xScale = 0.8;
+    stars.render.sprite.yScale = 1.1;
+    // World.add(world, stars);
+
+
+    var stars2 = Bodies.rectangle(400, 300, 500, 600, { isStatic: true , isSensor: true, render:
+      {sprite:
+        {texture:
+          'https://wallpaperstudio10.com/static/wpdb/wallpapers/1920x1080/169995.jpg'}}});
+
+    stars2.render.sprite.xScale = 0.28;
+    stars2.render.sprite.yScale = 0.28;
+    World.add(world, stars2);
 
     Events.on(engine, 'collisionStart', function(event) {
       var pairs = event.pairs;
@@ -143,18 +157,29 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       }
     });
 
-    if (WorldService.world.portals) {
-      var portals = WorldService.world.portals;
+    if (WorldService.world.portals || WorldService.world.world.portals) {
+
+      var portals;
+      if (WorldService.world.portals) {
+        portals = WorldService.world.portals;
+
+      } else {
+        portals = WorldService.world.world.portals;
+
+      }
+      console.log('hi there portals');
+
 
       var portal1 = Bodies.circle(780, portals.y1, 15, { isStatic: true, isSensor: true });
 
-      //a pretty poor way of trying to rig reflecting portals (i.e. same-wall portals):
-      // var portal1wall = Bodies.rectangle(785, 210, 15, 60, { isStatic: true });
       var portal2 = Bodies.circle(20, portals.y2, 15, { isStatic: true, isSensor: true });
-      // portal2 = Bodies.circle(780, 550, 15, { isStatic: true, isSensor: true });
 
+      portal1.render.fillStyle = '#9400d3';
+      portal2.render.fillStyle = '#9400d3';
       World.add(world, [portal1, portal2]);
     }
+
+
 
 
 
@@ -162,6 +187,8 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     if (world1.start_x != undefined) {
       cannon = Bodies.rectangle(world1.start_x, world1.start_y, 40, 20, {isStatic: true});
       bucket = Bodies.rectangle(world1.end_x, world1.end_y, 30, 30, {isStatic: true});
+      cannon.render.fillStyle = '#228b22';
+      bucket.render.fillStyle = '#ffd700';
       World.add(world, [cannon, bucket]);
     }
 
@@ -172,9 +199,12 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     });
     console.log(mc);
 
+
+
     Events.on(mc, "mousedown", function() {
       console.log('hello sir', mouse.position.x, mouse.position.y);
-      cannonball = Bodies.circle(cannon.position.x + 40*Math.cos(cannon.angle), cannon.position.y + 40*Math.sin(cannon.angle), 15, {restitution: 1, friction: 0});
+      cannonball = Bodies.circle(cannon.position.x + 20*Math.cos(cannon.angle), cannon.position.y + 20*Math.sin(cannon.angle), 15, {restitution: 1, friction: 0});
+
       World.add(world, cannonball);
       // Body.applyForce(cannonball, {x: cannon.position.x, y: cannon.position.y}, {x: 0.04*Math.cos(cannon.angle), y: 0.04*Math.sin(cannon.angle)});
       Body.applyForce(cannonball, {x: cannon.position.x, y: cannon.position.y}, {x: 0.04*Math.cos(cannon.angle)*(1+Math.sin(t)), y: 0.04*Math.sin(cannon.angle)*(1+Math.sin(t))});
@@ -184,6 +214,42 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
     });
 
+
+    vm.showConfirm = function(ev) {
+      // Appending dialog to document.body to cover sidenav in docs app
+      var confirm = $mdDialog.confirm()
+      .clickOutsideToClose(true)
+
+      .title('Level completed in ' + vm.now + ' seconds!')
+      // .textContent('May weaving bring you peace.')
+      .ariaLabel('Lucky day')
+      .targetEvent(ev)
+      .ok('Awesome');
+      // .cancel('SAVED WORLD');
+
+      $mdDialog.show(confirm).then(function() {
+        // vm.status = 'A new world it shall be!';
+        // Matter.Composite.remove(world, heat);
+        // World.clear(world, true);
+        // t=0;
+        // clearInterval(heatMoverGlobal);
+
+        vm.goHome();
+        // Render.stop(render);
+      }, function() {
+        // vm.status = 'Let\'s grab your saved worlds...';
+        // Matter.Composite.remove(world, heat);
+        // World.clear(world, true);
+
+        // t=0;
+        // clearInterval(heatMover);
+
+
+        vm.goHome();
+        // Render.stop(render);
+
+      });
+    };
 
 
 
@@ -204,6 +270,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
             finish.time = vm.now*10;
 
             finish.complete = true;
+            t = 0;
             WorldService.postFinish(finish);
           }
 
@@ -220,18 +287,22 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
     //add force level or "heat" bar:
     bar = Bodies.rectangle(780, 100, 40, 150, {isStatic: true, isSensor: true, chamfer: {radius: 7}});
+    bar.render.fillStyle = '#dcdcdc';
     World.add(world, bar);
     heat = Bodies.rectangle(780, t, 40, 19, {isStatic: true, chamfer: {radius: 7}});
+    heat.render.fillStyle = '#ff69b4';
     World.add(world, heat);
 
     //ahhhh of course, just manually set the position!
     function moveHeat() {
+      // console.log(t);
       //changing the plus to minus here fixes the upside down force problem:
       Body.setPosition(heat, {x: 780, y: 100 - 64*Math.sin(t)});
       t += 0.05;
     }
 
-    setInterval(moveHeat, 50);
+    // var heatMover = setInterval(moveHeat, 50);
+    heatMoverGlobal = setInterval(moveHeat, 50);
 
 
     console.log(obstacles);
@@ -244,6 +315,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       } else if (wor.type == "circle") {
         obstacle = Bodies.circle(wor.x, wor.y, wor.h, { isStatic: true });
       }
+      obstacle.render.fillStyle = '#1e90ff';
       World.add(world, [obstacle]);
     }
 

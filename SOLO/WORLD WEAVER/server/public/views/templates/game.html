@@ -1,61 +1,88 @@
 
 <div ng-include="'views/partials/nav.html'"></div>
 
-<div class="container">
-  In game...
+<div class="container gameContainer">
 
-  <ul>
-    <li>Level 1</li>
-    <li>Level 2</li>
-    <li>Level 3</li>
-    <li>Level 4</li>
-    <li>Level 5</li>
-  </ul>
 
-<div class="gameNav" flex="50">
-  <div layout layout-align="center center" class="level-container">
-    <!-- <md-button class="md-primary md-raised level-btn" ng-click="uc.go('/game')">
-      LEVEL 1
-    </md-button> -->
-    <div class="level-btn">
-      LEVEL 1
-      <!-- <img src="https://imageog.flaticon.com/icons/png/512/44/44594.png?size=100x52f&pad=10,10,10,10&ext=png&bg=FFFFFFFF"> -->
+  <div class="gameNav" flex="35">
+
+    <div layout layout-align="center center">
+      <md-button class="md-primary md-raised" ng-click="uc.go('/game')">
+        LEVEL 1
+      </md-button>
     </div>
-    <!-- <img src="https://imageog.flaticon.com/icons/png/512/44/44594.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF"> -->
-  </div>
 
-  <br><br>
-  <div layout layout-align="center center" class="level-container">
-    <div class="level-btn">
-      LEVEL 2
-    </div>
-    <!-- <img src="https://imageog.flaticon.com/icons/png/512/44/44594.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF"> -->
-  </div>
-
-  <br><br>
-  <div layout layout-align="center center" class="level-container">
-    <!-- <div class="level-btn"> -->
-      <b>LEVEL 3</b>
-    <!-- </div> -->
-    <img src="https://imageog.flaticon.com/icons/png/512/44/44594.png?size=100x52f&pad=10,10,10,10&ext=png&bg=FFFFFFFF">
-  </div>
-
-  <br><br>
-  <div layout layout-align="center center" class="level-container">
-    <div class="level-btn">
-      LEVEL 4
-    </div>
-    <!-- <img src="https://imageog.flaticon.com/icons/png/512/44/44594.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF"> -->
-  </div>
-
-  <br><br>
-  <div layout layout-align="center center" class="level-container">
-    <div class="level-btn">
-      LEVEL 5
-    </div>
-    <!-- <img src="https://imageog.flaticon.com/icons/png/512/44/44594.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF"> -->
-  </div>
+  <br>
+  <div layout layout-align="center center">
+  <md-button ng-class="gc.addClass1" class=" md-raised" ng-click="uc.go('/game')">
+    LEVEL 2
+  </md-button>
 </div>
+  <br>
+  <div layout layout-align="center center">
+
+  <md-button ng-class="gc.addClass2" class="md-raised" ng-click="gc.changeClass()">
+    LEVEL 3
+  </md-button>
+</div>
+  <br>
+  <div layout layout-align="center center">
+
+  <md-button ng-class="gc.addClass3" class="md-raised" ng-click="uc.go('/game')">
+    LEVEL 4
+  </md-button>
+</div>
+  <br>
+  <div layout layout-align="center center">
+
+  <md-button ng-class="gc.addClass4" class="md-raised" ng-click="uc.go('/game')">
+    LEVEL 5
+  </md-button>
+</div>
+
+</div>
+
+
+
+
+<!--
+<div class="gameNav" flex="40">
+
+  <div class="level-container" layout layout-align="center center">
+
+    <div class="level-btn" layout layout-align="center center">
+      <button class="level-btn2">LEVEL 1</button>
+    </div>
+  </div>
+
+  <br><br>
+  <div class="level-container">
+    <div class="level-btn">
+      <button class="level-btn2">LEVEL 2</button>
+    </div>
+  </div>
+
+  <br><br>
+  <div class="level-container">
+    <div class="level-btn">
+      <button class="level-btn2">LEVEL 3</button>
+    </div>
+  </div>
+
+  <br><br>
+  <div class="level-container">
+    <div class="level-btn">
+      <button class="level-btn2">LEVEL 4</button>
+    </div>
+  </div>
+
+  <br><br>
+  <div class="level-container">
+    <div class="level-btn">
+      <button class="level-btn2">LEVEL 5</button>
+    </div>
+  </div>
+</div> -->
 
   <br><br>
 

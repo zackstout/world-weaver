@@ -23,11 +23,26 @@
 }
 
 .mainNav, .gameNav {
-  margin-left: 200px;
+  /*margin-left: 200px;*/
   background-color: lightblue;
   border-radius: 8px;
   width: 400px;
   padding: 10px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+
+}
+
+.mainNav {
+  margin-left: 200px;
+}
+
+.gameNav {
+  margin-top: -20px;
+  margin-bottom: 500px;
+  margin-left: 300px;
+  background-color: gold;
+  opacity: 0.72
 }
 
 
@@ -43,15 +58,22 @@
   margin: 15px;
   border-radius: 7px;
   padding: 10px;
+  width: 450px;
 
 }
 
-.stats {padding-left: 80px;}
+/*.stats {padding-left: 80px;}*/
+#nametag {
+  padding-left: 25px;
+}
 
-
-/*.mineCan, .allCan {
+.allCan {
   padding-left: 26px;
-}*/
+}
+
+.mineCan {
+  padding: 12px;
+}
 
 
 
@@ -66,40 +88,70 @@ td {
   /*width: 200px;*/
 }
 
+.gameContainer {
+  /*background-image: url(http://msutoday.msu.edu/_/img/assets/2014/space.jpg);*/
+  background-image: url(https://cdn.pixabay.com/photo/2015/11/19/07/27/star-1050487_960_720.jpg);
+  /*background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Night_Sky_Stars_Trees_02.jpg/1024px-Night_Sky_Stars_Trees_02.jpg);*/
+  background-size: 100%;
+}
+
+.myContainer {
+  background-image: url(http://msutoday.msu.edu/_/img/assets/2014/space.jpg);
+  background-size: 100%;
+}
+
+.favContainer {
+  background-image: url(http://eskipaper.com/images/starry-sky-4.jpg);
+  background-size: cover;
+}
+
 
 .level-btn {
   /*display: inline-block;*/
 
-  position: absolute;
+  /*position: absolute;
   top: 0;
-  left: 0;
+  left: 0;*/
 
   /*opacity: 0.5;*/
-  width: 80px;
-  height: 50px;
+  width: 100px;
+  height: 55px;
   background-color: gray;
-  color: crimson;
+  color: red;
   font-size: 19px;
-  z-index: 99;
-  /*opacity: 0.6;*/
+  /*z-index: 99;*/
+  opacity: 0.7;
+  border-radius: 4px;
   /*position: absolute;
   left: 10px;*/
 }
 
+.level-btn2 {
+  width: 100px;
+  height: 55px;
+  background-color: gray;
+  color: red;
+  font-size: 19px;
+  /*margin-left: 20%;*/
+  /*opacity: 0.6*/
+}
 
 
-.level-container, .level-container img {
-  /*display: inline-block;*/
+
+.level-container {
+  display: inline-block;
  position: relative;
  /*left: 20px;*/
  /*height: 90px;
  width: 60px;*/
- /*background-image: url(https://imageog.flaticon.com/icons/png/512/44/44594.png?size=100x52f&pad=10,10,10,10&ext=png&bg=FFFFFFFF);*/
- /*background-position: 0 0;*/
- /*background-repeat: no-repeat;*/
+ background-image: url(https://imageog.flaticon.com/icons/png/512/44/44594.png?size=100x52f&pad=10,10,10,10&ext=png&bg=FFFFFFFF);
+ background-position: 0 0;
+ background-repeat: no-repeat;
 
- z-index: 100;
+ /*z-index: 100;*/
 }
+
+
 
 /*.stargate {
   background-image: url(http://www.danlessmann.com/FullSizeImages/Astro/Cygnus_2006-10-21_1_PS.jpg);
@@ -155,13 +207,13 @@ body, html {
   margin-top: 14px;
 }
 
-#container {
+/*#container {
   margin-top: 10px;
 }
 
 .container p{
   margin-top : 14px;
-}
+}*/
 
 .message {
   padding: 10px 0;

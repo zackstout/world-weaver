@@ -1,6 +1,6 @@
 
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container" id="canvasHolder">
+<div class="container myContainer" id="canvasHolder">
 
 <div layout layout-align="center center">
   <h3>Worlds I've Woven:</h3>
@@ -14,7 +14,7 @@
 
   <div layout="row" layout-padding layout-wrap layout-fill>
 
-    <div flex-sm="45" flex-md="30" flex-lg="25" flex-gt-lg="20" ng-repeat="world in mc.worldIds | filter:searchText | orderBy: 'id'" class="myBox">
+    <div flex-xs="55" flex-sm="45" flex-md="35" flex-lg="30" flex-gt-lg="20" ng-repeat="world in mc.worldIds | filter:searchText | orderBy: 'id'" class="myBox">
       <div layout layout-align="center center"><h4>{{world.title}}</h4></div>
       <!-- <p>Cannon: ({{world.start_x}}, {{world.start_y}})</p>
       <p>Bucket: ({{world.end_x}}, {{world.end_y}})</p> -->
@@ -23,18 +23,33 @@
 
       <canvas class="mineCan" height=200 width=270 id="mine{{world.id}}"></canvas>
 
-      <div layout="row" class="stats">
-        <span class ="material-icons" title="Attempts">directions_run</span> {{world.attempts}}
-        &emsp;&emsp;&emsp;&emsp;
-        <span class ="material-icons" title="Completions">check_circle</span> {{world.completions}}
-        &emsp;&emsp;&emsp;&emsp;
-        <span class ="material-icons" title="Favorites">star</span> {{world.favs}}
-      </div>
+      <div layout="row" layout-padding layout layout-align="center center">
+        <div flex="16">
+          <span class ="material-icons" title="Attempts">directions_run</span> {{world.attempts}}
 
+        </div>
+        <div flex="16">
+          <span class ="material-icons" title="Completions">check_circle</span> {{world.completions}}
+        </div>
+        <div flex="16">
+          <span class ="material-icons" title="Favorites">star</span> {{world.favs}}
+        </div>
+        <div flex="16">
+          <button ng-click="mc.play2World(world)"><span class ="material-icons" title="Play">play_arrow</span></button>
+        </div>
+        <div flex="16">
+          <button ng-click="mc.editWorld(world)"><span class ="material-icons" title="Edit">mode_edit</span></button>
+        </div>
+        <div flex="16">
+          <button ng-click="delWorld()"><span class ="material-icons" title="Delete">delete</span></button>
+        </div>
+
+      </div>
+<!--
       <br>
-      <button ng-click="mc.play2World(world)"><span class ="material-icons" title="Play">play_arrow</span></button>
-      &emsp;&emsp;<button ng-click="mc.editWorld(world)"><span class ="material-icons" title="Edit">mode_edit</span></button>
-      &emsp;&emsp;<button ng-click="delWorld()"><span class ="material-icons" title="Delete">delete</span></button>
+
+      &emsp;&emsp;
+      &emsp;&emsp; -->
 
 
 

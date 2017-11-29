@@ -2,6 +2,13 @@
 myApp.controller('GameController', function(UserService, $http, $location, WorldService) {
   console.log('gameController created');
   var vm = this;
+  vm.addClass1 = '';
+  vm.addClass2 = '';
+  vm.addClass3 = '';
+  vm.addClass4 = '';
+
+
+
 
   vm.showWorld = function() {
     console.log('clickin new world');
@@ -10,6 +17,16 @@ myApp.controller('GameController', function(UserService, $http, $location, World
 
   vm.moving = false;
   vm.status = '';
+
+  vm.hi = 'md-primary';
+
+  vm.changeClass = function() {
+    if (vm.hi == 'md-primary') {
+      vm.hi = 'md-warn';
+    } else {
+      vm.hi = 'md-primary';
+    }
+  };
 
 
 
