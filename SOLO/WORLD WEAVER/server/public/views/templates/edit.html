@@ -3,17 +3,15 @@
 <div class="container">
 
 
-  <md-button class="md-primary md-raised" ng-click="ec.titleWorld($event)">Post World</md-button>
-  <br>
-
-  <md-button class="md-primary md-raised" ng-click="ec.saveWorld(ec.newWorld)">Save for Later</md-button>
 
 <!-- <form ng-submit="pc.addWorld(pc.newWorld)"> -->
-  <form ng-submit="ec.showWorld()">
+  <!-- <form ng-submit="ec.showWorld()"> -->
   <!-- Start x: <input type="number" ng-model="pc.newWorld.start_x"> -->
-  <div class="row">
-    <div class="col-lg-3 col-md-3">
+  <div layout="row">
+    <p><strong>Place the cannon:</strong></p>
+    <div flex="30">
   <md-slider-container>
+
         <span>Cannon-x</span>
         <md-slider flex min="50" max="750" ng-model="ec.newWorld.start_x" aria-label="startx" class="md-primary">
         </md-slider>
@@ -23,7 +21,7 @@
       </md-slider-container>
     </div>
   <!-- Start y: <input type="number" ng-model="pc.newWorld.start_y"> -->
-  <div class="col-lg-3 col-md-3">
+  <div flex="30">
 
   <md-slider-container>
         <span>Cannon-y</span>
@@ -35,8 +33,11 @@
       </md-slider-container>
 
     </div>
+  </div>
+  <div layout="row">
+    <p><strong>Place the bucket:</strong></p>
   <!-- End x: <input type="number" ng-model="pc.newWorld.end_x"> -->
-  <div class="col-lg-3 col-md-3">
+  <div flex="30">
 
   <md-slider-container>
         <span>Bucket-x</span>
@@ -48,7 +49,7 @@
       </md-slider-container>
     </div>
   <!-- End y: <input type="number" ng-model="pc.newWorld.end_y"> -->
-  <div class="col-lg-3 col-md-3">
+  <div flex="30">
 
   <md-slider-container>
         <span>Bucket-y</span>
@@ -59,9 +60,8 @@
         </md-input-container>
       </md-slider-container>
     </div>
-  <input type="submit">
 </div>
-</form>
+<!-- </form> -->
 <br><br>
 
 ADD AN OBSTACLE:
@@ -144,6 +144,7 @@ ADD AN OBSTACLE:
 </div>
 </form>
 
+<p><strong>Add a Portal Pair:</strong></p>
 <button ng-click="ec.showPortal()">New Portal</button>
 
 <form ng-show="ec.isNewPortal" ng-submit="ec.addPortal(ec.newPortal)">
@@ -185,5 +186,19 @@ ADD AN OBSTACLE:
 
   <br><br>
   <canvas id="hi" height="600px" width="800px"></canvas>
+
+
+  <div layout="row" layout-padding layout-fill>
+
+  <div flex="50">
+    <md-button class="md-primary md-raised" ng-click="ec.titleWorld($event)">Post World</md-button>
+
+  </div>
+  <div flex="50">
+    <md-button class="md-primary md-raised" ng-click="ec.saveWorld(ec.newWorld)">Save for Later</md-button>
+
+  </div>
+  </div>
+
 
 </div>

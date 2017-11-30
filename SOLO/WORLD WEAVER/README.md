@@ -24,8 +24,14 @@ then it flips width and height. So you intended it to start with left upper at (
 ### HIGH PRIORITY
 - add a DELETE route for MYWORLDS
 
+- also we really need to be able to load up a world from SAVED WORLDS properly, and update it
+
+- this calls for being able to update i.e. delete or change old obstacles, and then do a PUT route, from WEAVE/SAVED
+
+- figure out user permissions for the first five levels, look into image overlays (of a lock!)
+
 - [x] add completions etc to FAVES and MYWORLDS (and default to 0)
-- look into coloring things individually with Matter.Render
+- [x] look into coloring things individually with Matter.Render
 - EDIT should keep track of whether user came from MY WORLDS (vs saved worlds), because in that case should be a post rather than a put route, i think (?????)
 - [x] Should be two buttons in EDIT: SAVE and POST (which takes to Titling modal)
 - [x] to start we could just do an ng-show on the NEW OBSTACLE thing rather than a modal, to avoid the new-controller problem that everyone seems to be having
@@ -33,27 +39,20 @@ then it flips width and height. So you intended it to start with left upper at (
 - add two kinds of simulation button: with cannonballs, or with many random balls
 - [x] add ORDERBY to mYWORLDS AND FAVS so that they show up in same order always, as with all worlds
 
-- UH OH! bringing in portals broke all the PLAY game functionality....
-
-- also we really need to be able to load up a world from SAVED WORLDS properly, and update it
-
-- this calls for being able to update i.e. delete or change old obstacles, and then do a PUT route, from WEAVE/SAVED
-
-
-
+- [x] UH OH! bringing in portals broke all the PLAY game functionality....
 
 
 ### LOW PRIORITY
 - Make cards clickable so you can blow them up to like double size and center in screen
 - [x] finesse timing to tenth of a second
-- get MY best time for FAVES
+- [x] get MY best time for FAVES
 - figure a better way to freeze the timer on completion
 - figure out why Views aren't saving the data, like where you've pulled a slider to
 - let a user delete their own levels: ASK HOLLY how she did this in queries (nested??)
-- figure out user permissions for the first five levels, look into image overlays (of a lock!)
+
 
 - [ ! ] BUG: when you search for a second thing, the canvases won't show up anymore! (perhaps this is a disadvantage of the illusory simplicity of | filter .... )
-- [ ! ] BUG: what's up with force bar bug??
+- [ x ] BUG: what's up with force bar bug??
 - [ ! ] BUG: figure out why things break on page refresh sometimes
 - [ ! ] BUG: why can't we favorite without being taken to top of page???? we can unfave on /INFO page!
 - [ ! ] BUG: can't open both FAVES and MY WORLDS without erasing the canvases of the other....

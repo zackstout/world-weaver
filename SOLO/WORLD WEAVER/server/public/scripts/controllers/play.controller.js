@@ -564,6 +564,7 @@ function zeroGrav() {
       console.log(flyingBall);
     }
 
+    world.gravity.x = 1.25;
 
     //listen for collisions:
     Events.on(engine, 'collisionStart', function(event) {

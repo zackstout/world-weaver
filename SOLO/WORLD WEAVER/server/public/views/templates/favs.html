@@ -1,9 +1,9 @@
 
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container favContainer" id="canvasHolder">
+<div class=" favContainer" id="canvasHolder">
 
   <div layout layout-align="center center">
-  <h3>My Fave Worlds</h3>
+  <h2 class="lead2">MY FAVORITE WORLDS</h2>
 </div>
 
   <input type="text" placeholder="Search" ng-model="searchText" />
@@ -32,10 +32,10 @@
         <span class ="material-icons" title="Completions">check_circle</span> {{fave.completions}}
       </div>
       <div flex="20">
-        <span ng-show="fave.allTimes.length">
+        <span >
 
-          <span class="material-icons">timer</span>
-          <span ng-repeat="time in fave.allTimes | orderBy: 'time' | limitTo: 1">
+          <span class="material-icons" title="Personal Best">timer</span>
+          <span ng-show="fave.allTimes.length" ng-repeat="time in fave.allTimes | orderBy: 'time' | limitTo: 1">
             {{time.time/10}} s.
         </span>
         </span>

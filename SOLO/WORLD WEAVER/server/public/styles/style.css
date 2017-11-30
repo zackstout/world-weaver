@@ -12,7 +12,7 @@
 
 .boxMain {
   background-color: tomato;
-  margin: 5px;
+  margin: 15px;
   border-radius: 7px;
 }
 
@@ -88,21 +88,30 @@ td {
   /*width: 200px;*/
 }
 
-.gameContainer {
+.gameContainer, .allContainer {
   /*background-image: url(http://msutoday.msu.edu/_/img/assets/2014/space.jpg);*/
   background-image: url(https://cdn.pixabay.com/photo/2015/11/19/07/27/star-1050487_960_720.jpg);
   /*background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Night_Sky_Stars_Trees_02.jpg/1024px-Night_Sky_Stars_Trees_02.jpg);*/
   background-size: 100%;
+  margin-top: -25px;
 }
 
 .myContainer {
   background-image: url(http://msutoday.msu.edu/_/img/assets/2014/space.jpg);
   background-size: 100%;
+  margin-top: -25px;
 }
 
 .favContainer {
   background-image: url(http://eskipaper.com/images/starry-sky-4.jpg);
   background-size: cover;
+  margin-top: -25px;
+}
+
+.lead2 {
+  color: goldenrod;
+  font-family: Arial;
+  font-weight: bold;
 }
 
 
