@@ -18,6 +18,8 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
 
   };
 
+
+
     vm.getSavedObstacles = function() {
       UserService.getSavedObstacles().then(function(res) {
         vm.obstaclesSaved = res;
@@ -73,6 +75,18 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
 
     vm.getSavedWorlds();
 
+
+      vm.delWorld = function(world) {
+        console.log(world);
+        $http.delete('/edit/saved/delete/' + world.id).then(function (response) {
+          console.log('Success');
+          vm.getSavedWorlds();
+          // self.refreshItems();
+        }).catch(function(error) {
+          console.log('nuts');
+        });
+      };
+      
 
     function logCanvasSaved() {
       var can = document.getElementsByTagName("canvas");

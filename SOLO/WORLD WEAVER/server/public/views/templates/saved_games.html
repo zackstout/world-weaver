@@ -1,12 +1,14 @@
 
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
-  <p>
-    <h3 class="head3">SAVED WORLDS</h3>
-  </p>
+<div class="savedContainer">
+
+    <div layout layout-align="center center">
+      <h3 class="lead2">SAVED WORLDS</h3>
+
+    </div>
 
 <div layout="row" layout-padding layout-wrap layout-fill>
-  <div ng-repeat="world in sc.savedWorldIds" class="savedBox" flex="40">
+  <div ng-repeat="world in sc.savedWorldIds" class="savedBox" flex-xs="55" flex-sm="45" flex-md="35" flex-lg="30" flex-gt-lg="20" >
     <!-- <p>Id: {{world.id}}</p>
     <p>Cannon: ({{world.start_x}}, {{world.start_y}})</p>
     <p>Bucket: ({{world.end_x}}, {{world.end_y}})</p>
@@ -15,6 +17,7 @@
     <canvas class="savedCan" height=200 width=270 id="saved{{world.id}}"></canvas>
 <br>
     <button ng-click="sc.editWorld(world)">Weave</button>
+    <button ng-click="sc.delWorld(world)"><span class ="material-icons" title="Delete">delete</span></button>
 
 
 
