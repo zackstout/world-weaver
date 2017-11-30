@@ -17,7 +17,7 @@ List technologies and frameworks here
 ok so it thinks the center is where the upper left of canvas was: e.g. (500, 100)...
 then it flips width and height. So you intended it to start with left upper at (500, 100), but it shows up as having its center there. The math here is easy.
 
-- Ensure that user can get to PLAYING from ALL, FAVES, or MYWORLDS
+- [ x ] Ensure that user can get to PLAYING from ALL, FAVES, or MYWORLDS
 
 - Ensure that user can get to EDIT from WEAVE, SAVED, or MYWORLDS
 
@@ -29,6 +29,18 @@ then it flips width and height. So you intended it to start with left upper at (
 - this calls for being able to update i.e. delete or change old obstacles, and then do a PUT route, from WEAVE/SAVED
 
 - figure out user permissions for the first five levels, look into image overlays (of a lock!)
+
+- try to make it so that on editing a SAVED world, you can click on elements and delete them or edit them (this should also apply to EDITING in general, now that i think of it) .... but this seems like it will be hard, with canvas, or at least a fair amount of greater than and less thans
+
+- look into rendering ellipses with matter... ( will likely have to copy Matter.Render and adjust as needed )
+
+- be sure to document specific processes of thinking / critical problem solving quote unquote to spew in interviews ... eliminating possibilities, scientific method etc
+
+- NEXT STEPS: copy favs html/controller into SAVED WORLDS, mutatis mutandi (ah first time I feel i've used that phrase meaningfully). then track all routes into the EDIT page (MY WORLDS, SAVED WORLDS, NEW WORLD). Ensure we can add objects and save (PUT) or publish (POST) *before* looking into ON CLICK stuff for editing/deleting obstacles.
+
+
+
+
 
 - [x] add completions etc to FAVES and MYWORLDS (and default to 0)
 - [x] look into coloring things individually with Matter.Render
