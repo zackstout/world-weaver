@@ -4,11 +4,11 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   var vm = this;
 
   var mouseX, mouseY;
-  document.onmousedown = function(e) {
-    mouseX = e.pageX;
-    mouseY = e.pageY;
-    console.log('page: ', mouseX, mouseY);
-  };
+  // document.onmousedown = function(e) {
+  //   mouseX = e.pageX;
+  //   mouseY = e.pageY;
+  //   console.log('page: ', mouseX, mouseY);
+  // };
 
   vm.world = EditService.editingWorld;
   vm.isNewWorld = EditService.isNewWorld;
@@ -42,35 +42,8 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     y2: 30
   };
 
-  vm.showPortal = function() {
-    vm.isNewPortal = !vm.isNewPortal;
-  };
+  vm.editingObstacle = false;
 
-  vm.addPortal = function(portal) {
-    vm.newWorld.portals = portal;
-    console.log(vm.newWorld);
-    vm.isNewPortal = false;
-    vm.portalExists = true;
-
-    var rect = canvas.getBoundingClientRect();
-    console.log(rect);
-  };
-
-  // vm.addPortalSaved = function(portal) {
-  //   vm.world.portals = portal;
-  //   console.log(vm.world);
-  //   vm.isNewPortal = false;
-  //   vm.portalExists = true;
-  // };
-
-  function getOffset(el) {
-    el = el.getBoundingClientRect();
-    return {
-      left: el.left + window.scrollX,
-      top: el.top + window.scrollY
-
-    };
-  }
 
   var canvas = document.getElementById('hi');
   console.log(canvas);
@@ -82,13 +55,113 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     var hi = getOffset(canvas);
     mouseX = e.pageX - hi.left;
     mouseY = e.pageY - hi.top;
-    console.log(getOffset(canvas));
+    // console.log(getOffset(canvas));
     console.log(mouseX, mouseY);
+    console.log("obstacles: ", vm.newWorld.obstacles);
   };
 
   var ctx = canvas.getContext("2d");
   ctx.fillStyle = 'lightblue';
   ctx.fillRect(0,0,800,600);
+
+
+
+  vm.showConfirmEdit = function(ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog.confirm()
+    .clickOutsideToClose(true)
+
+    .title('Click the obstacle, weaver.')
+    // .textContent('May weaving bring you peace.')
+    .ariaLabel('Lucky day')
+    .targetEvent(ev)
+    .ok('Awesome');
+    // .cancel('SAVED WORLD');
+
+    $mdDialog.show(confirm);
+  };
+
+  canvas.onmousedown = function(e) {
+    var hi = getOffset(canvas);
+
+    mouseX = e.pageX - hi.left;
+    mouseY = e.pageY - hi.top;
+    // console.log(getOffset(canvas));
+    if (vm.editingObstacle) {
+      console.log(mouseX, mouseY);
+      for (var i=0; i<vm.newWorld.obstacles.length; i++) {
+        var ob = vm.newWorld.obstacles[i];
+
+        if (ob.type == 'rect') {
+          if (vm.editingObstacle && (mouseX > ob.x - ob.w/2) && (mouseX < ob.x + ob.w/2) && (mouseY > ob.y - ob.h/2) && (mouseY < ob.y + ob.h/2)) {
+            console.log('we got a match, boss: ', ob);
+            vm.editingObstacle = false;
+
+            //not sure why this isn't working but whatever: 
+            ctx.strokeStyle = 'yellow';
+            ctx.translate(ob.x, ob.y);
+            ctx.rotate(ob.a*Math.PI/180);
+            ctx.rect(-ob.w/2, -ob.h/2, ob.w, ob.h);
+            ctx.rotate(-ob.a*Math.PI/180);
+            ctx.translate(-ob.x, -ob.y);
+          }
+        } else if (ob.type == 'circle') {
+          var d = Math.pow((Math.pow(mouseY - ob.y, 2) + Math.pow(mouseX - ob.x, 2)), 0.5);
+          if (vm.editingObstacle && d < ob.h) {
+            console.log('we got a match', ob);
+            vm.editingObstacle = false;
+          }
+        }
+
+      }
+    }
+    // console.log("obstacles: ", vm.newWorld.obstacles);
+  };
+
+
+  vm.editObstacle = function() {
+    vm.showConfirmEdit();
+    // console.log(mouseX, mouseY);
+
+    vm.editingObstacle = true;
+
+
+
+  };
+
+  vm.showPortal = function() {
+    vm.isNewPortal = !vm.isNewPortal;
+  };
+
+  vm.addPortal = function(portal) {
+    vm.newWorld.portals = portal;
+    console.log(vm.newWorld);
+    vm.isNewPortal = false;
+    vm.portalExists = true;
+
+    // var rect = canvas.getBoundingClientRect();
+    // console.log(rect);
+  };
+
+  // vm.addPortalSaved = function(portal) {
+  //   vm.world.portals = portal;
+  //   console.log(vm.world);
+  //   vm.isNewPortal = false;
+  //   vm.portalExists = true;
+  // };
+
+
+//this is it!:
+  function getOffset(el) {
+    el = el.getBoundingClientRect();
+    return {
+      left: el.left + window.scrollX,
+      top: el.top + window.scrollY
+
+    };
+  }
+
+
 
 
   //populate existing world if coming from SavedWorlds:
@@ -109,11 +182,11 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   vm.showObst = false;
 
   vm.showObstacle = function() {
-    var rect = canvas.getBoundingClientRect();
-
-    var bodyRect = document.body.getBoundingClientRect();
-    var offset = rect.top - bodyRect.top;
-    console.log(rect, "offset: ", offset);
+    // var rect = canvas.getBoundingClientRect();
+    //
+    // var bodyRect = document.body.getBoundingClientRect();
+    // var offset = rect.top - bodyRect.top;
+    // console.log(rect, "offset: ", offset);
     vm.showObst = !vm.showObst;
   };
 
@@ -381,8 +454,24 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     // doMatterStart();
   };
 
+  vm.showConfirm = function(ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog.confirm()
+    .clickOutsideToClose(true)
+
+    .title('Well woven! Your world is safe with us.')
+    // .textContent('May weaving bring you peace.')
+    .ariaLabel('Lucky day')
+    .targetEvent(ev)
+    .ok('Awesome');
+    // .cancel('SAVED WORLD');
+
+    $mdDialog.show(confirm);
+  };
+
   vm.saveWorld = function(world) {
     EditService.saveWorld(world);
+    vm.showConfirm();
   };
 
   vm.addObstacle = function(obstacle) {
@@ -391,8 +480,8 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     // vm.world.obstacles.push(obstacle);
     vm.showObst = false;
 
-    var rect = canvas.getBoundingClientRect();
-    console.log(rect);
+    // var rect = canvas.getBoundingClientRect();
+    // console.log(rect);
 
     //reset object to avoid over-data-binding:
     vm.newObstacle = {
