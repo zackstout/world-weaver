@@ -7,7 +7,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   vm.isNewWorld = EditService.isNewWorld;
   // console.log(vm.world, vm.isNewWorld);
   vm.origin = EditService.origin;
-  console.log('origin: ', EditService.origin);
+  console.log('origin: ', EditService.origin, 'world: ', EditService.editingWorld);
 
   vm.newWorld = {
     start_x: 0,
@@ -46,6 +46,13 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     vm.portalExists = true;
   };
 
+  // vm.addPortalSaved = function(portal) {
+  //   vm.world.portals = portal;
+  //   console.log(vm.world);
+  //   vm.isNewPortal = false;
+  //   vm.portalExists = true;
+  // };
+
 
   var canvas = document.getElementById('hi');
   console.log(canvas);
@@ -58,9 +65,11 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   //populate existing world if coming from SavedWorlds:
   if (!vm.isNewWorld) {
     console.log(vm.world);
+    //key line:
     vm.newWorld = vm.world;
     var cannonX = vm.world.start_x, cannonY = vm.world.start_y, bucketX = vm.world.end_x, bucketY = vm.world.end_y;
     var obstacles = vm.world.obstacles;
+    var portals = vm.world.portals;
     setInterval(alterCanvasSaved, 20);
   } else {
     setInterval(alterCanvas, 20);
@@ -73,35 +82,47 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     vm.showObst = !vm.showObst;
   };
 
+
+
   function alterCanvasSaved() {
     ctx.fillStyle = 'lightblue';
     ctx.fillRect(0, 0, 800, 600);
+
+    //draw cannon and bucket:
     ctx.fillStyle = 'yellow';
     ctx.fillRect(cannonX, cannonY, 40, 20);
     ctx.fillStyle = 'green';
     ctx.fillRect(bucketX, bucketY, 30, 30);
-    // console.log('before showobst');
+
+    //draw new Obstacles:
     if (vm.showObst) {
       // console.log('in showobst');
       ctx.fillStyle = 'red';
-      var x = vm.newObstacle.x, y = vm.newObstacle.y, w = vm.newObstacle.w, h = vm.newObstacle.h;
-      ctx.translate(x, y);
-      ctx.rotate(vm.newObstacle.a*Math.PI/180);
-      ctx.fillRect(-w/2, -h/2, w, h);
-      ctx.rotate(-vm.newObstacle.a*Math.PI/180);
-      ctx.translate(-x, -y);
 
+      if (vm.newObstacle.type == 'rect') {
+        var x = vm.newObstacle.x, y = vm.newObstacle.y, w = vm.newObstacle.w, h = vm.newObstacle.h;
+        ctx.translate(x, y);
+        ctx.rotate(vm.newObstacle.a*Math.PI/180);
+        ctx.fillRect(-w/2, -h/2, w, h);
+        ctx.rotate(-vm.newObstacle.a*Math.PI/180);
+        ctx.translate(-x, -y);
+      } else if (vm.newObstacle.type == 'circle') {
+        var xC = vm.newObstacle.x, yC = vm.newObstacle.y, r = vm.newObstacle.h;
+        ctx.beginPath();
+        ctx.arc(xC, yC, r, 0, 2*Math.PI);
+        ctx.stroke();
+        ctx.fill();
+      }
+
+      // var x = vm.newObstacle.x, y = vm.newObstacle.y, w = vm.newObstacle.w, h = vm.newObstacle.h;
+      // ctx.translate(x, y);
+      // ctx.rotate(vm.newObstacle.a*Math.PI/180);
+      // ctx.fillRect(-w/2, -h/2, w, h);
+      // ctx.rotate(-vm.newObstacle.a*Math.PI/180);
+      // ctx.translate(-x, -y);
     }
 
-    //
-    // ctx.fillStyle = 'yellow';
-    // ctx.fillRect(vm.newWorld.start_x, vm.newWorld.start_y, 40, 20);
-    // ctx.fillStyle = 'green';
-    // ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
-
-
-
-    // console.log(vm.newWorld.obstacles);
+    // Draw obstacles:
     for (var i=0; i<obstacles.length; i++) {
       ctx.fillStyle = 'blue';
       var x1 = obstacles[i].x;
@@ -109,18 +130,88 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
       var h1 = obstacles[i].h;
       var w1 = obstacles[i].w;
 
-      ctx.translate(x1, y1);
-      ctx.rotate(obstacles[i].a*Math.PI/180);
-      ctx.fillRect(-w1/2, -h1/2, w1, h1);
-      ctx.rotate(-obstacles[i].a*Math.PI/180);
-      ctx.translate(-x1, -y1);
+      if (obstacles[i].type == 'rect') {
+        ctx.translate(x1, y1);
+        ctx.rotate(obstacles[i].a*Math.PI/180);
+        ctx.fillRect(-w1/2, -h1/2, w1, h1);
+        ctx.rotate(-obstacles[i].a*Math.PI/180);
+        ctx.translate(-x1, -y1);
+      } else if (obstacles[i].type == 'circle') {
+        ctx.beginPath();
+        ctx.arc(x1, y1, h1, 0, 2*Math.PI);
+        ctx.stroke();
+        ctx.fill();
+      }
+      //
+      // ctx.translate(x1, y1);
+      // ctx.rotate(obstacles[i].a*Math.PI/180);
+      // ctx.fillRect(-w1/2, -h1/2, w1, h1);
+      // ctx.rotate(-obstacles[i].a*Math.PI/180);
+      // ctx.translate(-x1, -y1);
     }
+
+    //Draw portals:
+    if (vm.world.portals) {
+      ctx.fillStyle = 'purple';
+      ctx.strokeStyle = 'blue';
+      ctx.beginPath();
+      ctx.ellipse(780, vm.world.portals.y1, 10, 20, 0, 0, 2*Math.PI);
+      ctx.stroke();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.ellipse(20, vm.world.portals.y2, 10, 20, 0, 0, 2*Math.PI);
+      ctx.stroke();
+      ctx.fill();
+    }
+
+//this or the following conditional are allowing for double portals if the world *starts* with portals:
+    if (vm.isNewPortal) {
+      ctx.fillStyle = 'orange';
+      ctx.strokeStyle = 'yellow';
+
+      var p1 = vm.newPortal.y1;
+      var p2 = vm.newPortal.y2;
+
+      // ctx.beginPath();
+      // ctx.ellipse(100, 100, 40, 80, 0, 0, 2*Math.PI);
+      // ctx.stroke();
+      // ctx.fill();
+
+      ctx.beginPath();
+      ctx.ellipse(780, p1, 10, 20, 0, 0, 2*Math.PI);
+      ctx.stroke();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.ellipse(20, p2, 10, 20, 0, 0, 2*Math.PI);
+      ctx.stroke();
+      ctx.fill();
+    }
+
+    if (vm.portalExists) {
+
+          var por1 = vm.newPortal.y1;
+          var por2 = vm.newPortal.y2;
+          ctx.fillStyle = 'purple';
+          ctx.strokeStyle = 'blue';
+          ctx.beginPath();
+          ctx.ellipse(780, por1, 10, 20, 0, 0, 2*Math.PI);
+          ctx.stroke();
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.ellipse(20, por2, 10, 20, 0, 0, 2*Math.PI);
+          ctx.stroke();
+          ctx.fill();
+    }
+
 
   }
 
 
 
-  //for a NEW WORLD:
+  //for a FRESH NEW WORLD:
   function alterCanvas() {
     ctx.fillStyle = 'lightblue';
     ctx.fillRect(0, 0, 800, 600);

@@ -94,6 +94,35 @@ router.post('/world', function(req, res) {
     });
   }); //END ALL WORLDS GET ROUTE (lol "end all worlds")
 
+  router.get('/savedPortals', function(req, res) {
+    console.log('WHATUPWHATUP');
+    pool.connect(function(err, db, done) {
+      if(err) {
+        console.log('Error connecting', err);
+        res.sendStatus(500);
+      } else {
+        //we connected to DB
+        //issue: will only return worlds that have obstacles in them:
+        // var queryText = 'SELECT * FROM "worlds";';
+        var queryText = 'SELECT * FROM "portals_saved";';
+        // JOIN "favorites" on "worlds"."id" = "favorites"."world_id"
+
+        // var queryText = 'SELECT * FROM "worlds" JOIN "obstacles" ON "worlds"."id" = "obstacles"."world_id" WHERE "maker_id" = $1 GROUP BY "worlds"."id", "obstacles"."id";';
+        // JOIN "favorites" on "worlds"."id" = "favorites"."world_id"
+        db.query(queryText, [], function(err, result){
+          done();
+          if(err) {
+            console.log('Error making query', err);
+            res.sendStatus(500);
+          } else {
+            // console.log(result.rows);
+            res.send(result.rows);
+          }
+        });
+      }
+    });
+  }); //END ALL WORLDS GET ROUTE (lol "end all worlds")
+
 
   router.delete('/delete/:id', function(req, res) {
     console.log('get it boi', req.params.id);
@@ -196,6 +225,11 @@ router.post('/world', function(req, res) {
             // res.sendStatus(201);
             console.log("RESULT: ", result.rows[0].id);
             //this is a truly disgusting way to do this:
+
+
+                var queryText1 = 'INSERT INTO "portals_saved" ("world_id", "y1", "y2") VALUES ($1, $2, $3);';
+                db.query(queryText1, [result.rows[0].id, newWorld.portals.y1, newWorld.portals.y2], handlePost);
+
             if (leng !== 0) {
 
               for (var i = 0; i < leng - 1; i++) {

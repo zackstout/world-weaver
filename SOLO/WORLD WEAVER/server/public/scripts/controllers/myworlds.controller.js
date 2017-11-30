@@ -24,7 +24,7 @@ myApp.controller('MyController', function(UserService, $http, $location, WorldSe
 
   vm.editWorld = function(world) {
     console.log(world);
-    EditService.newWorld = false;
+    EditService.isNewWorld = false;
     EditService.editWorld(world);
     EditService.origin = 'mine';
   };

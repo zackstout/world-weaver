@@ -7,13 +7,15 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
   //HUH! this has to be first!!!
   vm.worldsSaved = [];
   vm.obstaclesSaved = [];
+  vm.portalsSaved = [];
   vm.savedWorldIds = [];
 
   vm.editWorld = function(world) {
     console.log(world);
-    EditService.newWorld = false;
+    EditService.isNewWorld = false;
     EditService.editWorld(world);
     EditService.origin = 'saved';
+
   };
 
     vm.getSavedObstacles = function() {
@@ -24,6 +26,21 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
           for (var j=0; j<vm.obstaclesSaved.length; j++) {
             if (vm.obstaclesSaved[j].world_id == vm.savedWorldIds[i].id) {
               vm.savedWorldIds[i].obstacles.push(vm.obstaclesSaved[j]);
+            }
+          }
+        }
+        console.log(vm.savedWorldIds);
+      });
+    };
+
+    vm.getSavedPortals = function() {
+      EditService.getSavedPortals().then(function(res) {
+        vm.portalsSaved = res;
+        console.log(vm.portalsSaved);
+        for (var i=0; i<vm.savedWorldIds.length; i++) {
+          for (var j=0; j<vm.portalsSaved.length; j++) {
+            if (vm.portalsSaved[j].world_id == vm.savedWorldIds[i].id) {
+              vm.savedWorldIds[i].portals = vm.portalsSaved[j];
             }
           }
         }
@@ -50,6 +67,7 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
         }
         setTimeout(logCanvasSaved, 200);
         vm.getSavedObstacles();
+        vm.getSavedPortals();
       });
     };
 

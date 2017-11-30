@@ -5,6 +5,7 @@ myApp.service('EditService', function($http, $location){
   self.editingWorld = {};
   self.isNewWorld = false;
   self.worldToAdd = {};
+  // self.portalsSaved = [];
 
   self.origin = '';
 
@@ -12,6 +13,17 @@ myApp.service('EditService', function($http, $location){
     console.log(world);
     self.editingWorld = world;
     $location.path('/edit');
+  };
+
+  self.getSavedPortals = function() {
+    // var userId = self.userObject.userId;
+    return $http.get('/edit/savedPortals/').then(function(response) {
+      self.portalsSaved = response.data;
+      // console.log(self.obstaclesSaved);
+      return response.data;
+    }).catch(function(err) {
+      console.log('oh no dog', err);
+    });
   };
 
   //
