@@ -195,12 +195,17 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
 
   vm.faveWorld = function(world) {
     // UserService.faveWorld(world);
+    console.log(world);
     //
     $http.post('/more/favorites', world).then(function (response) {
       console.log(response.data);
-      vm.getAllWorlds();
-      // vm.getMyFaves();
-      setTimeout(logCanvas, 200);
+      // vm.getAllWorlds();
+      // world.faves = world.faves + 1;
+      vm.getFavs();
+      world.isFavorited = !world.isFavorited;
+
+
+      // setTimeout(logCanvas, 200);
 
     }).catch(function (err) {
       console.log(error);
@@ -208,14 +213,18 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
   };
 
   vm.unfavorite = function(world) {
-    console.log(world);
+    // console.log(world);
     $http.delete('/more/delete/' + world.id).then(function (response) {
       console.log('Success');
       //WE REALLY shouldn't have to call both of these here, right....?
       //yeah shoot, if we DON'T call getAllWorlds, then we don't see the change....but if we do, user gets taken to top of page:
-      vm.getAllWorlds();
+      // vm.getAllWorlds();
       // vm.getMyFaves();
-      setTimeout(logCanvas, 200);
+      // setTimeout(logCanvas, 200);
+      world.favs = world.favs - 1;
+      world.isFavorited = !world.isFavorited;
+
+      // console.log(world);
 
     }).catch(function(error) {
       console.log('nuts');

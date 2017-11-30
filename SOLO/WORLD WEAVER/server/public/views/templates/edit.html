@@ -68,7 +68,7 @@
 <!-- </form> -->
 <br>
 
-<span><h3>Add an Obstacle:</h3>
+<span><h3 class="head3">Add an Obstacle:</h3>
 <button ng-click="ec.showObstacle()" ng-hide="ec.showObst">New obstacle</button>
 </span>
 
@@ -152,7 +152,7 @@
 </div>
 <div layout="row">
   <div flex="30">
-            <div layout="row"><span class="label1">Angle:</span>
+            <div layout="row"><span class="label1" ng-show="ec.newObstacle.type == 'rect'">Angle:</span>
               <div flex="70">
 
     <md-slider-container ng-show="ec.newObstacle.type == 'rect'">
@@ -171,7 +171,7 @@
 
 <br><br>
 
-<span><h3>Add a Portal Pair: </h3>
+<span><h3 class="head3">Add a Portal Pair: </h3>
 <button ng-click="ec.showPortal()" ng-hide="ec.isNewPortal">New Portal</button></span>
 
 <form ng-show="ec.isNewPortal" ng-submit="ec.addPortal(ec.newPortal)">
