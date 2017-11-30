@@ -150,17 +150,23 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
 
     if (vm.isNewPortal) {
       ctx.fillStyle = 'orange';
+      ctx.strokeStyle = 'yellow';
 
       var p1 = vm.newPortal.y1;
       var p2 = vm.newPortal.y2;
 
+      // ctx.beginPath();
+      // ctx.ellipse(100, 100, 40, 80, 0, 0, 2*Math.PI);
+      // ctx.stroke();
+      // ctx.fill();
+
       ctx.beginPath();
-      ctx.arc(780, p1, 15, 0, 2*Math.PI);
+      ctx.ellipse(780, p1, 10, 20, 0, 0, 2*Math.PI);
       ctx.stroke();
       ctx.fill();
 
       ctx.beginPath();
-      ctx.arc(20, p2, 15, 0, 2*Math.PI);
+      ctx.ellipse(20, p2, 10, 20, 0, 0, 2*Math.PI);
       ctx.stroke();
       ctx.fill();
     }
@@ -170,13 +176,14 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
           var por1 = vm.newPortal.y1;
           var por2 = vm.newPortal.y2;
           ctx.fillStyle = 'purple';
+          ctx.strokeStyle = 'blue';
           ctx.beginPath();
-          ctx.arc(780, por1, 15, 0, 2*Math.PI);
+          ctx.ellipse(780, por1, 10, 20, 0, 0, 2*Math.PI);
           ctx.stroke();
           ctx.fill();
 
           ctx.beginPath();
-          ctx.arc(20, por2, 15, 0, 2*Math.PI);
+          ctx.ellipse(20, por2, 10, 20, 0, 0, 2*Math.PI);
           ctx.stroke();
           ctx.fill();
     }
@@ -189,6 +196,8 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
       var y1 = vm.newWorld.obstacles[i].y;
       var h1 = vm.newWorld.obstacles[i].h;
       var w1 = vm.newWorld.obstacles[i].w;
+
+      
 
       ctx.fillStyle = 'blue';
 

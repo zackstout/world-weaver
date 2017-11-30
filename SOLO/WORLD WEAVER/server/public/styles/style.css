@@ -34,15 +34,18 @@
 }
 
 .mainNav {
-  margin-left: 200px;
+  margin-top: -20px;
+  margin-left: 300px;
+  margin-bottom: 400px;
+
 }
 
 .gameNav {
   margin-top: -20px;
-  margin-bottom: 500px;
+  margin-bottom: 400px;
   margin-left: 300px;
   background-color: gold;
-  opacity: 0.72
+  /*opacity: 0.72*/
 }
 
 
@@ -95,6 +98,7 @@ td {
   background-size: 100%;
   margin-top: -25px;
 }
+
 
 .myContainer {
   background-image: url(http://msutoday.msu.edu/_/img/assets/2014/space.jpg);
@@ -160,13 +164,32 @@ td {
  /*z-index: 100;*/
 }
 
-
-
-/*.stargate {
+.stargate {
   background-image: url(http://www.danlessmann.com/FullSizeImages/Astro/Cygnus_2006-10-21_1_PS.jpg);
-  background-repeat: no-repeat;
+  /*background-repeat: no-repeat;*/
   background-size: 100%;
-}*/
+  margin-top: -25px;
+}
+
+.editContainer {
+  background-image: url(https://d1o50x50snmhul.cloudfront.net/wp-content/uploads/2013/05/dn23542-1_800.jpg);
+  background-size: cover;
+  margin-top: -25px;
+  padding: 50px;
+}
+
+.head3 {
+  margin-right: 18px;
+}
+
+.label1 {
+  text-transform: uppercase;
+  color: white;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  margin-right: 10px;
+}
 
 
 

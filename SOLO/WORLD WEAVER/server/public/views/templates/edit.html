@@ -1,6 +1,6 @@
 
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
+<div class="editContainer">
 
 
 
@@ -8,7 +8,7 @@
   <!-- <form ng-submit="ec.showWorld()"> -->
   <!-- Start x: <input type="number" ng-model="pc.newWorld.start_x"> -->
   <div layout="row">
-    <p><strong>Place the cannon:</strong></p>
+    <p><h3 class="head3">Place the cannon:  </h3></p>
     <div flex="30">
   <md-slider-container>
 
@@ -35,7 +35,7 @@
     </div>
   </div>
   <div layout="row">
-    <p><strong>Place the bucket:</strong></p>
+    <p><h3 class="head3">Place the bucket:  </h3></p>
   <!-- End x: <input type="number" ng-model="pc.newWorld.end_x"> -->
   <div flex="30">
 
@@ -64,13 +64,14 @@
 <!-- </form> -->
 <br><br>
 
-ADD AN OBSTACLE:
-<button ng-click="ec.showObstacle()">New obstacle</button>
+<span><h3>Add an Obstacle:</h3>
+<button ng-click="ec.showObstacle()" ng-hide="ec.showObst">New obstacle</button>
+</span>
 
-{{ec.newObstacle.type}}
 <form ng-submit="ec.addObstacle(ec.newObstacle)" ng-show="ec.showObst">
 <!-- Start x: <input type="number" ng-model="pc.newWorld.start_x"> -->
-<div class="row">
+<div layout="row">
+  <span class="label1">Obstacle type:</span>
   <select ng-model="ec.newObstacle.type">
         <option value="rect">Rectangle</option>
         <option value="circle">Circle</option>
@@ -78,81 +79,103 @@ ADD AN OBSTACLE:
       </select>
 
     </div>
-    <div class="row">
-  <div class="col-lg-3 col-md-3">
+    <br>
+
+    <div layout="row">
+  <div flex="40">
+    <div layout="row">
+    <span class="label1">x-center:</span>
+    <div flex="70">
+
 <md-slider-container>
-      <span>x-center:</span>
       <md-slider flex min="50" max="750" ng-model="ec.newObstacle.x" aria-label="obstx" class="md-primary">
       </md-slider>
       <md-input-container>
         <input flex type="number" ng-model="ec.newObstacle.x" aria-label="obstx" aria-controls="obstx-slider">
       </md-input-container>
-    </md-slider-container>
+    </md-slider-container></div></div>
   </div>
 <!-- Start y: <input type="number" ng-model="pc.newWorld.start_y"> -->
-<div class="col-lg-3 col-md-3">
+<div flex="40">
+<div layout="row">
+    <span class="label1">y-center:</span>
+    <div flex="70">
 
 <md-slider-container>
-      <span>y-center:</span>
       <md-slider flex min="50" max="550" ng-model="ec.newObstacle.y" aria-label="obsty" class="md-primary">
       </md-slider>
       <md-input-container>
         <input flex type="number" ng-model="ec.newObstacle.y" aria-label="obsty" aria-controls="obsty-slider">
       </md-input-container>
-    </md-slider-container>
+    </md-slider-container></div></div>
 
   </div>
+</div>
+
+
+<div layout="row">
 <!-- End x: <input type="number" ng-model="pc.newWorld.end_x"> -->
-<div class="col-lg-3 col-md-3">
+<div flex="40">
+  <div layout="row">
+  <span  class="label1" ng-show="ec.newObstacle.type == 'rect'">Height:</span>
+  <span  class="label1" ng-show="ec.newObstacle.type == 'circle'">Radius:</span>
+  <div flex="70">
 
 <md-slider-container>
-      <span ng-show="ec.newObstacle.type == 'rect'">Height:</span>
-      <span ng-show="ec.newObstacle.type == 'circle'">Radius:</span>
+
       <md-slider flex min="50" max="750" ng-model="ec.newObstacle.h" aria-label="obsth" class="md-primary">
       </md-slider>
       <md-input-container>
         <input flex type="number" ng-model="ec.newObstacle.h" aria-label="obsth" aria-controls="obsth-slider">
       </md-input-container>
-    </md-slider-container>
+    </md-slider-container></div></div>
   </div>
 <!-- End y: <input type="number" ng-model="pc.newWorld.end_y"> -->
-<div class="col-lg-3 col-md-3">
+<div flex="40">
+<div layout="row">
+  <span class="label1" ng-show="ec.newObstacle.type == 'rect'">Width:</span>
 
+<div flex="70">
 <md-slider-container ng-show="ec.newObstacle.type == 'rect'">
-      <span>Width:</span>
       <md-slider flex min="50" max="550" ng-model="ec.newObstacle.w" aria-label="obstw" class="md-primary">
       </md-slider>
       <md-input-container>
         <input flex type="number" ng-model="ec.newObstacle.w" aria-label="obstw" aria-controls="obstw-slider">
       </md-input-container>
-    </md-slider-container>
+    </md-slider-container></div></div>
 
   </div>
-
-  <div class="col-lg-3 col-md-3">
+</div>
+<div layout="row">
+  <div flex="30">
+            <div layout="row"><span class="label1">Angle:</span>
+              <div flex="70">
 
     <md-slider-container ng-show="ec.newObstacle.type == 'rect'">
-          <span>Angle:</span>
+
           <md-slider flex min="0" max="360" ng-model="ec.newObstacle.a" aria-label="obsta" class="md-primary">
           </md-slider>
           <md-input-container>
             <input flex type="number" ng-model="ec.newObstacle.a" aria-label="obsta" aria-controls="obsta-slider">
           </md-input-container>
-        </md-slider-container>
+        </md-slider-container></div></div>
+  </div>
+
   </div>
 <input type="submit">
-</div>
 </form>
 
-<p><strong>Add a Portal Pair:</strong></p>
-<button ng-click="ec.showPortal()">New Portal</button>
+<br><br>
+
+<span><h3>Add a Portal Pair: </h3>
+<button ng-click="ec.showPortal()" ng-hide="ec.isNewPortal">New Portal</button></span>
 
 <form ng-show="ec.isNewPortal" ng-submit="ec.addPortal(ec.newPortal)">
-  <div class="row">
-    <div class="col-lg-3 col-md-3">
+  <div layout="row">
+    <div flex="30">
 
       <md-slider-container>
-            <span>FIRST:</span>
+            <span class="label">FIRST:</span>
             <md-slider flex min="30" max="770" ng-model="ec.newPortal.y1" aria-label="port1" class="md-primary">
             </md-slider>
             <md-input-container>
@@ -161,10 +184,10 @@ ADD AN OBSTACLE:
           </md-slider-container>
     </div>
 
-    <div class="col-lg-3 col-md-3">
+    <div flex="30">
 
       <md-slider-container>
-            <span>SECOND:</span>
+            <span class="label">SECOND:</span>
             <md-slider flex min="30" max="770" ng-model="ec.newPortal.y2" aria-label="port2" class="md-primary">
             </md-slider>
             <md-input-container>
