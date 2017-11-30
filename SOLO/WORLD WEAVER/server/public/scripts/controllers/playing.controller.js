@@ -15,6 +15,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
   vm.goHome = function() {
     if (vm.origin == 'all') {
+      // console.log(WorldService.world.id);
       clearInterval(heatMoverGlobal);
       $location.path('/all');
     } else if (vm.origin == 'mine') {
@@ -303,7 +304,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
 
 
 
-    
+
 
     // var heatMover = setInterval(moveHeat, 50);
     heatMoverGlobal = setInterval(moveHeat, 50);

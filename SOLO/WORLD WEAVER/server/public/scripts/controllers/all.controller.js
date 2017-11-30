@@ -1,5 +1,5 @@
 
-myApp.controller('AllController', function(UserService, $http, $location, WorldService) {
+myApp.controller('AllController', function(UserService, $anchorScroll, $http, $location, WorldService) {
   console.log('allController created');
   var vm = this;
 
@@ -188,6 +188,9 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
 
       //this is the KEY console LOG:
     console.log(vm.allWorldIds);
+
+    // console.log(WorldService.world.id);
+    //
     }).catch(function(err) {
       console.log('oh no dog', err);
     });
@@ -241,10 +244,21 @@ myApp.controller('AllController', function(UserService, $http, $location, WorldS
   function logCanvas() {
     var can = document.getElementsByTagName("canvas");
     console.log(can);
+    console.log(WorldService.world.id);
+    //
     for (var i=0; i<can.length;i++) {
+
       var canvas = can[i];
       // console.log(canvas.id.slice(6));
       var canvasId = canvas.id.slice(6);
+
+      if (canvasId == WorldService.world.id) {
+        console.log('this is the one!');
+        $location.hash(canvas.id);
+        $anchorScroll();
+      }
+
+
 
       var ctx = canvas.getContext("2d");
 
