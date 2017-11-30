@@ -301,6 +301,8 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
       t += 0.05;
     }
 
+    
+
     // var heatMover = setInterval(moveHeat, 50);
     heatMoverGlobal = setInterval(moveHeat, 50);
 
