@@ -40,6 +40,9 @@ then it flips width and height. So you intended it to start with left upper at (
 
 - [ ! ] ISSUE: currently cannot alter bucket or cannon's location in the populated edit from SAVED
 
+- add SIMULATE (x2) functionality to EDITOR
+
+
 
 
 

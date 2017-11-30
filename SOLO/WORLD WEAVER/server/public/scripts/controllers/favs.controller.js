@@ -1,15 +1,17 @@
 
-myApp.controller('FavController', function(UserService, $http, $location, WorldService, EditService) {
+myApp.controller('FavController', function(UserService, $anchorScroll, $http, $location, WorldService, EditService) {
   console.log('FavController created');
   var vm = this;
 
   var myCanvas = document.getElementsByTagName("canvas");
-  console.log(myCanvas);
+  // console.log(myCanvas);
   if (myCanvas.length !== 0) {
     for (var l=0; l<myCanvas.length; l++) {
       myCanvas[l].remove();
     }
   }
+
+  // console.log($anchorScroll);
 
   vm.faves = [];
 
