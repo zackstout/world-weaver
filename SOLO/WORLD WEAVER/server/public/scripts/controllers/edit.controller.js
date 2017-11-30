@@ -14,6 +14,9 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   vm.isNewWorld = EditService.isNewWorld;
   // console.log(vm.world, vm.isNewWorld);
   vm.origin = EditService.origin;
+
+  vm.obstacleToEdit = {};
+
   console.log('origin: ', EditService.origin, 'world: ', EditService.editingWorld);
 
   vm.newWorld = {
@@ -43,6 +46,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   };
 
   vm.editingObstacle = false;
+  vm.currentlyEditing = false;
 
 
   var canvas = document.getElementById('hi');
@@ -81,6 +85,22 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     $mdDialog.show(confirm);
   };
 
+  vm.showConfirmEditor = function(ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog.confirm()
+    .clickOutsideToClose(true)
+
+    .title('Now editing your '+ vm.obstacleToEdit.type)
+    // .textContent('May weaving bring you peace.')
+    .ariaLabel('Lucky day')
+    .targetEvent(ev)
+    .ok('Awesome');
+    // .cancel('SAVED WORLD');
+
+    $mdDialog.show(confirm);
+    vm.currentlyEditing = true;
+  };
+
   canvas.onmousedown = function(e) {
     var hi = getOffset(canvas);
 
@@ -94,10 +114,17 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
 
         if (ob.type == 'rect') {
           if (vm.editingObstacle && (mouseX > ob.x - ob.w/2) && (mouseX < ob.x + ob.w/2) && (mouseY > ob.y - ob.h/2) && (mouseY < ob.y + ob.h/2)) {
-            console.log('we got a match, boss: ', ob);
+            console.log('we got a match, boss: ', ob, i);
+            ob.myIndex = i;
             vm.editingObstacle = false;
 
-            //not sure why this isn't working but whatever: 
+            vm.obstacleToEdit = ob;
+            vm.showConfirmEditor();
+            vm.newObstacle = ob;
+            vm.showObst = true;
+
+
+            //not sure why this isn't working but whatever:
             ctx.strokeStyle = 'yellow';
             ctx.translate(ob.x, ob.y);
             ctx.rotate(ob.a*Math.PI/180);
@@ -476,6 +503,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
 
   vm.addObstacle = function(obstacle) {
     console.log(obstacle);
+    vm.currentlyEditing = false;
     vm.newWorld.obstacles.push(obstacle);
     // vm.world.obstacles.push(obstacle);
     vm.showObst = false;

@@ -68,7 +68,9 @@
 <!-- </form> -->
 <br>
 
-<span><h3 class="head3">Add an Obstacle:</h3>
+<span><h3 class="head3" ng-hide="ec.currentlyEditing">Add an Obstacle:</h3>
+      <h3 class="head3" ng-show="ec.currentlyEditing">Edit an Obstacle:</h3>
+
 <button ng-click="ec.showObstacle()" ng-hide="ec.showObst">New obstacle</button>
 </span>
 
@@ -167,6 +169,7 @@
 
   </div>
 <input type="submit">
+<button ng-show="ec.currentlyEditing" ng-click="deleteObstacle">Delete</button>
 </form>
 
 <br><br>
