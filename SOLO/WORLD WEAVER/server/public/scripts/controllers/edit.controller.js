@@ -499,6 +499,17 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   vm.saveWorld = function(world) {
     EditService.saveWorld(world);
     vm.showConfirm();
+
+  };
+
+  vm.deleteObstacle = function(ob) {
+    console.log(ob, vm.newWorld.obstacles);
+    for (var i=0; i<vm.newWorld.obstacles.length; i++) {
+      if (vm.newWorld.obstacles[i].id == ob.id) {
+        vm.newWorld.obstacles.splice(i, 1);
+      }
+    }
+    console.log(vm.newWorld.obstacles);
   };
 
   vm.addObstacle = function(obstacle) {

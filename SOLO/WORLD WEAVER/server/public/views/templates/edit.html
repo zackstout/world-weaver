@@ -169,8 +169,10 @@
 
   </div>
 <input type="submit">
-<button ng-show="ec.currentlyEditing" ng-click="deleteObstacle">Delete</button>
 </form>
+
+<button ng-show="ec.currentlyEditing" ng-click="ec.deleteObstacle(ec.newObstacle)">Delete</button>
+
 
 <br><br>
 
