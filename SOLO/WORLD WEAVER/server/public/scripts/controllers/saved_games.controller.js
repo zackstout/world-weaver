@@ -31,6 +31,7 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
       });
     };
 
+
     vm.getSavedWorlds = function() {
       UserService.getSavedWorlds().then(function(res) {
         vm.worldsSaved = res;
