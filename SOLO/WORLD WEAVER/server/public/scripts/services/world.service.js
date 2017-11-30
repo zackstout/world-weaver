@@ -76,12 +76,5 @@ myApp.service('WorldService', function($http, $location){
 
   };
 
-  // self.editWorld = function(world) {
-  //   console.log(world);
-  //   self.editWorld = world;
-  //   $location.path('/edit');
-  // };
-
-
 
 });

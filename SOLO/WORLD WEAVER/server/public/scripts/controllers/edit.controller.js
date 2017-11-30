@@ -3,6 +3,13 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   console.log('IeditController created');
   var vm = this;
 
+  var mouseX, mouseY;
+  document.onmousedown = function(e) {
+    mouseX = e.pageX;
+    mouseY = e.pageY;
+    console.log('page: ', mouseX, mouseY);
+  };
+
   vm.world = EditService.editingWorld;
   vm.isNewWorld = EditService.isNewWorld;
   // console.log(vm.world, vm.isNewWorld);
@@ -44,6 +51,9 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     console.log(vm.newWorld);
     vm.isNewPortal = false;
     vm.portalExists = true;
+
+    var rect = canvas.getBoundingClientRect();
+    console.log(rect);
   };
 
   // vm.addPortalSaved = function(portal) {
@@ -53,9 +63,28 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   //   vm.portalExists = true;
   // };
 
+  function getOffset(el) {
+    el = el.getBoundingClientRect();
+    return {
+      left: el.left + window.scrollX,
+      top: el.top + window.scrollY
+
+    };
+  }
 
   var canvas = document.getElementById('hi');
   console.log(canvas);
+  // var rect = canvas.getBoundingClientRect();
+  // var bodyRect = document.body.getBoundingClientRect();
+  // var offset = rect.top - bodyRect.top;
+  // console.log(rect, "offset: ", offset);
+  canvas.onmousedown = function(e) {
+    var hi = getOffset(canvas);
+    mouseX = e.pageX - hi.left;
+    mouseY = e.pageY - hi.top;
+    console.log(getOffset(canvas));
+    console.log(mouseX, mouseY);
+  };
 
   var ctx = canvas.getContext("2d");
   ctx.fillStyle = 'lightblue';
@@ -80,6 +109,11 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   vm.showObst = false;
 
   vm.showObstacle = function() {
+    var rect = canvas.getBoundingClientRect();
+
+    var bodyRect = document.body.getBoundingClientRect();
+    var offset = rect.top - bodyRect.top;
+    console.log(rect, "offset: ", offset);
     vm.showObst = !vm.showObst;
   };
 
@@ -356,6 +390,9 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     vm.newWorld.obstacles.push(obstacle);
     // vm.world.obstacles.push(obstacle);
     vm.showObst = false;
+
+    var rect = canvas.getBoundingClientRect();
+    console.log(rect);
 
     //reset object to avoid over-data-binding:
     vm.newObstacle = {
