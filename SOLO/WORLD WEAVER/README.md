@@ -42,6 +42,8 @@ then it flips width and height. So you intended it to start with left upper at (
 
 - add SIMULATE (x2) functionality to EDITOR
 
+- anchorScroll seems straightforward enough... should be good for returning to FAVS, ALL, or MINE after playing, or editing..
+
 
 
 
