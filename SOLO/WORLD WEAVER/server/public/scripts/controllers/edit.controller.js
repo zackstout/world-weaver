@@ -67,6 +67,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     console.log(vm.world);
     //key line:
     vm.newWorld = vm.world;
+    console.log(vm.newWorld);
     var cannonX = vm.world.start_x, cannonY = vm.world.start_y, bucketX = vm.world.end_x, bucketY = vm.world.end_y;
     var obstacles = vm.world.obstacles;
     var portals = vm.world.portals;
@@ -89,10 +90,15 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     ctx.fillRect(0, 0, 800, 600);
 
     //draw cannon and bucket:
+    // ctx.fillStyle = 'yellow';
+    // ctx.fillRect(cannonX, cannonY, 40, 20);
+    // ctx.fillStyle = 'green';
+    // ctx.fillRect(bucketX, bucketY, 30, 30);
+
     ctx.fillStyle = 'yellow';
-    ctx.fillRect(cannonX, cannonY, 40, 20);
+    ctx.fillRect(vm.newWorld.start_x, vm.newWorld.start_y, 40, 20);
     ctx.fillStyle = 'green';
-    ctx.fillRect(bucketX, bucketY, 30, 30);
+    ctx.fillRect(vm.newWorld.end_x, vm.newWorld.end_y, 30, 30);
 
     //draw new Obstacles:
     if (vm.showObst) {

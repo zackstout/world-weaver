@@ -33,10 +33,12 @@ router.post('/world', function(req, res) {
           console.log("RESULT: ", result.rows[0].id);
           //this is a truly disgusting way to do this:
 
+          if (newWorld.portals) {
+
 
           var queryText1 = 'INSERT INTO "portals" ("world_id", "y1", "y2") VALUES ($1, $2, $3);';
           db.query(queryText1, [result.rows[0].id, newWorld.portals.y1, newWorld.portals.y2], handlePost);
-
+        }
           if (leng !== 0) {
 
             for (var i = 0; i < leng - 1; i++) {
@@ -226,10 +228,12 @@ router.post('/world', function(req, res) {
             console.log("RESULT: ", result.rows[0].id);
             //this is a truly disgusting way to do this:
 
+            if (newWorld.portals) {
+
 
                 var queryText1 = 'INSERT INTO "portals_saved" ("world_id", "y1", "y2") VALUES ($1, $2, $3);';
                 db.query(queryText1, [result.rows[0].id, newWorld.portals.y1, newWorld.portals.y2], handlePost);
-
+              }
             if (leng !== 0) {
 
               for (var i = 0; i < leng - 1; i++) {
