@@ -9,18 +9,11 @@ myApp.controller('SavedController', function(UserService, $http, $location, Worl
   vm.obstaclesSaved = [];
   vm.savedWorldIds = [];
 
-
-    vm.faves = [];
-
-    vm.obstacles = [];
-
-    vm.faveIds = [];
-
   vm.editWorld = function(world) {
     console.log(world);
     EditService.newWorld = false;
     EditService.editWorld(world);
-
+    EditService.origin = 'saved';
   };
 
     vm.getSavedObstacles = function() {

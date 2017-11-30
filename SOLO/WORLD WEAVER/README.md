@@ -38,6 +38,8 @@ then it flips width and height. So you intended it to start with left upper at (
 
 - NEXT STEPS: copy favs html/controller into SAVED WORLDS, mutatis mutandi (ah first time I feel i've used that phrase meaningfully). then track all routes into the EDIT page (MY WORLDS, SAVED WORLDS, NEW WORLD). Ensure we can add objects and save (PUT) or publish (POST) *before* looking into ON CLICK stuff for editing/deleting obstacles.
 
+- [ ! ] ISSUE: currently cannot alter bucket or cannon's location in the populated edit from SAVED
+
 
 
 

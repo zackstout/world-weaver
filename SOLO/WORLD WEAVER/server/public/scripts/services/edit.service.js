@@ -6,6 +6,8 @@ myApp.service('EditService', function($http, $location){
   self.isNewWorld = false;
   self.worldToAdd = {};
 
+  self.origin = '';
+
   self.editWorld = function(world) {
     console.log(world);
     self.editingWorld = world;

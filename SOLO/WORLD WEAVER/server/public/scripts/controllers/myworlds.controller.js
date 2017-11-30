@@ -26,6 +26,7 @@ myApp.controller('MyController', function(UserService, $http, $location, WorldSe
     console.log(world);
     EditService.newWorld = false;
     EditService.editWorld(world);
+    EditService.origin = 'mine';
   };
 
   function getObstacles() {

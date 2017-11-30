@@ -6,6 +6,8 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   vm.world = EditService.editingWorld;
   vm.isNewWorld = EditService.isNewWorld;
   // console.log(vm.world, vm.isNewWorld);
+  vm.origin = EditService.origin;
+  console.log('origin: ', EditService.origin);
 
   vm.newWorld = {
     start_x: 0,
@@ -197,7 +199,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
       var h1 = vm.newWorld.obstacles[i].h;
       var w1 = vm.newWorld.obstacles[i].w;
 
-      
+
 
       ctx.fillStyle = 'blue';
 
