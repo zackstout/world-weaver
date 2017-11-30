@@ -189,6 +189,7 @@ td {
   font-size: 15px;
   font-weight: bold;
   margin-right: 10px;
+  /*width: 90px;*/
 }
 
 
@@ -233,6 +234,7 @@ body, html {
   background-image: url(http://www.danlessmann.com/FullSizeImages/Astro/Cygnus_2006-10-21_1_PS.jpg);
   /*background-repeat: no-repeat;*/
   background-size: 100%;
+  height: 150px;
 }
 
 #entryForm {

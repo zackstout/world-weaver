@@ -9,60 +9,64 @@
   <!-- Start x: <input type="number" ng-model="pc.newWorld.start_x"> -->
   <div layout="row">
     <p><h3 class="head3">Place the cannon:  </h3></p>
-    <div flex="30">
+
+      <div flex="40">
+        <div layout="row">
+        <span class="label1">Cannon-x:</span>
+        <div flex="70">
   <md-slider-container>
 
-        <span>Cannon-x</span>
         <md-slider flex min="50" max="750" ng-model="ec.newWorld.start_x" aria-label="startx" class="md-primary">
         </md-slider>
         <md-input-container>
           <input flex type="number" ng-model="ec.newWorld.start_x" aria-label="startx" aria-controls="startx-slider">
         </md-input-container>
-      </md-slider-container>
-    </div>
+      </md-slider-container></div></div></div>
   <!-- Start y: <input type="number" ng-model="pc.newWorld.start_y"> -->
-  <div flex="30">
+    <div flex="40">
+      <div layout="row">
+      <span class="label1">Cannon-y:</span>
+      <div flex="70">
 
   <md-slider-container>
-        <span>Cannon-y</span>
         <md-slider flex min="50" max="550" ng-model="ec.newWorld.start_y" aria-label="starty" class="md-primary">
         </md-slider>
         <md-input-container>
           <input flex type="number" ng-model="ec.newWorld.start_y" aria-label="starty" aria-controls="starty-slider">
         </md-input-container>
-      </md-slider-container>
+      </md-slider-container></div></div></div>
 
     </div>
-  </div>
   <div layout="row">
     <p><h3 class="head3">Place the bucket:  </h3></p>
   <!-- End x: <input type="number" ng-model="pc.newWorld.end_x"> -->
-  <div flex="30">
+    <div flex="40">
+      <div layout="row">
+      <span class="label1">Bucket-x:</span>
+      <div flex="70">
 
   <md-slider-container>
-        <span>Bucket-x</span>
         <md-slider flex min="50" max="750" ng-model="ec.newWorld.end_x" aria-label="endx" class="md-primary">
         </md-slider>
         <md-input-container>
           <input flex type="number" ng-model="ec.newWorld.end_x" aria-label="endx" aria-controls="endx-slider">
         </md-input-container>
-      </md-slider-container>
-    </div>
+      </md-slider-container></div></div></div>
   <!-- End y: <input type="number" ng-model="pc.newWorld.end_y"> -->
-  <div flex="30">
-
+    <div flex="40">
+      <div layout="row">
+      <span class="label1">Bucket-y:</span>
+      <div flex="70">
   <md-slider-container>
-        <span>Bucket-y</span>
         <md-slider flex min="50" max="550" ng-model="ec.newWorld.end_y" aria-label="endy" class="md-primary">
         </md-slider>
         <md-input-container>
           <input flex type="number" ng-model="ec.newWorld.end_y" aria-label="endy" aria-controls="endy-slider">
         </md-input-container>
-      </md-slider-container>
+      </md-slider-container></div></div></div>
     </div>
-</div>
 <!-- </form> -->
-<br><br>
+<br>
 
 <span><h3>Add an Obstacle:</h3>
 <button ng-click="ec.showObstacle()" ng-hide="ec.showObst">New obstacle</button>
@@ -172,35 +176,34 @@
 
 <form ng-show="ec.isNewPortal" ng-submit="ec.addPortal(ec.newPortal)">
   <div layout="row">
-    <div flex="30">
+    <div flex="40">
+      <div layout="row">
+        <span class="label1">FIRST:</span>
+      <div flex="70">
 
       <md-slider-container>
-            <span class="label">FIRST:</span>
             <md-slider flex min="30" max="770" ng-model="ec.newPortal.y1" aria-label="port1" class="md-primary">
             </md-slider>
             <md-input-container>
               <input flex type="number" ng-model="ec.newPortal.y1" aria-label="port1" aria-controls="port1-slider">
             </md-input-container>
-          </md-slider-container>
-    </div>
+          </md-slider-container></div></div></div>
 
-    <div flex="30">
-
+      <div flex="40">
+        <div layout="row">
+          <span class="label1">SECOND:</span>
+        <div flex="70">
       <md-slider-container>
-            <span class="label">SECOND:</span>
             <md-slider flex min="30" max="770" ng-model="ec.newPortal.y2" aria-label="port2" class="md-primary">
             </md-slider>
             <md-input-container>
               <input flex type="number" ng-model="ec.newPortal.y2" aria-label="port2" aria-controls="port2-slider">
             </md-input-container>
-          </md-slider-container>
+          </md-slider-container></div></div></div>
+        </div>
 
           <input type="submit">
-    </div>
 
-
-
-  </div>
 
 </form>
 
