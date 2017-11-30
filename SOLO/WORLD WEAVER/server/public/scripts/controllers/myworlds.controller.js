@@ -29,6 +29,8 @@ myApp.controller('MyController', function(UserService, $http, $location, WorldSe
     EditService.origin = 'mine';
   };
 
+
+
   function getObstacles() {
     UserService.getObstacles().then(function(res) {
       vm.obstacles = res;
@@ -168,6 +170,18 @@ myApp.controller('MyController', function(UserService, $http, $location, WorldSe
       setDefaultsMine();
       getObstacles();
       getPortals();
+    });
+  };
+
+
+  vm.delWorld = function(world) {
+    console.log(world);
+    $http.delete('/edit/delete/' + world.id).then(function (response) {
+      console.log('Success');
+      vm.getWorlds();
+      // self.refreshItems();
+    }).catch(function(error) {
+      console.log('nuts');
     });
   };
 

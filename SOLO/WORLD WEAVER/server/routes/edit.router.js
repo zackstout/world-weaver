@@ -95,6 +95,83 @@ router.post('/world', function(req, res) {
   }); //END ALL WORLDS GET ROUTE (lol "end all worlds")
 
 
+  router.delete('/delete/:id', function(req, res) {
+    console.log('get it boi', req.params.id);
+
+    pool.connect(function(err, db, done) {
+      if(err) {
+        console.log('Error connecting', err);
+        res.sendStatus(500);
+      } else {
+        var queryText = 'DELETE FROM "portals" WHERE "world_id" = $1;';
+
+        db.query(queryText, [req.params.id], function(err, result){
+          done();
+          if(err) {
+            console.log('Error making query', err);
+            res.sendStatus(500);
+          } else {
+            // console.log(result.rows);
+            // res.send(result.rows);
+            var queryText = 'DELETE FROM "obstacles" WHERE "world_id" = $1;';
+
+            db.query(queryText, [req.params.id], function(err, result){
+              done();
+              if(err) {
+                console.log('Error making query', err);
+                res.sendStatus(500);
+              } else {
+                // console.log(result.rows);
+                // res.send(result.rows);
+                var queryText = 'DELETE FROM "plays" WHERE "world_id" = $1;';
+
+                db.query(queryText, [req.params.id], function(err, result){
+                  done();
+                  if(err) {
+                    console.log('Error making query', err);
+                    res.sendStatus(500);
+                  } else {
+                    // console.log(result.rows);
+                    // res.send(result.rows);
+                    var queryText = 'DELETE FROM "favorites" WHERE "world_id" = $1;';
+
+                    db.query(queryText, [req.params.id], function(err, result){
+                      done();
+                      if(err) {
+                        console.log('Error making query', err);
+                        res.sendStatus(500);
+                      } else {
+                        // console.log(result.rows);
+                        // res.send(result.rows);
+                        var queryText = 'DELETE FROM "worlds" WHERE "id" = $1;';
+
+                        db.query(queryText, [req.params.id], function(err, result){
+                          done();
+                          if(err) {
+                            console.log('Error making query', err);
+                            res.sendStatus(500);
+                          } else {
+                            // console.log(result.rows);
+                            res.sendStatus(201);
+                          }
+                        });
+
+                      }
+                    });
+
+                  }
+                });
+
+              }
+            });
+
+          }
+        });
+      }
+    });
+  }); //END DELETE ROUTE
+
+
   router.post('/save', function(req, res) {
     console.log("BODY: ", req.body, "USER: ", req.user.id);
     var newWorld = req.body;

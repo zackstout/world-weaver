@@ -252,11 +252,12 @@ myApp.controller('AllController', function(UserService, $anchorScroll, $http, $l
       // console.log(canvas.id.slice(6));
       var canvasId = canvas.id.slice(6);
 
-      if (canvasId == WorldService.world.id) {
-        console.log('this is the one!');
-        $location.hash(canvas.id);
-        $anchorScroll();
-      }
+
+//issue: this will preserve the scroll-spot, even if you're coming from MAIN PAGE:
+      // if (canvasId == WorldService.world.id) {
+      //   $location.hash(canvas.id);
+      //   $anchorScroll();
+      // }
 
 
 
