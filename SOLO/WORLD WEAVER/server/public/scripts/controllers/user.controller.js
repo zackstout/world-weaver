@@ -1,5 +1,5 @@
 
-myApp.controller('UserController', function(UserService, $location, $mdDialog, EditService) {
+myApp.controller('UserController', function(WorldService, UserService, $location, $mdDialog, EditService) {
   console.log('UserController created');
   var vm = this;
 
@@ -19,6 +19,8 @@ myApp.controller('UserController', function(UserService, $location, $mdDialog, E
       myCanvas[l].style.display = 'none';
     }
   }
+
+  WorldService.justPlayed = false;
 
   vm.status = '';
 

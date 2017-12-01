@@ -14,6 +14,8 @@ var registerRouter = require('./routes/register.router');
 var worldRouter = require('./routes/world.router.js');
 var moreRouter = require('./routes/another_world.router.js');
 var editRouter = require('./routes/edit.router.js');
+var tutRouter = require('./routes/tutorial.router.js');
+
 
 
 
@@ -40,6 +42,8 @@ app.use('/worlds', worldRouter);
 app.use('/more', moreRouter);
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
+app.use('/tutorial', tutRouter);
+
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);

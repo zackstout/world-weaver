@@ -7,6 +7,16 @@ myApp.controller('GameController', function(UserService, $http, $location, World
   vm.addClass3 = '';
   vm.addClass4 = '';
 
+  vm.TwoComp = WorldService.TwoComp;
+  vm.ThreeComp = WorldService.ThreeComp;
+
+  vm.play = function(num) {
+    console.log(num);
+    var level = 'game' + num;
+    WorldService.origin = level;
+    console.log(WorldService.origin);
+    WorldService.playTut();
+  };
 
 
 

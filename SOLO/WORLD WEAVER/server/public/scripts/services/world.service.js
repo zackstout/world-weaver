@@ -7,6 +7,9 @@ myApp.service('WorldService', function($http, $location){
 
   self.origin = '';
 
+  self.TwoComp = false;
+  self.ThreeComp = false;
+  self.tutorial = {};
 
   self.postFinish = function(fin) {
     $http.post('/more/times', fin).then(function(response) {
@@ -26,6 +29,19 @@ myApp.service('WorldService', function($http, $location){
     });
   };
 
+  self.playTut = function() {
+    console.log(self.origin);
+    $http.get('/tutorial').then(function (response) {
+      self.tutorial = response.data;
+
+      console.log(self.tutorial);
+    }).catch(function (err) {
+      console.log('whooooops');
+    });
+
+
+  };
+
   self.play = function(world) {
     console.log('hi', world);
     self.world = world;
@@ -40,6 +56,7 @@ myApp.service('WorldService', function($http, $location){
     });
 
   };
+
 
 //for calling PLAY from the INFO page rather than the ALL page:
   self.play2 = function(world) {

@@ -253,11 +253,17 @@ myApp.controller('AllController', function(UserService, $anchorScroll, $http, $l
       var canvasId = canvas.id.slice(6);
 
 
+
+//well....this is better but still not there, because will remember last world you played from ALL even if you go home....how about when we go home we set something false. ok.
+      console.log(WorldService.origin);
 //issue: this will preserve the scroll-spot, even if you're coming from MAIN PAGE:
-      // if (canvasId == WorldService.world.id) {
-      //   $location.hash(canvas.id);
-      //   $anchorScroll();
-      // }
+    if (WorldService.origin == 'all' && WorldService.justPlayed) {
+      if (canvasId == WorldService.world.id) {
+        $location.hash(canvas.id);
+        $anchorScroll();
+      }
+    }
+
 
 
 

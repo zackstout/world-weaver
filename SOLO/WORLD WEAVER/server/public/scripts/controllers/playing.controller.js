@@ -12,6 +12,8 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
   var newPortal = false;
   var heatMoverGlobal;
 
+  WorldService.justPlayed = true;
+
 
   vm.goHome = function() {
     if (vm.origin == 'all') {
