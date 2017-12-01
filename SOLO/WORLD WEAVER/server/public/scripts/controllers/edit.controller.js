@@ -137,6 +137,13 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
           if (vm.editingObstacle && d < ob.h) {
             console.log('we got a match', ob);
             vm.editingObstacle = false;
+
+            vm.obstacleToEdit = ob;
+            vm.showConfirmEditor();
+            vm.newObstacle = ob;
+            vm.showObst = true;
+
+            
           }
         }
 
@@ -481,7 +488,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
     // doMatterStart();
   };
 
-  vm.showConfirm = function(ev) {
+  vm.showConfirmSave = function(ev) {
     // Appending dialog to document.body to cover sidenav in docs app
     var confirm = $mdDialog.confirm()
     .clickOutsideToClose(true)
@@ -498,7 +505,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
 
   vm.saveWorld = function(world) {
     EditService.saveWorld(world);
-    vm.showConfirm();
+    vm.showConfirmSave();
 
   };
 

@@ -71,7 +71,7 @@
 <span><h3 class="head3" ng-hide="ec.currentlyEditing">Add an Obstacle:</h3>
       <h3 class="head3" ng-show="ec.currentlyEditing">Edit an Obstacle:</h3>
 
-<button ng-click="ec.showObstacle()" ng-hide="ec.showObst">New obstacle</button>
+<md-button class="md-raised" ng-click="ec.showObstacle()" ng-hide="ec.showObst">New obstacle</md-button>
 </span>
 
 <form ng-submit="ec.addObstacle(ec.newObstacle)" ng-show="ec.showObst">
@@ -171,13 +171,13 @@
 <input type="submit">
 </form>
 
-<button ng-show="ec.currentlyEditing" ng-click="ec.deleteObstacle(ec.newObstacle)">Delete</button>
+<md-button class="md-raised" ng-show="ec.currentlyEditing" ng-click="ec.deleteObstacle(ec.newObstacle)">Delete</md-button>
 
 
 <br><br>
 
 <span><h3 class="head3">Add a Portal Pair: </h3>
-<button ng-click="ec.showPortal()" ng-hide="ec.isNewPortal">New Portal</button></span>
+<md-button class="md-raised" ng-click="ec.showPortal()" ng-hide="ec.isNewPortal">New Portal</md-button></span>
 
 <form ng-show="ec.isNewPortal" ng-submit="ec.addPortal(ec.newPortal)">
   <div layout="row">
@@ -212,8 +212,8 @@
 
 </form>
 
-
-<button ng-click="ec.editObstacle()">Edit an obstacle</button>
+<br><br>
+<md-button class = "md-raised" ng-click="ec.editObstacle()">Edit an obstacle</md-button>
 
   <br><br>
   <canvas id="hi" height="600px" width="800px"></canvas>

@@ -188,8 +188,8 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
     if (world1.start_x != undefined) {
       cannon = Bodies.rectangle(world1.start_x, world1.start_y, 40, 20, {isStatic: true});
       bucket = Bodies.rectangle(world1.end_x, world1.end_y, 30, 30, {isStatic: true});
-      cannon.render.fillStyle = '#228b22';
-      bucket.render.fillStyle = '#ffd700';
+      cannon.render.fillStyle = '#ffd700';
+      bucket.render.fillStyle = '#228b22';
       World.add(world, [cannon, bucket]);
     }
 
