@@ -113,6 +113,32 @@ td {
   margin-top: -25px;
 }
 
+.homeContainer, .RegContainer {
+  background-image: url(https://apod.nasa.gov/apod/image/0512/m31_gendler_Nmosaic1.jpg);
+  background-size: 100%;
+  margin-top: -25px;
+  padding-bottom: 700px;
+}
+
+.login, .reg {
+  color: white;
+  margin-left: 50px;
+
+}
+
+.leadUp {
+  color: salmon;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 15px;
+
+}
+
+.login input, .reg input {
+  color: black;
+}
+
+
 .favContainer, .myContainer {
   background-image: url(http://eskipaper.com/images/starry-sky-4.jpg);
   background-size: cover;
