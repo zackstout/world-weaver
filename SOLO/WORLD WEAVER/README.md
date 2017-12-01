@@ -17,64 +17,64 @@ List technologies and frameworks here
 ok so it thinks the center is where the upper left of canvas was: e.g. (500, 100)...
 then it flips width and height. So you intended it to start with left upper at (500, 100), but it shows up as having its center there. The math here is easy.
 
-- [ x ] Ensure that user can get to PLAYING from ALL, FAVES, or MYWORLDS
+[ x ] Ensure that user can get to PLAYING from ALL, FAVES, or MYWORLDS
 
-- Ensure that user can get to EDIT from WEAVE, SAVED, or MYWORLDS
+[ x ] Ensure that user can get to EDIT from WEAVE, SAVED, or MYWORLDS
 
 ### HIGH PRIORITY
-- add a DELETE route for MYWORLDS
+[ x ] add a DELETE route for MYWORLDS
 
-- also we really need to be able to load up a world from SAVED WORLDS properly, and update it
+[ x ] (i think??) also we really need to be able to load up a world from SAVED WORLDS properly, and update it
 
 - this calls for being able to update i.e. delete or change old obstacles, and then do a PUT route, from WEAVE/SAVED
 
 - figure out user permissions for the first five levels, look into image overlays (of a lock!)
 
-- try to make it so that on editing a SAVED world, you can click on elements and delete them or edit them (this should also apply to EDITING in general, now that i think of it) .... but this seems like it will be hard, with canvas, or at least a fair amount of greater than and less thans
+[ x ] try to make it so that on editing a SAVED world, you can click on elements and delete them or edit them (this should also apply to EDITING in general, now that i think of it) .... but this seems like it will be hard, with canvas, or at least a fair amount of greater than and less thans
 
 - look into rendering ellipses with matter... ( will likely have to copy Matter.Render and adjust as needed )
 
 - be sure to document specific processes of thinking / critical problem solving quote unquote to spew in interviews ... eliminating possibilities, scientific method etc
 
-- NEXT STEPS: copy favs html/controller into SAVED WORLDS, mutatis mutandi (ah first time I feel i've used that phrase meaningfully). then track all routes into the EDIT page (MY WORLDS, SAVED WORLDS, NEW WORLD). Ensure we can add objects and save (PUT) or publish (POST) *before* looking into ON CLICK stuff for editing/deleting obstacles.
+[x ] NEXT STEPS: copy favs html/controller into SAVED WORLDS, mutatis mutandi (ah first time I feel i've used that phrase meaningfully). then track all routes into the EDIT page (MY WORLDS, SAVED WORLDS, NEW WORLD). Ensure we can add objects and save (PUT) or publish (POST) *before* looking into ON CLICK stuff for editing/deleting obstacles.
 
-- [ ! ] ISSUE: currently cannot alter bucket or cannon's location in the populated edit from SAVED
+- [ x ] ISSUE: currently cannot alter bucket or cannon's location in the populated edit from SAVED
 
 - add SIMULATE (x2) functionality to EDITOR
 
-- anchorScroll seems straightforward enough... should be good for returning to FAVS, ALL, or MINE after playing, or editing..
+[ x ] anchorScroll seems straightforward enough... should be good for returning to FAVS, ALL, or MINE after playing, or editing..
 
 
 
 
 
 
-- [x] add completions etc to FAVES and MYWORLDS (and default to 0)
-- [x] look into coloring things individually with Matter.Render
+[x] add completions etc to FAVES and MYWORLDS (and default to 0)
+[x] look into coloring things individually with Matter.Render
 - EDIT should keep track of whether user came from MY WORLDS (vs saved worlds), because in that case should be a post rather than a put route, i think (?????)
-- [x] Should be two buttons in EDIT: SAVE and POST (which takes to Titling modal)
-- [x] to start we could just do an ng-show on the NEW OBSTACLE thing rather than a modal, to avoid the new-controller problem that everyone seems to be having
-- [x] finish drawing onto all the canvases stuff, for FAVES and MYWORLDS, and add OBSTACLES, etc.... (angles will be slightly tricky, will need matrices??)
+[x] Should be two buttons in EDIT: SAVE and POST (which takes to Titling modal)
+[x] to start we could just do an ng-show on the NEW OBSTACLE thing rather than a modal, to avoid the new-controller problem that everyone seems to be having
+[x] finish drawing onto all the canvases stuff, for FAVES and MYWORLDS, and add OBSTACLES, etc.... (angles will be slightly tricky, will need matrices??)
 - add two kinds of simulation button: with cannonballs, or with many random balls
-- [x] add ORDERBY to mYWORLDS AND FAVS so that they show up in same order always, as with all worlds
+[x] add ORDERBY to mYWORLDS AND FAVS so that they show up in same order always, as with all worlds
 
-- [x] UH OH! bringing in portals broke all the PLAY game functionality....
+[x] UH OH! bringing in portals broke all the PLAY game functionality....
 
 
 ### LOW PRIORITY
 - Make cards clickable so you can blow them up to like double size and center in screen
-- [x] finesse timing to tenth of a second
-- [x] get MY best time for FAVES
+[x] finesse timing to tenth of a second
+[x] get MY best time for FAVES
 - figure a better way to freeze the timer on completion
 - figure out why Views aren't saving the data, like where you've pulled a slider to
-- let a user delete their own levels: ASK HOLLY how she did this in queries (nested??)
+[x] Let a user delete their own levels: ASK HOLLY how she did this in queries (nested??)
 
 
-- [ ! ] BUG: when you search for a second thing, the canvases won't show up anymore! (perhaps this is a disadvantage of the illusory simplicity of | filter .... )
-- [ x ] BUG: what's up with force bar bug??
-- [ ! ] BUG: figure out why things break on page refresh sometimes
-- [ ! ] BUG: why can't we favorite without being taken to top of page???? we can unfave on /INFO page!
-- [ ! ] BUG: can't open both FAVES and MY WORLDS without erasing the canvases of the other....
+[ ! ] BUG: when you search for a second thing, the canvases won't show up anymore! (perhaps this is a disadvantage of the illusory simplicity of | filter .... )
+[ x ] BUG: what's up with force bar bug??
+[ ! ] BUG: figure out why things break on page refresh sometimes
+[ x ] BUG: why can't we favorite without being taken to top of page???? we can unfave on /INFO page!
+[ x ] BUG: can't open both FAVES and MY WORLDS without erasing the canvases of the other....
 
 
 - one way of introducing puzzles (without portals) would be "have to do x y number of times" or something
