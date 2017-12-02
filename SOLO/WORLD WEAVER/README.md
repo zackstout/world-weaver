@@ -18,8 +18,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Link to software that is required to install the app (e.g. node).
-
 - [Node.js](https://nodejs.org/en/)
 
 ### Installing
@@ -39,61 +37,69 @@ CREATE TABLE "users" (
 );
 
 CREATE TABLE "worlds" (
-"id" serial PRIMARY KEY,
-"maker_id" INT REFERENCES "users",
-"start_x" INT,
-"start_y" INT,
-"end_x" INT,
-"end_y" INT);
+  "id" serial PRIMARY KEY,
+  "maker_id" INT REFERENCES "users",
+  "start_x" INT,
+  "start_y" INT,
+  "end_x" INT,
+  "end_y" INT
+);
 
 CREATE TABLE "worlds_saved" (
-"id" serial PRIMARY KEY,
-"maker_id" INT REFERENCES "users",
-"start_x" INT,
-"start_y" INT,
-"end_x" INT,
-"end_y" INT);
+  "id" serial PRIMARY KEY,
+  "maker_id" INT REFERENCES "users",
+  "start_x" INT,
+  "start_y" INT,
+  "end_x" INT,
+  "end_y" INT
+);
 
 CREATE TABLE "obstacles" (
-"id" serial PRIMARY KEY,
-"world_id" INT REFERENCES "worlds",
-"x" INT,
-"y" INT,
-"h" INT,
-"w" INT,
-"type" varchar(20));
+  "id" serial PRIMARY KEY,
+  "world_id" INT REFERENCES "worlds",
+  "x" INT,
+  "y" INT,
+  "h" INT,
+  "w" INT,
+  "type" varchar(20)
+);
 
 CREATE TABLE "obstacles_saved" (
-"id" serial PRIMARY KEY,
-"world_id" INT REFERENCES "worlds_saved",
-"x" INT,
-"y" INT,
-"h" INT,
-"w" INT,
-"type" varchar(20));
+  "id" serial PRIMARY KEY,
+  "world_id" INT REFERENCES "worlds_saved",
+  "x" INT,
+  "y" INT,
+  "h" INT,
+  "w" INT,
+  "type" varchar(20)
+);
 
 CREATE TABLE "portals" (
 	"id" serial PRIMARY key,
 	"world_id" INT REFERENCES "worlds",
 	"y1" INT,
-	"y2" INT);
+	"y2" INT
+);
 
 CREATE TABLE "portals_saved" (
-"id" serial PRIMARY key,
-"world_id" INT REFERENCES "worlds_saved",
-"y1" INT,
-"y2" INT);
+  "id" serial PRIMARY key,
+  "world_id" INT REFERENCES "worlds_saved",
+  "y1" INT,
+  "y2" INT
+);
 
 CREATE TABLE "favorites" (
-"id" serial PRIMARY KEY,
-"world_id" INT REFERENCES "worlds",
-"user_id" INT REFERENCES "users");
+  "id" serial PRIMARY KEY,
+  "world_id" INT REFERENCES "worlds",
+  "user_id" INT REFERENCES "users"
+);
 
 CREATE TABLE "plays" (
-"id" serial PRIMARY KEY,
-"world_id" INT REFERENCES "worlds",
-"user_id" INT REFERENCES "users",
-"time" INT);
+  "id" serial PRIMARY KEY,
+  "world_id" INT REFERENCES "worlds",
+  "user_id" INT REFERENCES "users",
+  "time" INT
+);
 
 
 ```
@@ -110,16 +116,29 @@ Link to a read-only version of your scope document or other relevant documentati
 
 ### Completed Features
 
-High level list of items completed.
-
-- [x] Feature a
-- [x] Feature b
+- [x] Users can play worlds created by other users by rotating the cannon (with the 's' and 'f' keys) and firing cannonballs (on mouse click).
+- [x] On level completion, user is taken back to their starting point (either 'All Worlds', 'My Worlds', or 'My Favorites'), their time is saved, and the world's completion count is incremented.
+- [x] Users can build new worlds from scratch by positioning the cannon, the target/bucket, and adding new obstacles and adjusting their dimensions and angle.
+- [x] Users can save their world mid-edit to return to later, or post it immediately to the database to be played by other users.
+- [x] Portals can be added to the world (along the two vertical borders of the world); a ball entering one will exit out of the other with unchanged velocity.
+- [x] Users can alter their saved worlds by adding new obstacles, adjusting the positions of the cannon, target, and portals.
+- [x] Users can also edit or delete existing obstacles by clicking on them and then adjusting their properties.
+- [x] Users can favorite (bookmark) worlds, adding the world to that user's list of favorites and incrementing the world's favorite count.
+- [x] Users can view the shortest three times in which a world has been completed, as well as their own personal best time for completing their favorite worlds.
+- [x] Users can delete worlds they have created.
+- [x] Users are returned to the scroll-spot of the world they played when coming back to the 'All worlds' view from the 'Playing' view.
 
 ### Next Steps
 
-Features that you would like to add at some point in the future.
-
-- [ ] Feature c
+- [ ] Give users the ability to simulate their worlds before posting them, possibly by generating a stream of small balls on mouse drag.
+- [ ] Add a tutorial (a handful of levels) that a user must complete before gaining access to world-weaving and world-playing functionality.
+- [ ] Complete portal functionality, i.e. give user the option to place their portals on any two borders, not just the two vertical borders.
+- [ ] Give users control over the gravity of their worlds; possibly implement zones of gravity, or planetary orbits.
+- [ ] Let users build curved walls (in particular, elliptical or parabolic walls).
+- [ ] Let users add obstacles that fly in predetermined paths across the world, and control the frequency with which they appear.
+- [ ] Let users add oscillating obstacles to their worlds.
+- [ ] Give users the option to make the target/bucket oscillate or move along some path.
+- [ ] Implement magnets (treating cannonballs as electrons).
 
 ## Deployment
 
