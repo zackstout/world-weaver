@@ -75,10 +75,10 @@ CREATE TABLE "obstacles_saved" (
 );
 
 CREATE TABLE "portals" (
-	"id" serial PRIMARY key,
-	"world_id" INT REFERENCES "worlds",
-	"y1" INT,
-	"y2" INT
+  "id" serial PRIMARY KEY,
+  "world_id" INT REFERENCES "worlds",
+  "y1" INT,
+  "y2" INT
 );
 
 CREATE TABLE "portals_saved" (
@@ -117,6 +117,7 @@ Link to a read-only version of your scope document or other relevant documentati
 ### Completed Features
 
 - [x] Users can play worlds created by other users by rotating the cannon (with the 's' and 'f' keys) and firing cannonballs (on mouse click).
+- [x] Cannon will fire with variable force that is tracked by an oscillating force-meter on the side of the world.
 - [x] On level completion, user is taken back to their starting point (either 'All Worlds', 'My Worlds', or 'My Favorites'), their time is saved, and the world's completion count is incremented.
 - [x] Users can build new worlds from scratch by positioning the cannon, the target/bucket, and adding new obstacles and adjusting their dimensions and angle.
 - [x] Users can save their world mid-edit to return to later, or post it immediately to the database to be played by other users.
