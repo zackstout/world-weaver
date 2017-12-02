@@ -1,125 +1,16 @@
-# Name of Project
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+# World Weaver
+
+A full-stack application that gives users the ability to design, edit and post puzzles to be solved by other users. The puzzles take the form of a simple game involving a rotatable cannon, a target, a set of obstacles, and an optional pair of portals. Users can save their puzzles (or "worlds") to continue editing later, and can alter or delete obstacles and reposition all objects when editing. Users can favorite worlds, track their fastest time to complete a world, and see the top three best times in which a world has been completed, as well as how many attempts and completions that world has.
 
 ## Built With
 
-List technologies and frameworks here
-
-
-
-
-## GOALS:
-
-### HIGHEST PRIORITY
-- [x] fix editing interface: the obstacles you see yourself drawing must be the same as the obstacles that get added to the world
-
-ok so it thinks the center is where the upper left of canvas was: e.g. (500, 100)...
-then it flips width and height. So you intended it to start with left upper at (500, 100), but it shows up as having its center there. The math here is easy.
-
-- [x] Ensure that user can get to PLAYING from ALL, FAVES, or MYWORLDS
-
-- [x] Ensure that user can get to EDIT from WEAVE, SAVED, or MYWORLDS
-
-### HIGH PRIORITY
-- [x] add a DELETE route for MYWORLDS
-
-- [x] (i think??) also we really need to be able to load up a world from SAVED WORLDS properly, and update it
-
-- this calls for being able to update i.e. delete or change old obstacles, and then do a PUT route, from WEAVE/SAVED
-
-- figure out user permissions for the first five levels, look into image overlays (of a lock!)
-
-- [x] try to make it so that on editing a SAVED world, you can click on elements and delete them or edit them (this should also apply to EDITING in general, now that i think of it) .... but this seems like it will be hard, with canvas, or at least a fair amount of greater than and less thans
-
-- look into rendering ellipses with matter... ( will likely have to copy Matter.Render and adjust as needed )
-
-- be sure to document specific processes of thinking / critical problem solving quote unquote to spew in interviews ... eliminating possibilities, scientific method etc
-
-- [x] NEXT STEPS: copy favs html/controller into SAVED WORLDS, mutatis mutandi (ah first time I feel i've used that phrase meaningfully). then track all routes into the EDIT page (MY WORLDS, SAVED WORLDS, NEW WORLD). Ensure we can add objects and save (PUT) or publish (POST) *before* looking into ON CLICK stuff for editing/deleting obstacles.
-
-- [x] ISSUE: currently cannot alter bucket or cannon's location in the populated edit from SAVED
-
-- add SIMULATE (x2) functionality to EDITOR
-
-- [x] anchorScroll seems straightforward enough... should be good for returning to FAVS, ALL, or MINE after playing, or editing..
-
-
-
-
-
-
-- [x] add completions etc to FAVES and MYWORLDS (and default to 0)
-- [x] look into coloring things individually with Matter.Render
-- EDIT should keep track of whether user came from MY WORLDS (vs saved worlds), because in that case should be a post rather than a put route, i think (?????)
-- [x] Should be two buttons in EDIT: SAVE and POST (which takes to Titling modal)
-- [x] to start we could just do an ng-show on the NEW OBSTACLE thing rather than a modal, to avoid the new-controller problem that everyone seems to be having
-- [x] finish drawing onto all the canvases stuff, for FAVES and MYWORLDS, and add OBSTACLES, etc.... (angles will be slightly tricky, will need matrices??)
-- add two kinds of simulation button: with cannonballs, or with many random balls
-- [x] add ORDERBY to mYWORLDS AND FAVS so that they show up in same order always, as with all worlds
-
-- [x] UH OH! bringing in portals broke all the PLAY game functionality....
-
-
-### LOW PRIORITY
-- Make cards clickable so you can blow them up to like double size and center in screen
-[x] finesse timing to tenth of a second
-[x] get MY best time for FAVES
-- figure a better way to freeze the timer on completion
-- figure out why Views aren't saving the data, like where you've pulled a slider to
-[x] Let a user delete their own levels: ASK HOLLY how she did this in queries (nested??)
-
-
-[ ! ] BUG: when you search for a second thing, the canvases won't show up anymore! (perhaps this is a disadvantage of the illusory simplicity of | filter .... )
-[ x ] BUG: what's up with force bar bug??
-[ ! ] BUG: figure out why things break on page refresh sometimes
-[ x ] BUG: why can't we favorite without being taken to top of page???? we can unfave on /INFO page!
-[ x ] BUG: can't open both FAVES and MY WORLDS without erasing the canvases of the other....
-
-
-- one way of introducing puzzles (without portals) would be "have to do x y number of times" or something
-
-- bootstrap floppy disk glyph icon is nice
-- the "screenshot" icon look sa bit like a bullseye, like we hit the target? (could give info on mouseover)
-- maybe "flash" icon for attempts...?
-
-- oh wow can you do sliders with just input type="range"?
-
-- oh no do we need p5 for mousedrag? that cannot be!
-
-- ah, clearly the way i'm doing zero-gravity is the way to do zones of gravity: just partition up into sections and apply  a different gravity based on what seciton they're in....that would actually be easier than what i'm trying to do now. Ok, onto attempt number 3.
-
-- a couple n00b mistakes with Matter: we were increasing the force with each setInterval iteration, and we were also inserting a new force (in the earlier attempt) with each iteration, instead of just at the initiation (i.e. mouseclick)
-
-- ok We can use "title" to show hover text....however it's not quite the ...sexiest way of doing it
-
-- "expand more" and "expand less" in material.io ICONS
-
-- possibly "directions run" for attempts
-
-
-
-
-### STRETCH:
-- implement MAGNETS
-- ZONES OF GRAVITY (spent a bit of time here -- hard to get Matter inserting into specific canvases, but easy to stack them on each other to simulate zones...could maybe integrate them as a Composite??)
-- FLYERS (for real, no bugs)
-- SUPER-BOUNCE
-- STICKINESS
-- FIX PORTALS
-
-### CORE:
-- Build a few levels
-
-- Editing interface.......yeah: on-click edit that shape.
-
-- Styling (cards?)
-
-- Organize code (routers, services,....etc.)
-
-
-
-
+- AngularJS
+- PostgreSQL
+- Node.js
+- Express
+- Angular Material
+- Matter.js
 
 ## Getting Started
 
@@ -130,12 +21,15 @@ These instructions will get you a copy of the project up and running on your loc
 Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
-
 
 ### Installing
 
-Steps to get the development environment running.
+To install node packages, run:
+```
+npm install
+```
+
+To set up the database, run the following query commands:
 
 ```sql
 CREATE TABLE "users" (
@@ -143,11 +37,72 @@ CREATE TABLE "users" (
   "username" varchar(80) not null UNIQUE,
   "password" varchar(240) not null
 );
+
+CREATE TABLE "worlds" (
+"id" serial PRIMARY KEY,
+"maker_id" INT REFERENCES "users",
+"start_x" INT,
+"start_y" INT,
+"end_x" INT,
+"end_y" INT);
+
+CREATE TABLE "worlds_saved" (
+"id" serial PRIMARY KEY,
+"maker_id" INT REFERENCES "users",
+"start_x" INT,
+"start_y" INT,
+"end_x" INT,
+"end_y" INT);
+
+CREATE TABLE "obstacles" (
+"id" serial PRIMARY KEY,
+"world_id" INT REFERENCES "worlds",
+"x" INT,
+"y" INT,
+"h" INT,
+"w" INT,
+"type" varchar(20));
+
+CREATE TABLE "obstacles_saved" (
+"id" serial PRIMARY KEY,
+"world_id" INT REFERENCES "worlds_saved",
+"x" INT,
+"y" INT,
+"h" INT,
+"w" INT,
+"type" varchar(20));
+
+CREATE TABLE "portals" (
+	"id" serial PRIMARY key,
+	"world_id" INT REFERENCES "worlds",
+	"y1" INT,
+	"y2" INT);
+
+CREATE TABLE "portals_saved" (
+"id" serial PRIMARY key,
+"world_id" INT REFERENCES "worlds_saved",
+"y1" INT,
+"y2" INT);
+
+CREATE TABLE "favorites" (
+"id" serial PRIMARY KEY,
+"world_id" INT REFERENCES "worlds",
+"user_id" INT REFERENCES "users");
+
+CREATE TABLE "plays" (
+"id" serial PRIMARY KEY,
+"world_id" INT REFERENCES "worlds",
+"user_id" INT REFERENCES "users",
+"time" INT);
+
+
 ```
 
 ## Screen Shot
 
-Include one or two screen shots of your project here (optional). Remove if unused.
+
+
+
 
 ## Documentation
 
@@ -172,9 +127,4 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* Name of author(s)
-
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
+* Zack Stout
