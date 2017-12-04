@@ -143,7 +143,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
             vm.newObstacle = ob;
             vm.showObst = true;
 
-            
+
           }
         }
 
@@ -168,6 +168,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
   };
 
   vm.addPortal = function(portal) {
+
     vm.newWorld.portals = portal;
     console.log(vm.newWorld);
     vm.isNewPortal = false;
@@ -477,6 +478,7 @@ myApp.controller('EditController', function(UserService, $mdDialog, WorldService
       // vm.status = 'You decided to name your dog ' + result + '.';
       // console.log(vm.newWorld);
       vm.newWorld.title = result;
+      console.log(vm.newWorld);
       EditService.postEdit(vm.newWorld);
     }, function() {
       // vm.status = 'You didn\'t name your dog.';

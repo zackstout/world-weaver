@@ -282,6 +282,7 @@ myApp.controller('AllController', function(UserService, $anchorScroll, $http, $l
           var bucketX = vm.allWorldIds[j].world.end_x/3;
           var bucketY = vm.allWorldIds[j].world.end_y/3;
 
+      //added .y1
           if (vm.allWorldIds[j].portals) {
             var port1 = vm.allWorldIds[j].portals.y1/3;
             var port2 = vm.allWorldIds[j].portals.y2/3;

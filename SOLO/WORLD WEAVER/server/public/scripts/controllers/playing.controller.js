@@ -269,7 +269,7 @@ myApp.controller('PlayingController', function(UserService, $location, WorldServ
           if (vm.done == false) {
             vm.showConfirm(event);
 
-            //changing to deci-seconds:
+            //changing to deciseconds:
             finish.time = vm.now*10;
 
             finish.complete = true;

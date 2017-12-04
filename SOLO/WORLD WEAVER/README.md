@@ -106,7 +106,11 @@ CREATE TABLE "plays" (
 
 ## Screen Shot
 
+- all worlds
+- playing
+- editing
 
+- BUG: IT WILL ALWAYS ADD PORTALS NOW!
 
 
 
@@ -128,6 +132,7 @@ Link to a read-only version of your scope document or other relevant documentati
 - [x] Users can view the shortest three times in which a world has been completed, as well as their own personal best time for completing their favorite worlds.
 - [x] Users can delete worlds they have created.
 - [x] Users are returned to the scroll-spot of the world they played when coming back to the 'All worlds' view from the 'Playing' view.
+- [x] Users can preview each world by means of a canvas that contains the world's obstacles and portals.
 
 ### Next Steps
 
