@@ -98,6 +98,10 @@ td {
   /*width: 200px;*/
 }
 
+#gohome {
+  margin-top: 8px;
+}
+
 .gameContainer, .allContainer, .savedContainer {
   /*background-image: url(http://msutoday.msu.edu/_/img/assets/2014/space.jpg);*/
   background-image: url(https://cdn.pixabay.com/photo/2015/11/19/07/27/star-1050487_960_720.jpg);

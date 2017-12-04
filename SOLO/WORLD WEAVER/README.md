@@ -116,7 +116,8 @@ CREATE TABLE "plays" (
 
 ## Documentation
 
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
+Link to a read-only version of my scope: https://docs.google.com/document/d/1_7BCfpZBIYsvJ4YVFDtsLRTdOGjQnYGGFSxE2ExGnUI/edit?usp=sharing
+
 
 ### Completed Features
 
@@ -153,3 +154,7 @@ Add additional notes about how to deploy this on a live system
 ## Authors
 
 * Zack Stout
+
+## Acknowledgments
+
+Thanks to my instructors at Prime for supplying the Passport architecture for this project!
