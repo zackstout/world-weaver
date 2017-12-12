@@ -106,6 +106,7 @@ CREATE TABLE "plays" (
 
 ## Screen Shot
 
+!(styles/WW_preview1.png)
 - all worlds
 - playing
 - editing

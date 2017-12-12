@@ -176,48 +176,49 @@
 
 <br><br>
 
-<span><h3 class="head3">Add a Portal Pair: </h3>
-<md-button class="md-raised" ng-click="ec.showPortal()" ng-hide="ec.isNewPortal">New Portal</md-button></span>
 
-<form ng-show="ec.isNewPortal" ng-submit="ec.addPortal(ec.newPortal)">
-  <div layout="row">
-    <div flex="40">
-      <div layout="row">
-        <span class="label1">FIRST:</span>
-      <div flex="70">
-
-      <md-slider-container>
-            <md-slider flex min="30" max="570" ng-model="ec.newPortal.y1" aria-label="port1" class="md-primary">
-            </md-slider>
-            <md-input-container>
-              <input flex type="number" ng-model="ec.newPortal.y1" aria-label="port1" aria-controls="port1-slider">
-            </md-input-container>
-          </md-slider-container></div></div></div>
-
-      <div flex="40">
-        <div layout="row">
-          <span class="label1">SECOND:</span>
-        <div flex="70">
-      <md-slider-container>
-            <md-slider flex min="30" max="570" ng-model="ec.newPortal.y2" aria-label="port2" class="md-primary">
-            </md-slider>
-            <md-input-container>
-              <input flex type="number" ng-model="ec.newPortal.y2" aria-label="port2" aria-controls="port2-slider">
-            </md-input-container>
-          </md-slider-container></div></div></div>
-        </div>
-
-          <input type="submit">
-
-
-</form>
-
-<br><br>
-<md-button class = "md-raised" ng-click="ec.editObstacle()">Edit an obstacle</md-button>
-
-  <br><br>
   <canvas id="hi" height="600px" width="800px"></canvas>
 
+
+  <br><br>
+  <md-button class = "md-raised" ng-click="ec.editObstacle()">Edit an obstacle</md-button>
+
+    <br>
+  <span><h3 class="head3">Add a Portal Pair: </h3>
+  <md-button class="md-raised" ng-click="ec.showPortal()" ng-hide="ec.isNewPortal">New Portal</md-button></span>
+
+  <form ng-show="ec.isNewPortal" ng-submit="ec.addPortal(ec.newPortal)">
+    <div layout="row">
+      <div flex="40">
+        <div layout="row">
+          <span class="label1">FIRST:</span>
+        <div flex="70">
+
+        <md-slider-container>
+              <md-slider flex min="30" max="570" ng-model="ec.newPortal.y1" aria-label="port1" class="md-primary">
+              </md-slider>
+              <md-input-container>
+                <input flex type="number" ng-model="ec.newPortal.y1" aria-label="port1" aria-controls="port1-slider">
+              </md-input-container>
+            </md-slider-container></div></div></div>
+
+        <div flex="40">
+          <div layout="row">
+            <span class="label1">SECOND:</span>
+          <div flex="70">
+        <md-slider-container>
+              <md-slider flex min="30" max="570" ng-model="ec.newPortal.y2" aria-label="port2" class="md-primary">
+              </md-slider>
+              <md-input-container>
+                <input flex type="number" ng-model="ec.newPortal.y2" aria-label="port2" aria-controls="port2-slider">
+              </md-input-container>
+            </md-slider-container></div></div></div>
+          </div>
+
+            <input type="submit">
+
+
+  </form>
 
   <div layout="row" layout-padding layout-fill>
 
