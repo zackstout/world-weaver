@@ -106,7 +106,7 @@ CREATE TABLE "plays" (
 
 ## Screen Shot
 
-!(styles/WW_preview1.png)
+!(https://raw.githubusercontent.com/zackstout/world-weaver/tree/master/SOLO/WORLD%20WEAVER/server/public/styles/WW_preview1.png)
 - all worlds
 - playing
 - editing
