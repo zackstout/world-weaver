@@ -101,8 +101,11 @@ CREATE TABLE "plays" (
   "time" INT
 );
 
-
 ```
+
+Database visualization:
+
+![footprint_database2](https://user-images.githubusercontent.com/29472568/33974430-f21984bc-e04d-11e7-95da-2b38f5703602.png)
 
 ## Screen Shot
 
@@ -111,10 +114,10 @@ The editing screen:
 
 ![ww_preview2](https://user-images.githubusercontent.com/29472568/33973844-c95d3f9e-e04a-11e7-995d-e0fb8bdb71ad.png)
 
-The selection screen:
+The gameplay screen:
 ![ww_preview4](https://user-images.githubusercontent.com/29472568/33973849-d12467d4-e04a-11e7-8beb-5a21c91b322e.png)
 
-The gameplay screen:
+The selection screen:
 ![solo_preview](https://user-images.githubusercontent.com/29472568/33973779-651ef93c-e04a-11e7-977b-b7387f88afe2.png)
 
 
