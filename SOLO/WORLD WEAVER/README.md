@@ -106,13 +106,16 @@ CREATE TABLE "plays" (
 
 ## Screen Shot
 
-!(https://raw.githubusercontent.com/zackstout/world-weaver/tree/master/SOLO/WORLD%20WEAVER/server/public/styles/WW_preview1.png)
-- all worlds
-- playing
-- editing
+The editing screen:
+![ww_preview1](https://user-images.githubusercontent.com/29472568/33973840-c03274f2-e04a-11e7-9568-e96ed5b006dd.png)
 
-- BUG: IT WILL ALWAYS ADD PORTALS NOW!
+![ww_preview2](https://user-images.githubusercontent.com/29472568/33973844-c95d3f9e-e04a-11e7-995d-e0fb8bdb71ad.png)
 
+The selection screen:
+![ww_preview4](https://user-images.githubusercontent.com/29472568/33973849-d12467d4-e04a-11e7-8beb-5a21c91b322e.png)
+
+The gameplay screen:
+![solo_preview](https://user-images.githubusercontent.com/29472568/33973779-651ef93c-e04a-11e7-977b-b7387f88afe2.png)
 
 
 ## Documentation
