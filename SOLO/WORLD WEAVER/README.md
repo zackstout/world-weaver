@@ -8,13 +8,11 @@ A full-stack application that gives users the ability to design, edit and post p
 - AngularJS
 - PostgreSQL
 - Node.js
-- Express
+- Express.js
 - Angular Material
 - Matter.js
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
@@ -27,81 +25,7 @@ To install node packages, run:
 npm install
 ```
 
-To set up the database, run the following query commands:
-
-```sql
-CREATE TABLE "users" (
-  "id" serial primary key,
-  "username" varchar(80) not null UNIQUE,
-  "password" varchar(240) not null
-);
-
-CREATE TABLE "worlds" (
-  "id" serial PRIMARY KEY,
-  "maker_id" INT REFERENCES "users",
-  "start_x" INT,
-  "start_y" INT,
-  "end_x" INT,
-  "end_y" INT
-);
-
-CREATE TABLE "worlds_saved" (
-  "id" serial PRIMARY KEY,
-  "maker_id" INT REFERENCES "users",
-  "start_x" INT,
-  "start_y" INT,
-  "end_x" INT,
-  "end_y" INT
-);
-
-CREATE TABLE "obstacles" (
-  "id" serial PRIMARY KEY,
-  "world_id" INT REFERENCES "worlds",
-  "x" INT,
-  "y" INT,
-  "h" INT,
-  "w" INT,
-  "type" varchar(20)
-);
-
-CREATE TABLE "obstacles_saved" (
-  "id" serial PRIMARY KEY,
-  "world_id" INT REFERENCES "worlds_saved",
-  "x" INT,
-  "y" INT,
-  "h" INT,
-  "w" INT,
-  "type" varchar(20)
-);
-
-CREATE TABLE "portals" (
-  "id" serial PRIMARY KEY,
-  "world_id" INT REFERENCES "worlds",
-  "y1" INT,
-  "y2" INT
-);
-
-CREATE TABLE "portals_saved" (
-  "id" serial PRIMARY key,
-  "world_id" INT REFERENCES "worlds_saved",
-  "y1" INT,
-  "y2" INT
-);
-
-CREATE TABLE "favorites" (
-  "id" serial PRIMARY KEY,
-  "world_id" INT REFERENCES "worlds",
-  "user_id" INT REFERENCES "users"
-);
-
-CREATE TABLE "plays" (
-  "id" serial PRIMARY KEY,
-  "world_id" INT REFERENCES "worlds",
-  "user_id" INT REFERENCES "users",
-  "time" INT
-);
-
-```
+To set up the database, run the query commands found in the ```dbsetup.sql``` file.
 
 Database visualization:
 
@@ -110,14 +34,17 @@ Database visualization:
 ## Screen Shot
 
 The editing screen:
+
 ![ww_preview1](https://user-images.githubusercontent.com/29472568/33973840-c03274f2-e04a-11e7-9568-e96ed5b006dd.png)
 
 ![ww_preview2](https://user-images.githubusercontent.com/29472568/33973844-c95d3f9e-e04a-11e7-995d-e0fb8bdb71ad.png)
 
 The gameplay screen:
+
 ![ww_preview4](https://user-images.githubusercontent.com/29472568/33973849-d12467d4-e04a-11e7-8beb-5a21c91b322e.png)
 
 The selection screen:
+
 ![solo_preview](https://user-images.githubusercontent.com/29472568/33973779-651ef93c-e04a-11e7-977b-b7387f88afe2.png)
 
 
