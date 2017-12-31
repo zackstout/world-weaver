@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
+  <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
+
+  <script src="vendors/angular-material.min.js" charset="utf-8"></script>
+  <script src="vendors/angular-animate.min.js" charset="utf-8"></script>
+  <script src="vendors/angular-aria.min.js" charset="utf-8"></script>
+  <script src="vendors/angular-messages.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="vendors/angular-material.min.css">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script type="text/javascript" src="scripts/client.js"></script>
+  <script src="scripts/controllers/nav.js" charset="utf-8"></script>
+  <script type="text/javascript" src="scripts/controllers/about.js"></script>
+  <script type="text/javascript" src="scripts/controllers/blog.js"></script>
+  <script type="text/javascript" src="scripts/controllers/portfolio.js"></script>
+  <link rel="stylesheet" href="styles/style.css">
+
+  <title>Zack Stout  </title>
+
+</head>
+<body ng-app='app'>
+  <!-- <h1>hello</h1> -->
+
+  <header ng-include="'views/partials/header.html'"></header>
+<!-- <md-checkbox>Kickin it</md-checkbox> -->
+  <main ng-view></main>
+</body>
+</html>
